@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nest start --watch",
+    "prebuild": "turbo run build --filter=@repo/api...",
     "build": "nest build",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
