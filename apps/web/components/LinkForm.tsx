@@ -1,16 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import styles from './LinkForm.module.css';
 
+const INITIAL_FORM = {
+  url: '',
+  title: '',
+  description: '',
+};
+
 export const LinkForm = () => {
-  const [url, setUrl] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [form, setForm] = useState(INITIAL_FORM);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -18,26 +29,19 @@ export const LinkForm = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ url, title, description }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
       });
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(JSON.stringify(data));
+        throw new Error(data?.message || 'Something went wrong');
       }
 
-      setUrl('');
-      setTitle('');
-      setDescription('');
+      setForm(INITIAL_FORM);
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError(String(err));
-      }
+      const message = err instanceof Error ? err.message : String(err);
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -47,22 +51,25 @@ export const LinkForm = () => {
     <form className={styles['link-form']} onSubmit={handleSubmit}>
       <input
         type="text"
+        name="url"
         placeholder="URL"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
+        value={form.url}
+        onChange={handleChange}
         required
       />
       <input
         type="text"
+        name="title"
         placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={form.title}
+        onChange={handleChange}
         required
       />
       <textarea
+        name="description"
         placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={form.description}
+        onChange={handleChange}
         required
       />
       <button type="submit" className={styles['primary']} disabled={loading}>
