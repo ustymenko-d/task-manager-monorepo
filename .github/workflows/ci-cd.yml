@@ -4,39 +4,40 @@ on:
   push:
     branches: ['main']
   pull_request:
+    branches: ['main']
     types: [opened, synchronize]
 
 jobs:
   filter:
-  name: Detect Changed Paths
-  runs-on: ubuntu-latest
-  outputs:
-    api: ${{ steps.filter.outputs.api }}
-    web: ${{ steps.filter.outputs.web }}
-  steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 2
+    name: Detect Changed Paths
+    runs-on: ubuntu-latest
+    outputs:
+      api: ${{ steps.filter.outputs.api }}
+      web: ${{ steps.filter.outputs.web }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-    - name: Filter paths
-      id: filter
-      uses: dorny/paths-filter@v3
-      with:
-        filters: |
-          api:
-            - 'apps/api/**'
-            - 'apps/api/**'
-            - 'packages/eslint-config/**'
-            - 'packages/jest-config/**'
-            - 'packages/typescript-config/**'
-            - 'pnpm-lock.yaml'
-          web:
-            - 'apps/web/**'
-            - 'packages/ui/**'
-            - 'packages/eslint-config/**'
-            - 'packages/jest-config/**'
-            - 'packages/typescript-config/**'
-            - 'pnpm-lock.yaml'
+      - id: filter
+        name: Filter paths
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            api:
+              - 'apps/api/**'
+              - 'packages/eslint-config/**'
+              - 'packages/jest-config/**'
+              - 'packages/typescript-config/**'
+              - 'pnpm-lock.yaml'
+            web:
+              - 'apps/web/**'
+              - 'packages/ui/**'
+              - 'packages/eslint-config/**'
+              - 'packages/jest-config/**'
+              - 'packages/typescript-config/**'
+              - 'pnpm-lock.yaml'
 
   build:
     name: Build & Test
@@ -69,8 +70,25 @@ jobs:
       - name: Run Tests
         run: pnpm test
 
+  deploy-api:
+    name: API → Render
+    needs: build
+    if: needs.filter.outputs.api == 'true' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Deploy to Render
+        uses: render-actions/deploy-service@v1
+        with:
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+
   deploy-web:
-    name: Deploy Web → Vercel
+    name: Web → Vercel
     needs: build
     if: needs.filter.outputs.web == 'true' && github.event_name == 'push'
     runs-on: ubuntu-latest
