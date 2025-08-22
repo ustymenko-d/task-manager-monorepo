@@ -86,10 +86,8 @@ jobs:
           fetch-depth: 2
 
       - name: Deploy to Render
-        uses: render-actions/deploy-service@v1
-        with:
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
 
   deploy-web:
     name: Web → Vercel
