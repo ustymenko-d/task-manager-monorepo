@@ -5,6 +5,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { PasswordModule } from './password/password.module';
 import { CookiesModule } from './cookies/cookies.module';
 import { TokensModule } from './tokens/tokens.module';
+import { SocketsModule } from 'src/sockets/sockets.module';
 import { JwtStrategy } from 'src/common/jwt.strategy';
 import { MailService } from './mail/mail.service';
 
@@ -14,7 +15,7 @@ import { MailService } from './mail/mail.service';
     forwardRef(() => PasswordModule),
     CookiesModule,
     TokensModule,
-    // SocketsModule,
+    SocketsModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, MailService],

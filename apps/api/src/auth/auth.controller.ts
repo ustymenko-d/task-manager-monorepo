@@ -9,6 +9,7 @@ import {
   Query,
   Get,
   Logger,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
@@ -18,6 +19,8 @@ import { handleRequest } from 'src/common/utils/requestHandler';
 import { CredentialsDto } from '@repo/api/auth/dto/credentials-data.dto';
 import { AuthResponse, UserInfo } from '@repo/api/auth/types';
 import { JwtUser, ResponseStatus } from '@repo/api/common/types';
+import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
+import { RecaptchaGuard } from 'src/common/recaptcha.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -29,8 +32,8 @@ export class AuthController {
   ) {}
 
   @Post('signup')
-  // @UseGuards(RecaptchaGuard)
-  // @UseInterceptors(StripRecaptchaInterceptor)
+  @UseGuards(RecaptchaGuard)
+  @UseInterceptors(StripRecaptchaInterceptor)
   async signup(
     @Body() body: CredentialsDto,
     @Res({ passthrough: true }) res: Response,
@@ -92,8 +95,8 @@ export class AuthController {
   }
 
   @Post('login')
-  // @UseGuards(RecaptchaGuard)
-  // @UseInterceptors(StripRecaptchaInterceptor)
+  @UseGuards(RecaptchaGuard)
+  @UseInterceptors(StripRecaptchaInterceptor)
   async login(
     @Body() body: CredentialsDto,
     @Res({ passthrough: true }) res: Response,
@@ -147,8 +150,8 @@ export class AuthController {
   }
 
   @Delete('delete-account')
-  // @UseGuards(RecaptchaGuard, AuthGuard('jwt'))
-  // @UseInterceptors(StripRecaptchaInterceptor)
+  @UseGuards(RecaptchaGuard, AuthGuard('jwt'))
+  @UseInterceptors(StripRecaptchaInterceptor)
   async deleteAccount(
     @Req() req: { user: JwtUser },
     @Res({ passthrough: true }) res: Response,
