@@ -1,14 +1,11 @@
-import { Link } from 'links/entities/link.entity';
+import { CredentialsDto } from 'auth/dto/credentials-data.dto';
+import { EmailDto } from 'auth/dto/email.dto';
+import { PasswordDto } from 'auth/dto/password.dto';
 
-import { CreateLinkDto } from 'links/dto/create-link.dto';
-import { UpdateLinkDto } from 'links/dto/update-link.dto';
-
-export const links = {
+export const auth = {
   dto: {
-    CreateLinkDto,
-    UpdateLinkDto,
-  },
-  entities: {
-    Link,
+    PasswordDto,
+    EmailDto,
+    CredentialsDto,
   },
 };
