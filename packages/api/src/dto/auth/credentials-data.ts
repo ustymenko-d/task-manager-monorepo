@@ -1,5 +1,5 @@
 import { IsBoolean, IsEmail, IsOptional, IsString } from 'class-validator';
-import { PasswordDto } from './password.dto';
+import { PasswordDto } from './password';
 
 export class CredentialsDto extends PasswordDto {
   @IsEmail()

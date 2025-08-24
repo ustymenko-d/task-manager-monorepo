@@ -5,7 +5,7 @@ import {
   ForbiddenException,
   Logger,
 } from '@nestjs/common';
-import fetch from 'node-fetch';
+import { ConfigService } from '@nestjs/config';
 
 interface RecaptchaResponse {
   success: boolean;
@@ -19,6 +19,13 @@ interface RecaptchaResponse {
 @Injectable()
 export class RecaptchaGuard implements CanActivate {
   private readonly logger = new Logger(RecaptchaGuard.name);
+  private readonly recaptchaSecret: string;
+
+  constructor(private readonly configService: ConfigService) {
+    this.recaptchaSecret = this.configService.get<string>(
+      'RECAPTCHA_SECRET_KEY',
+    );
+  }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
@@ -34,13 +41,12 @@ export class RecaptchaGuard implements CanActivate {
       throw new ForbiddenException('No reCAPTCHA token');
     }
 
-    const secret = process.env.RECAPTCHA_SECRET_KEY;
     const googleRes = await fetch(
       `https://www.google.com/recaptcha/api/siteverify`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `secret=${secret}&response=${token}&remoteip=${req.ip}`,
+        body: `secret=${this.recaptchaSecret}&response=${token}&remoteip=${req.ip}`,
       },
     );
 

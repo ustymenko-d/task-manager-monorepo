@@ -1,9 +1,19 @@
-import { Body, Controller, Logger, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Logger,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { handleRequest } from 'src/common/utils/requestHandler';
 import { PasswordService } from './password.service';
-import { EmailDto } from '@repo/api/auth/dto/email.dto';
-import { PasswordDto } from '@repo/api/auth/dto/password.dto';
-import { ResponseStatus } from '@repo/api/common/types';
+import { RecaptchaGuard } from 'src/common/recaptcha.guard';
+import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
+import { ResponseStatus } from '@repo/api/types/index';
+import { EmailDto, PasswordDto } from '@repo/api/dto/index';
 
 @Controller('auth/password')
 export class PasswordController {
@@ -12,8 +22,8 @@ export class PasswordController {
   constructor(private readonly passwordService: PasswordService) {}
 
   @Post('forgot-password')
-  // @UseGuards(RecaptchaGuard)
-  // @UseInterceptors(StripRecaptchaInterceptor)
+  @UseGuards(RecaptchaGuard)
+  @UseInterceptors(StripRecaptchaInterceptor)
   async forgotPassword(@Body() { email }: EmailDto): Promise<ResponseStatus> {
     return handleRequest(
       async () => {
@@ -29,8 +39,8 @@ export class PasswordController {
   }
 
   @Patch('reset-password')
-  // @UseGuards(RecaptchaGuard)
-  // @UseInterceptors(StripRecaptchaInterceptor)
+  @UseGuards(RecaptchaGuard)
+  @UseInterceptors(StripRecaptchaInterceptor)
   async resetPassword(
     @Query('resetToken') resetToken: string,
     @Body() { password }: PasswordDto,

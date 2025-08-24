@@ -1,4 +1,4 @@
-import { Pagination, ResponseStatus } from '../common/types';
+import { Pagination, ResponseStatus } from './common';
 
 export interface CreateFolderPayload {
   name: string;

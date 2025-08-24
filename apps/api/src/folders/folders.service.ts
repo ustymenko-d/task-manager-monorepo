@@ -4,14 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { FoldersGateway } from 'src/sockets/folders.gateway';
 import {
   CreateFolderPayload,
   Folder,
   GetFoldersPayload,
   GetFoldersResponse,
-} from '@repo/api/folders/types';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { FoldersGateway } from 'src/sockets/folders.gateway';
+} from '@repo/api/types/index';
 
 @Injectable()
 export class FoldersService {

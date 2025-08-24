@@ -1,4 +1,4 @@
-import { ResponseStatus } from '../common/types';
+import { ResponseStatus } from './common';
 
 export interface TokenPair {
   accessToken: string;

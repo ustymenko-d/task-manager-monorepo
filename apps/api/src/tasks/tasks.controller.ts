@@ -14,16 +14,17 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { TasksService } from './tasks.service';
-import { JwtUser } from '@repo/api/common/types';
-import { CreateTaskDto } from '@repo/api/tasks/dto/create-task.dto';
-import { GetTasksResponse, TaskResponse } from '@repo/api/tasks/types';
 import { handleRequest } from 'src/common/utils/requestHandler';
-import { GetTasksRequestDto } from '@repo/api/tasks/dto/get-request.dto';
 import { TaskOwner } from './tasks.guard';
-import { TaskDto } from '@repo/api/tasks/dto/task.dto';
-import { TaskIdDto } from '@repo/api/tasks/dto/task-id.dto';
 import { RecaptchaGuard } from 'src/common/recaptcha.guard';
 import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
+import { GetTasksResponse, JwtUser, TaskResponse } from '@repo/api/types/index';
+import {
+  CreateTaskDto,
+  GetTasksRequestDto,
+  TaskDto,
+  TaskIdDto,
+} from '@repo/api/dto/index';
 
 @Controller('tasks')
 export class TasksController {

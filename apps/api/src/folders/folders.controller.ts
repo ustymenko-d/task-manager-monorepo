@@ -19,11 +19,12 @@ import { FoldersService } from './folders.service';
 import { handleRequest } from 'src/common/utils/requestHandler';
 import { RecaptchaGuard } from 'src/common/recaptcha.guard';
 import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
-import { JwtUser } from '@repo/api/common/types';
-import { FolderNameDto } from '@repo/api/folders/dto/folder-name.dto';
-import { FolderIdDto } from '@repo/api/folders/dto/folder-id.dto';
-import { FolderResponse, GetFoldersResponse } from '@repo/api/folders/types';
-import { PaginationDto } from '@repo/api/common/dto';
+import {
+  FolderResponse,
+  GetFoldersResponse,
+  JwtUser,
+} from '@repo/api/types/index';
+import { FolderIdDto, FolderNameDto, PaginationDto } from '@repo/api/dto/index';
 
 @Controller('folders')
 export class FoldersController {

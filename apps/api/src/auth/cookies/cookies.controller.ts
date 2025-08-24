@@ -2,7 +2,7 @@ import { Controller, Get, Logger, Res } from '@nestjs/common';
 import { handleRequest } from 'src/common/utils/requestHandler';
 import { CookiesService } from './cookies.service';
 import { Response } from 'express';
-import { ResponseStatus } from '@repo/api/common/types';
+import { ResponseStatus } from '@repo/api/types/index';
 
 @Controller('auth/cookies')
 export class CookiesController {

@@ -10,8 +10,7 @@ import { Request, Response } from 'express';
 import { TokensService } from './tokens.service';
 import { CookiesService } from '../cookies/cookies.service';
 import { handleRequest } from 'src/common/utils/requestHandler';
-import { ResponseStatus } from '@repo/api/common/types';
-import { AuthCookies } from '@repo/api/auth/types';
+import { AuthCookies, ResponseStatus } from '@repo/api/types/index';
 
 @Controller('auth/tokens')
 export class TokensController {

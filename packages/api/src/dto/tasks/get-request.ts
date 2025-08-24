@@ -1,5 +1,5 @@
 import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator';
-import { PaginationDto } from '../../common/dto';
+import { PaginationDto } from '../common';
 
 export class GetTasksRequestDto extends PaginationDto {
   @IsOptional()

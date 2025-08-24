@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { WebSocketGateway } from '@nestjs/websockets';
 import { BaseGateway } from './base.gateway';
 import { ConfigService } from '@nestjs/config';
-import { Folder } from '@repo/api/folders/types';
+import { Folder } from '@repo/api/types/index';
 
 @Injectable()
 @WebSocketGateway()

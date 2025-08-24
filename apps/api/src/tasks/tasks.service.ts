@@ -5,8 +5,8 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { TaskDto } from '@repo/api/tasks/dto/task.dto';
-import { GetTasksRequest, GetTasksResponse, Task } from '@repo/api/tasks/types';
+import { TaskDto } from '@repo/api/dto/index';
+import { GetTasksRequest, GetTasksResponse, Task } from '@repo/api/types/index';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TasksGateway } from 'src/sockets/tasks.gateway';
 

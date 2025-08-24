@@ -1,4 +1,4 @@
-import { PaginationDto } from './dto';
+import { PaginationDto } from '../dto/common';
 
 export interface ResponseStatus {
   success: boolean;

@@ -1,6 +1,6 @@
-import { Pagination, ResponseStatus } from '../common/types';
-import { TaskDto } from './dto/task.dto';
-import { GetTasksRequestDto } from './dto/get-request.dto';
+import { TaskDto } from '../dto/tasks/task';
+import { Pagination, ResponseStatus } from './common';
+import { GetTasksRequestDto } from '../dto/tasks/get-request';
 
 export interface Task extends TaskDto {
   subtasks?: Task[];

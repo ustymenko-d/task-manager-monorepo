@@ -16,11 +16,15 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CookiesService } from './cookies/cookies.service';
 import { handleRequest } from 'src/common/utils/requestHandler';
-import { CredentialsDto } from '@repo/api/auth/dto/credentials-data.dto';
-import { AuthResponse, UserInfo } from '@repo/api/auth/types';
-import { JwtUser, ResponseStatus } from '@repo/api/common/types';
 import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
 import { RecaptchaGuard } from 'src/common/recaptcha.guard';
+import {
+  AuthResponse,
+  JwtUser,
+  ResponseStatus,
+  UserInfo,
+} from '@repo/api/types/index';
+import { CredentialsDto } from '@repo/api/dto/index';
 
 @Controller('auth')
 export class AuthController {
