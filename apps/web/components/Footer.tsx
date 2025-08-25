@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 const Footer = () => (
   <footer className="border-t border-dashed">
-    <div className="container flex flex-wrap px-2 py-4 mx-auto text-center border-dashed sm:border-x lg:px-4 text-balance gap-x-1">
+    <div className="container flex flex-wrap justify-between px-2 py-4 mx-auto text-center border-dashed sm:border-x lg:px-4 text-balance gap-x-1">
       <p className="text-base">
         Built&nbsp;by{' '}
         <Link
@@ -22,6 +22,7 @@ const Footer = () => (
           Denys Ustymenko
         </Link>
       </p>
+      <span className="text-muted-foreground">v1.0.0</span>
     </div>
   </footer>
 );
