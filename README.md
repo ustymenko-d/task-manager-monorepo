@@ -1,120 +1,178 @@
-# Turborepo starter
+# Task Manager Turborepo
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+A monorepo-based Task Manager application built with Turborepo. It includes a NestJS API with Prisma, Next.js client and shared packages for seamless integration across backend and frontend.
 
-## Using this example
+---
 
-Run the following command:
+## 🏗 Architecture
 
-```bash
-npx create-turbo@latest -e with-nestjs
+The repository is organized as a **monorepo** using **Turborepo**:
+
+```
+task-manager-turborepo/
+├─ apps/
+│  ├─ api/                # NestJS backend
+│  └─ web/                # Next.js frontend
+├─ packages/
+│  ├─ api/                # shared DTOs and types
+│  ├─ eslint-config       # `eslint` configurations (includes `prettier`)
+│  ├─ jest-config         # `jest` configurations
+│  └─ typescript-config   # `tsconfig.json`s used throughout the monorepo
+├─ docker-compose.yml
+├─ package.json
+└─ turbo.json
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## ⚡ Backend (NestJS + Prisma)
 
-### Apps and Packages
+Provides a **RESTful API** for managing authentication, tasks and folders.
 
-    .
-    ├── apps
-    │   ├── api                       # NestJS app (https://nestjs.com).
-    │   └── web                       # Next.js app (https://nextjs.org).
-    └── packages
-        ├── @repo/api                 # Shared `NestJS` resources.
-        ├── @repo/eslint-config       # `eslint` configurations (includes `prettier`)
-        ├── @repo/jest-config         # `jest` configurations
-        ├── @repo/typescript-config   # `tsconfig.json`s used throughout the monorepo
-        └── @repo/ui                  # Shareable stub React component library.
+Built using:
 
-Each package and application are 100% [TypeScript](https://www.typescriptlang.org/) safe.
+<p>
+  <img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socket.io&logoColor=white" />
+  <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
+</p>
 
-### Utilities
+### Backend Project Setup
 
-This `Turborepo` has some additional tools already set for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type-safety
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-- [Jest](https://prettier.io) & [Playwright](https://playwright.dev/) for testing
-
-### Commands
-
-This `Turborepo` already configured useful commands for all your apps and packages.
-
-#### Build
+1. **Start PostgreSQL using Docker Compose:**
 
 ```bash
-# Will build all the app & packages with the supported `build` script.
-pnpm run build
-
-# ℹ️ If you plan to only build apps individually,
-# Please make sure you've built the packages first.
+docker-compose up -d
 ```
 
-#### Develop
+- Database will be available at: `postgres://postgres:postgres@localhost:5433/turborepo_db`
+
+2. **Configure Prisma:** Update the `.env` in `apps/api` if needed.
+
+3. **Generate Prisma Client:**
 
 ```bash
-# Will run the development server for all the app & packages with the supported `dev` script.
-pnpm run dev
+cd apps/api
+npx prisma generate
 ```
 
-#### test
+4. **Run Migrations:**
 
 ```bash
-# Will launch a test suites for all the app & packages with the supported `test` script.
-pnpm run test
-
-# You can launch e2e testes with `test:e2e`
-pnpm run test:e2e
-
-# See `@repo/jest-config` to customize the behavior.
+npx prisma migrate dev
 ```
 
-#### Lint
+5. **Run Prisma Studio (optional, to inspect DB):**
 
 ```bash
-# Will lint all the app & packages with the supported `lint` script.
-# See `@repo/eslint-config` to customize the behavior.
-pnpm run lint
+npx prisma studio
 ```
 
-#### Format
+6. **Start Backend Server:**
 
 ```bash
-# Will format all the supported `.ts,.js,json,.tsx,.jsx` files.
-# See `@repo/eslint-config/prettier-base.js` to customize the behavior.
-pnpm format
+pnpm run dev --filter api
 ```
 
-### Remote Caching
+---
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## 🌐 Frontend (Next.js Client)
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Provides a fast, responsive, and accessible UI with features like drag-and-drop task management and real-time updates via WebSockets.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+Built using:
+
+<p>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" />
+  <img src="https://img.shields.io/badge/TanStack%20Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white" />
+  <img src="https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socket.io&logoColor=white" />
+  <img src="https://img.shields.io/badge/DND--Kit-000000?style=for-the-badge&logo=javascript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/Shadcn/UI-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  <img src="https://img.shields.io/badge/Radix-fff?style=for-the-badge&logo=radixui&logoColor=black" />
+  <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
+</p>
+
+### Frontend Project Setup
+
+1. **Install dependencies:**
 
 ```bash
-npx turbo login
+pnpm install
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+2. **Start development server:**
 
 ```bash
-npx turbo link
+pnpm run dev --filter web
 ```
 
-## Useful Links
+---
 
-Learn more about the power of Turborepo:
+## 🔀 Shared Packages
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- `@repo/api`               — shared DTOs and types
+- `@repo/eslint-config`     — eslint configurations (includes `prettier`)
+- `@repo/jest-config`       — jest configurations
+- `@repo/typescript-config` — tsconfig.json used throughout the monorepo
+
+> Packages are managed with **Turborepo** for caching and incremental builds.
+
+---
+
+## ⚙️ Monorepo Dev Commands (from root)
+
+| Command          | Description                                             |
+| ---------------- | ------------------------------------------------------- |
+| `npm run dev`    | Runs all dev servers (frontend & backend) in watch mode |
+| `npm run build`  | Builds all apps and packages                            |
+| `npm run lint`   | Lints all packages and apps                             |
+| `npm run test`   | Runs all tests                                          |
+| `npm run format` | Formats all files using Prettier                        |
+
+---
+
+## 🐳 Docker Database Setup
+
+PostgreSQL database is defined in `docker-compose.yml`. Use:
+
+```bash
+docker-compose up -d
+```
+
+- Container name: `turborepo_postgres`
+- Port: `5433` (mapped to `5432` inside container)
+- Default credentials:
+
+  - User: `postgres`
+  - Password: `postgres`
+  - Database: `turborepo_db`
+
+Volumes persist DB data across restarts.
+
+---
+
+## 📚 Notes
+
+- Prisma Studio can be accessed via:
+
+```bash
+cd apps/api
+npx prisma studio
+```
+
+- Shared types and DTOs are used across both frontend and backend for type safety.
+
+---
+
+## 👨‍💻 Author
+
+**Denys Ustymenko**
+
+- Email: [ustymenko.denys@gmail.com](mailto:ustymenko.denys@gmail.com)
+- Portfolio: [https://ustymenko.vercel.app](https://ustymenko.vercel.app)
