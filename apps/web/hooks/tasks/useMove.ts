@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import getTasksKey from '@/utils/getTasksKey';
 
 import useActions from './useActions';
-import { GetTasksResponse, Task } from '@repo/api/types';
+import { GetTasksResponse, Task } from '@repo/shared/types';
 import { ResponseState } from '@/types/common';
 import { TaskPayload, TasksInfiniteData } from '@/types/tasks';
 

@@ -1,6 +1,6 @@
 import { EditorSettings } from '@/types/common';
 import getDefaultEditorSettings from '@/utils/getDefaultEditorSettings';
-import { Folder } from '@repo/api/types';
+import { Folder } from '@repo/shared/types';
 
 export interface FoldersSlice {
   folderEditorSettings: EditorSettings<Folder>;

@@ -1,4 +1,4 @@
-import { AuthResponse, ResponseStatus, UserInfo } from '@repo/api/types';
+import { AuthResponse, ResponseStatus, UserInfo } from '@repo/shared/types';
 import { ApiAxios, handleApiRequest } from './Axios';
 import { RecaptchaToken } from '@/types/common';
 import { Credentials, Email, Password } from '@/types/auth';

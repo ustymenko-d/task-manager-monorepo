@@ -10,7 +10,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../auth.service';
 import HashHandler from 'src/common/utils/HashHandler';
-import { JwtUser, TokenPair, User } from '@repo/api/types/index';
+import { JwtUser, TokenPair, User } from '@repo/shared/types/index';
 
 @Injectable()
 export class TokensService {

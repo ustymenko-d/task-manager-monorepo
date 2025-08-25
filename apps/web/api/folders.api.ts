@@ -1,7 +1,7 @@
 import { RecaptchaToken } from '@/types/common';
 import { ApiAxios, handleApiRequest } from './Axios';
 import { FolderName, GetFoldersRequest } from '@/types/folders';
-import { FolderResponse, GetFoldersResponse } from '@repo/api/types';
+import { FolderResponse, GetFoldersResponse } from '@repo/shared/types';
 
 const FOLDERS_API_URL = '/folders';
 

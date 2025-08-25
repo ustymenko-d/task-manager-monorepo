@@ -3,7 +3,7 @@
 import useAppStore from '@/store/store';
 
 import TaskCard from '../../TaskCard/TaskCard';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 
 const Subtasks = ({ subtasks }: { subtasks: Task[] }) => {
   const openTaskDialog = useAppStore((s) => s.openTaskDialog);

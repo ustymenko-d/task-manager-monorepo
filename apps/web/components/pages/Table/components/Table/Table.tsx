@@ -19,7 +19,7 @@ import Body from '@/components/pages/Table/components/Table/components/Body';
 import columns from '@/components/pages/Table/components/Table/components/Columns/Columns';
 import Head from '@/components/pages/Table/components/Table/components/Head/Head';
 import Pagination from '@/components/pages/Table/components/Table/components/Pagination/Pagination';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 import Loader from '@/components/Loader';
 
 interface Props {

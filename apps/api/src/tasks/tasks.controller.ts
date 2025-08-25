@@ -18,7 +18,11 @@ import { handleRequest } from 'src/common/utils/requestHandler';
 import { TaskOwner } from './tasks.guard';
 import { RecaptchaGuard } from 'src/common/recaptcha.guard';
 import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
-import { GetTasksResponse, JwtUser, TaskResponse } from '@repo/api/types/index';
+import {
+  GetTasksResponse,
+  JwtUser,
+  TaskResponse,
+} from '@repo/shared/types/index';
 import {
   CreateTaskDto,
   GetTasksRequestDto,

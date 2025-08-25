@@ -3,7 +3,7 @@ import { MouseEvent, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import useActions from '@/hooks/tasks/useActions';
 import { cn } from '@/lib/utils';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 import { ResponseState } from '@/types/common';
 
 const CardCheckbox = ({ task }: { task: Task }) => {

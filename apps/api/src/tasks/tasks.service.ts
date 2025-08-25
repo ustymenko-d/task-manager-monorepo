@@ -6,7 +6,11 @@ import {
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { TaskDto } from '@repo/api/dto/index';
-import { GetTasksRequest, GetTasksResponse, Task } from '@repo/api/types/index';
+import {
+  GetTasksRequest,
+  GetTasksResponse,
+  Task,
+} from '@repo/shared/types/index';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TasksGateway } from 'src/sockets/tasks.gateway';
 

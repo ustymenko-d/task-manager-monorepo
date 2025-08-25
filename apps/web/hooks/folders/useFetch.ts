@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import FoldersAPI from '@/api/folders.api';
 import useIsStartPage from '@/utils/isStartPage';
-import { GetFoldersResponse } from '@repo/api/types';
+import { GetFoldersResponse } from '@repo/shared/types';
 import { GetFoldersRequest } from '@/types/folders';
 
 const useFetch = (params: GetFoldersRequest) => {

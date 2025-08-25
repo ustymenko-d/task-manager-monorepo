@@ -1,6 +1,5 @@
-import { TaskDto } from '../dto/tasks/task';
+import { GetTasksRequestDto, TaskDto } from '@repo/api/dto/index';
 import { Pagination, ResponseStatus } from './common';
-import { GetTasksRequestDto } from '../dto/tasks/get-request';
 
 export interface Task extends TaskDto {
   lastEdited: Date;

@@ -9,7 +9,7 @@ import useActions from '@/hooks/folders/useActions';
 import useAppStore from '@/store/store';
 
 import TooltipButton from './TooltipButton';
-import { Folder } from '@repo/api/types';
+import { Folder } from '@repo/shared/types';
 import { ResponseState } from '@/types/common';
 
 type Props = {

@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import AuthAPI from '@/api/auth.api';
 import useIsStartPage from '@/utils/isStartPage';
-import { UserInfo } from '@repo/api/types';
+import { UserInfo } from '@repo/shared/types';
 
 const useAccountInfo = () => {
   const pathname = usePathname();

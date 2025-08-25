@@ -23,7 +23,7 @@ import {
   FolderResponse,
   GetFoldersResponse,
   JwtUser,
-} from '@repo/api/types/index';
+} from '@repo/shared/types/index';
 import { FolderIdDto, FolderNameDto, PaginationDto } from '@repo/api/dto/index';
 
 @Controller('folders')

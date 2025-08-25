@@ -31,7 +31,7 @@ import { formatDate, formatValue } from '@/utils/formatting';
 import InfoBlock from './components/InfoBlock';
 import Subtasks from './components/Subtasks';
 import { ResponseState } from '@/types/common';
-import { GetTasksResponse, Task } from '@repo/api/types';
+import { GetTasksResponse, Task } from '@repo/shared/types';
 
 const DetailsDialog = () => {
   const queryClient = useQueryClient();

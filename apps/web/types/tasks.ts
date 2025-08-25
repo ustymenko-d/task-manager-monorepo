@@ -1,5 +1,5 @@
 import TasksValidation from '@/schemas/tasks';
-import { GetTasksResponse } from '@repo/api/types';
+import { GetTasksResponse } from '@repo/shared/types';
 import { InfiniteData } from '@tanstack/react-query';
 import z from 'zod';
 

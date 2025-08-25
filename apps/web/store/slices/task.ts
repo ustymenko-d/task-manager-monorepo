@@ -1,6 +1,6 @@
 import { EditorSettings } from '@/types/common';
 import getDefaultEditorSettings from '@/utils/getDefaultEditorSettings';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 
 export interface TaskSlice {
   taskInMotion: Task | null;

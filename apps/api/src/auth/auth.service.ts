@@ -11,7 +11,12 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { TokensService } from 'src/auth/tokens/tokens.service';
 import { MailService } from 'src/auth/mail/mail.service';
 import HashHandler from 'src/common/utils/HashHandler';
-import { AuthData, User, UserByQuery, UserInfo } from '@repo/api/types/index';
+import {
+  AuthData,
+  User,
+  UserByQuery,
+  UserInfo,
+} from '@repo/shared/types/index';
 
 @Injectable()
 export class AuthService {

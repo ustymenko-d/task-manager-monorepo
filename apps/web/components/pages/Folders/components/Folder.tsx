@@ -9,7 +9,7 @@ import { TASK_FETCH_LIMIT } from '@/const';
 import { cn } from '@/lib/utils';
 
 import FolderActions from './FolderActions';
-import { Folder as TFolder } from '@repo/api/types';
+import { Folder as TFolder } from '@repo/shared/types';
 
 const Folder = ({ folder }: { folder: TFolder }) => {
   const { id, name } = folder;

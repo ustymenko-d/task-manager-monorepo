@@ -9,7 +9,7 @@ import useAppStore from '@/store/store';
 
 import { useWithRecaptcha } from '../useWithRecaptcha';
 import { TaskAction, TaskBase, TaskPayload } from '@/types/tasks';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 import { ResponseState } from '@/types/common';
 
 const useActions = (action: TaskAction, task?: Task) => {

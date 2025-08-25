@@ -23,7 +23,7 @@ import {
   JwtUser,
   ResponseStatus,
   UserInfo,
-} from '@repo/api/types/index';
+} from '@repo/shared/types/index';
 import { CredentialsDto } from '@repo/api/dto/index';
 
 @Controller('auth')

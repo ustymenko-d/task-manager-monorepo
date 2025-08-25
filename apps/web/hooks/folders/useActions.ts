@@ -7,7 +7,7 @@ import FoldersAPI from '@/api/folders.api';
 import useAppStore from '@/store/store';
 
 import { useWithRecaptcha } from '../useWithRecaptcha';
-import { Folder } from '@repo/api/types';
+import { Folder } from '@repo/shared/types';
 import { FolderName, FoldersAction } from '@/types/folders';
 import { ResponseState } from '@/types/common';
 

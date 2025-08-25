@@ -1,6 +1,6 @@
 import { Folder, LayoutGrid, Settings, Sheet } from 'lucide-react';
 import { NavItem } from './types/common';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types/index';
 import AuthValidation from './schemas/authForm';
 
 export const navItems: NavItem[] = [

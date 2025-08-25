@@ -14,7 +14,7 @@ import { formatValue } from '@/utils/formatting';
 
 import CardCheckbox from './components/CardCheckbox';
 import DragHandle, { IDragProps } from './components/DragHandle';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 
 interface Props {
   task: Task;

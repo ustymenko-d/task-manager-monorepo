@@ -6,7 +6,7 @@ import { formatDate, formatValue } from '@/utils/formatting';
 
 import FolderCell from './FolderCell';
 import Header from './Header';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 
 const columns: ColumnDef<Task>[] = [
   {

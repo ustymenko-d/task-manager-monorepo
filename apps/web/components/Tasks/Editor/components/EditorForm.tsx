@@ -23,7 +23,7 @@ import useAppStore from '@/store/store';
 import DesktopFolderSelect from './FolderSelect/DesktopFolderSelect';
 import MobileFolderSelect from './FolderSelect/MobileFolderSelect';
 import { TaskBase } from '@/types/tasks';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 import { ResponseState } from '@/types/common';
 import TasksValidation from '@/schemas/tasks';
 import LoadingButton from '@/components/LoadingButton';

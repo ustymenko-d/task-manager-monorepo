@@ -3,7 +3,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import TasksAPI from '@/api/tasks.api';
-import { GetTasksResponse } from '@repo/api/types';
+import { GetTasksResponse } from '@repo/shared/types';
 import { GetTasksRequest } from '@/types/tasks';
 
 const useInfiniteFetch = (params: Omit<GetTasksRequest, 'page'>) =>

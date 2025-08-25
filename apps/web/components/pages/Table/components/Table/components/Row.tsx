@@ -3,7 +3,7 @@ import { Cell, flexRender, Row as TanstackRow } from '@tanstack/react-table';
 import TaskContextMenu from '@/components/Tasks/TaskContextMenu';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 
 const depthBgMap: Record<number, string> = {
   0: 'bg-white dark:bg-neutral-900',

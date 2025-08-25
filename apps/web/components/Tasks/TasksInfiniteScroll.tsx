@@ -11,7 +11,7 @@ import useAppStore from '@/store/store';
 import DraggableItem from '../pages/Folders/components/DraggableItem';
 import TaskCard from './TaskCard/TaskCard';
 import { GetTasksRequest } from '@/types/tasks';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 import Loader from '../Loader';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

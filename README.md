@@ -116,7 +116,8 @@ pnpm run dev --filter web
 
 ## 🔀 Shared Packages
 
-- `@repo/api`               — shared DTOs and types
+- `@repo/api`               — shared DTOs
+- `@repo/shared`            — shared types and utilities
 - `@repo/eslint-config`     — eslint configurations (includes `prettier`)
 - `@repo/jest-config`       — jest configurations
 - `@repo/typescript-config` — tsconfig.json used throughout the monorepo

@@ -1,5 +1,3 @@
-import { PaginationDto } from '../dto/common';
-
 export interface ResponseStatus {
   success: boolean;
   message: string;
@@ -12,7 +10,9 @@ export interface JwtUser {
   sessionId: string;
 }
 
-export interface Pagination extends PaginationDto {
+export interface Pagination {
+  page: number;
+  limit: number;
   pages: number;
   total: number;
 }

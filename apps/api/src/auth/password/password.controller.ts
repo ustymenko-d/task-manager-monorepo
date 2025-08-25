@@ -12,7 +12,7 @@ import { handleRequest } from 'src/common/utils/requestHandler';
 import { PasswordService } from './password.service';
 import { RecaptchaGuard } from 'src/common/recaptcha.guard';
 import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
-import { ResponseStatus } from '@repo/api/types/index';
+import { ResponseStatus } from '@repo/shared/types/index';
 import { EmailDto, PasswordDto } from '@repo/api/dto/index';
 
 @Controller('auth/password')

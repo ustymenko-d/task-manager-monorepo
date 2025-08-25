@@ -5,7 +5,7 @@ import { useCallback, useEffect } from 'react';
 
 import { getSocket } from '@/lib/socket';
 import useAppStore from '@/store/store';
-import { Task } from '@repo/api/types';
+import { Task } from '@repo/shared/types';
 import { TaskAction } from '@/types/tasks';
 
 const useSocket = () => {

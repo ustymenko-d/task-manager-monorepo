@@ -11,7 +11,7 @@ import {
   Folder,
   GetFoldersPayload,
   GetFoldersResponse,
-} from '@repo/api/types/index';
+} from '@repo/shared/types/index';
 
 @Injectable()
 export class FoldersService {

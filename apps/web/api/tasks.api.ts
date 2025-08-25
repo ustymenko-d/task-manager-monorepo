@@ -1,7 +1,7 @@
 import { RecaptchaToken } from '@/types/common';
 import { ApiAxios, handleApiRequest } from './Axios';
 import { GetTasksRequest, TaskBase, TaskPayload } from '@/types/tasks';
-import { GetTasksResponse, TaskResponse } from '@repo/api/types';
+import { GetTasksResponse, TaskResponse } from '@repo/shared/types';
 
 const TASKS_API_URL = '/tasks';
 

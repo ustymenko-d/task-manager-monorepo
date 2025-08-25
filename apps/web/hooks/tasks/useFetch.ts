@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import TasksAPI from '@/api/tasks.api';
 import useIsStartPage from '@/utils/isStartPage';
-import { GetTasksResponse } from '@repo/api/types';
+import { GetTasksResponse } from '@repo/shared/types';
 import { GetTasksRequest } from '@/types/tasks';
 
 const useFetch = (params: GetTasksRequest) => {
