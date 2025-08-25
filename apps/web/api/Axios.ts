@@ -13,7 +13,7 @@ import createSingletonPromise from '@/utils/createSingletonPromise';
 import AuthAPI from './auth.api';
 
 const baseConfig = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000',
   withCredentials: true,
   timeout: 60000,
 };
@@ -24,7 +24,10 @@ export const ApiAxios: AxiosInstance = axios.create({
   baseURL:
     typeof window !== 'undefined' && process.env.NODE_ENV === 'development'
       ? new URL('/api', window.location.origin).toString()
-      : new URL('/api', process.env.NEXT_PUBLIC_FRONTEND_URL).toString(),
+      : new URL(
+          '/api',
+          process.env.NEXT_PUBLIC_FRONTEND_URL ?? 'http://localhost:3001',
+        ).toString(),
 });
 
 if (typeof window !== 'undefined') {
