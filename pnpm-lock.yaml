@@ -423,9 +423,6 @@ importers:
 
   packages/shared:
     devDependencies:
-      '@repo/api':
-        specifier: workspace:*
-        version: link:../api
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
