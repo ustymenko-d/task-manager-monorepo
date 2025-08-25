@@ -3,6 +3,7 @@ import { Pagination, ResponseStatus } from './common';
 import { GetTasksRequestDto } from '../dto/tasks/get-request';
 
 export interface Task extends TaskDto {
+  lastEdited: Date;
   subtasks?: Task[];
 }
 
