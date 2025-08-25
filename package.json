@@ -1,9 +1,13 @@
 {
-  "name": "my-turborepo",
-  "version": "0.0.0",
+  "name": "task-manager-turborepo",
+  "version": "1.0.0",
+  "description": "A monorepo-based Task Manager application built with Turborepo. It includes a NestJS API with Prisma, Next.js client and shared packages for seamless integration across backend and frontend.",
+  "author": {
+    "name": "Denys Ustymenko",
+    "email": "ustymenko.denys@gmail.com",
+    "url": "https://ustymenko.vercel.app"
+  },
   "private": true,
-  "description": "",
-  "author": "",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "turbo run dev",

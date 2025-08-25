@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 
-import { LinksModule } from './links/links.module';
-
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './auth/auth.module';
+import { TasksModule } from './tasks/tasks.module';
+import { FoldersModule } from './folders/folders.module';
+import { CleanupModule } from './cleanup/cleanup.module';
 
 @Module({
   imports: [
@@ -13,10 +13,11 @@ import { PrismaModule } from './prisma/prisma.module';
       isGlobal: true,
       envFilePath: ['.env', '.env.local'],
     }),
-    LinksModule,
     PrismaModule,
+    AuthModule,
+    TasksModule,
+    FoldersModule,
+    CleanupModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

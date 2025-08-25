@@ -1,6 +1,6 @@
 {
   "name": "@repo/api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -34,7 +34,10 @@
     }
   },
   "dependencies": {
-    "@nestjs/mapped-types": "*"
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/mapped-types": "*",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
