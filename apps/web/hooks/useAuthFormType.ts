@@ -9,13 +9,6 @@ import { ResponseState } from '@/types/common';
 
 type AuthFormType = keyof typeof formConfig;
 
-// type SchemaByForm = {
-//   signin: typeof formConfig.signin.validationSchema;
-//   signup: typeof formConfig.signup.validationSchema;
-//   forgotPassword: typeof formConfig.forgotPassword.validationSchema;
-// };
-
-// type ValuesByForm<K extends AuthFormType> = z.infer<SchemaByForm[K]>;
 type Config = (typeof formConfig)[AuthFormType];
 type Schema = Config['validationSchema'];
 export type FormValues = z.infer<Schema>;
@@ -25,10 +18,6 @@ export function useAuthFormType() {
   const config = formConfig[authFormType];
   const [loading, setLoading] = useState<ResponseState>('default');
 
-  // const authForm: UseFormReturn<ValuesByForm<typeof authFormType>> = useForm({
-  //   resolver: zodResolver(config.validationSchema),
-  //   defaultValues: config.defaultValues,
-  // });
   const authForm: UseFormReturn<FormValues> = useForm<FormValues>({
     resolver: zodResolver(config.validationSchema),
     defaultValues: config.defaultValues,

@@ -3,33 +3,29 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
 import AuthAPI from '@/api/auth.api';
 import PasswordInput from '@/components/pages/Auth/components/PasswordInput';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormField } from '@/components/ui/form';
 import { useWithRecaptcha } from '@/hooks/useWithRecaptcha';
 import AuthValidation from '@/schemas/authForm';
 import { ResponseState } from '@/types/common';
 import { Password } from '@/types/auth';
 import LoadingButton from '@/components/LoadingButton';
+import ConfirmPasswordInput from './components/ConfirmPasswordInput';
 
-const formConfig = {
+const FORM_CONFIG = {
   validationSchema: AuthValidation.resetPassword,
   defaultValues: {
     password: '',
     confirmPassword: '',
   },
 } as const;
+
+const FIELDS = ['password', 'confirmPassword'] as const;
 
 const ResetPasswordForm = () => {
   const router = useRouter();
@@ -38,9 +34,9 @@ const ResetPasswordForm = () => {
 
   const [status, setStatus] = useState<ResponseState>('default');
 
-  const { validationSchema, defaultValues } = formConfig;
+  const { validationSchema, defaultValues } = FORM_CONFIG;
 
-  const resetPasswordForm = useForm<z.infer<typeof validationSchema>>({
+  const form = useForm<z.infer<typeof validationSchema>>({
     resolver: zodResolver(validationSchema),
     defaultValues,
   });
@@ -62,7 +58,7 @@ const ResetPasswordForm = () => {
       if (!success) throw new Error(message ?? 'Reset Password failed');
 
       setStatus('success');
-      resetPasswordForm.reset(defaultValues);
+      form.reset(defaultValues);
 
       toast.success('Your password has been changed successfully!', {
         description:
@@ -79,32 +75,31 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <Form {...resetPasswordForm}>
-      <form onSubmit={resetPasswordForm.handleSubmit(handleResetPassword)}>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleResetPassword)}>
         <div className="flex flex-col gap-6">
-          {(['password', 'confirmPassword'] as const).map((element) => (
+          {FIELDS.map((f) => (
             <FormField
-              key={`${element}-field`}
-              control={resetPasswordForm.control}
-              name={element}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <PasswordInput
-                      {...field}
-                      labelNode={
-                        <FormLabel>
-                          {element === 'password'
-                            ? 'Password'
-                            : 'Confirm Password'}
-                        </FormLabel>
-                      }
-                      value={field.value || ''}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              key={f}
+              control={form.control}
+              name={f}
+              render={({ field }) =>
+                f === 'password' ? (
+                  <PasswordInput
+                    {...(field as ControllerRenderProps<
+                      z.infer<typeof validationSchema>,
+                      'password'
+                    >)}
+                  />
+                ) : (
+                  <ConfirmPasswordInput
+                    {...(field as ControllerRenderProps<
+                      z.infer<typeof validationSchema>,
+                      'confirmPassword'
+                    >)}
+                  />
+                )
+              }
             />
           ))}
 
