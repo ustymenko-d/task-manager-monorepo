@@ -14,7 +14,8 @@ task-manager-turborepo/
 │  ├─ api/                # NestJS backend
 │  └─ web/                # Next.js frontend
 ├─ packages/
-│  ├─ api/                # shared DTOs and types
+│  ├─ api/                # shared DTOs
+│  ├─ shared/                # shared types and utilities
 │  ├─ eslint-config       # `eslint` configurations (includes `prettier`)
 │  ├─ jest-config         # `jest` configurations
 │  └─ typescript-config   # `tsconfig.json`s used throughout the monorepo
