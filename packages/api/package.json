@@ -31,6 +31,10 @@
     "./*": {
       "import": "./dist/*.js",
       "require": "./dist/*.js"
+    },
+    "./dto/*": {
+      "import": "./dist/dto/*.js",
+      "require": "./dist/dto/*.js"
     }
   },
   "dependencies": {

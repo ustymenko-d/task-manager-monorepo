@@ -25,6 +25,10 @@
     "./*": {
       "import": "./dist/*.js",
       "require": "./dist/*.js"
+    },
+    "./types/*": {
+      "import": "./dist/types/*.js",
+      "require": "./dist/types/*.js"
     }
   },
   "devDependencies": {
