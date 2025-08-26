@@ -5,10 +5,10 @@
     "outDir": "./dist",
     "paths": {
       "@repo/shared/*": [
-        "../../packages/shared/src/*"
+        "../../packages/shared/dist/*"
       ],
       "@repo/api/*": [
-        "../../packages/api/src/*"
+        "../../packages/api/dist/*"
       ]
     }
   }
