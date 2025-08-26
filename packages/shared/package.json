@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "pnpm build --watch",
     "build": "tsc -b -v",
+    "postbuild": "tsc-alias",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
   },
   "typesVersions": {
@@ -28,6 +29,7 @@
     }
   },
   "devDependencies": {
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.9.2"
   }
 }

@@ -1,12 +1,25 @@
 {
   "extends": "@repo/typescript-config/nestjs.json",
   "compilerOptions": {
-    "allowJs": true,
     "baseUrl": "src",
+    "outDir": "dist",
+    "allowJs": true,
     "esModuleInterop": true,
     "incremental": false,
-    "outDir": "dist"
+    "paths": {
+      "@repo/api/*": [
+        "src/*"
+      ]
+    }
   },
-  "include": ["src", "eslint.config.mjs"],
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+  "include": [
+    "src",
+    "eslint.config.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist",
+    "**/*spec.ts"
+  ]
 }

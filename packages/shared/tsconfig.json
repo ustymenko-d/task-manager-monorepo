@@ -5,7 +5,12 @@
 		"baseUrl": "src",
 		"declaration": true,
 		"declarationMap": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"paths": {
+			"@repo/shared": [
+				"src/*"
+			]
+		}
 	},
 	"include": [
 		"src",
