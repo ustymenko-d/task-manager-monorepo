@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nest start --watch",
-    "prebuild": "turbo run build --filter=api...",
-    "build": "nest build",
-    "postbuild": "tsc-alias",
+    "build": "nest build && tsc-alias",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",

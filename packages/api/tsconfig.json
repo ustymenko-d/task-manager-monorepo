@@ -5,12 +5,7 @@
     "outDir": "dist",
     "allowJs": true,
     "esModuleInterop": true,
-    "incremental": false,
-    "paths": {
-      "@repo/api/*": [
-        "src/*"
-      ]
-    }
+    "incremental": false
   },
   "include": [
     "src",
