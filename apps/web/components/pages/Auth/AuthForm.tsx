@@ -137,6 +137,7 @@ const AuthForm = () => {
 
         <LoadingButton
           type="submit"
+          variant='destructive'
           loading={loading === 'pending'}
           disabled={loading === 'success'}
         >
