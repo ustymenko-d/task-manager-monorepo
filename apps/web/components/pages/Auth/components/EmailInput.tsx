@@ -1,5 +1,10 @@
 import { Input } from '@/components/ui/input';
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { ControllerRenderProps } from 'react-hook-form';
 import { FormValues } from '@/hooks/useAuthFormType';
 

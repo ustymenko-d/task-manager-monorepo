@@ -10,7 +10,12 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import useAppStore from '@/store/store';
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { ControllerRenderProps } from 'react-hook-form';
 import { FormValues } from '@/hooks/useAuthFormType';
 

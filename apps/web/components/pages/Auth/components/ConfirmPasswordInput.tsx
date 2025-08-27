@@ -10,7 +10,12 @@ import {
 } from '@/components/ui/tooltip';
 import { FormValues } from '@/hooks/useAuthFormType';
 import { ControllerRenderProps } from 'react-hook-form';
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 
 const ConfirmPasswordInput = ({
   ...field
