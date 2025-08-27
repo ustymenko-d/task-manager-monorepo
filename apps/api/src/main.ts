@@ -31,7 +31,7 @@ const getValidationPipe = (): ValidationPipe =>
 
 const getCorsOptions = (configService?: ConfigService): CorsOptions => ({
   origin:
-    configService.get('NODE_ENV') === 'development'
+    configService.get('APP_ENV') === 'development'
       ? true
       : configService.get('FRONTEND_URL'),
   methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],

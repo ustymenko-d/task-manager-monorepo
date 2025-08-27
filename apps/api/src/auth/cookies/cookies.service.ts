@@ -9,7 +9,7 @@ export class CookiesService {
 
   constructor(private readonly configService: ConfigService) {
     const isProduction =
-      this.configService.get<string>('NODE_ENV') === 'production';
+      this.configService.get<string>('APP_ENV') === 'production';
 
     this.COOKIE_OPTIONS = {
       httpOnly: true,

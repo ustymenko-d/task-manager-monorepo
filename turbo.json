@@ -6,7 +6,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": ["NODE_ENV"]
+      "env": ["APP_ENV"]
     },
     "build": {
       "dependsOn": ["^build"],

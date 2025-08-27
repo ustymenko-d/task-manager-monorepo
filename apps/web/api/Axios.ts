@@ -22,7 +22,7 @@ export const Axios: AxiosInstance = axios.create(baseConfig);
 export const ApiAxios: AxiosInstance = axios.create({
   ...baseConfig,
   baseURL:
-    typeof window !== 'undefined' && process.env.NODE_ENV === 'development'
+    typeof window !== 'undefined' && process.env.APP_ENV === 'development'
       ? new URL('/api', window.location.origin).toString()
       : new URL(
           '/api',
@@ -69,9 +69,6 @@ export const handleApiRequest = async <T>(
 ): Promise<T> => {
   try {
     const res = await apiRequest();
-
-    console.log('handleApiRequest res', res);
-
     const { data } = res;
 
     if (isNeedTokensRefreshData(data)) {
@@ -135,8 +132,6 @@ export const handleRequest = async <T = undefined>(
       headers['set-cookie'],
     );
   } catch (error) {
-    console.log('error', error);
-
     if (axios.isAxiosError(error) && error.response) {
       const { status, data, headers } = error.response;
 
