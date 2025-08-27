@@ -3,59 +3,55 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id                String   @id @default(uuid())
+  id                String         @id @default(uuid())
   username          String
-  email             String   @unique
+  email             String         @unique
   password          String
-  tokenVersion      Int      @default(1)
-  isVerified        Boolean  @default(false)
-  verificationToken String?  @unique
-  createdAt         DateTime @default(now())
-
-  tasks         Task[]         @relation("UserTasks")
-  folders       Folder[]       @relation("UserFolders")
-  refreshTokens RefreshToken[] @relation("UserRefreshTokens")
+  tokenVersion      Int            @default(1)
+  createdAt         DateTime       @default(now())
+  isVerified        Boolean        @default(false)
+  verificationToken String?        @unique
+  folders           Folder[]       @relation("UserFolders")
+  refreshTokens     RefreshToken[] @relation("UserRefreshTokens")
+  tasks             Task[]         @relation("UserTasks")
 }
 
 model RefreshToken {
-  token     String   @id
   userId    String
-  sessionId String
+  token     String   @id
   expiresAt DateTime
   revoked   Boolean  @default(false)
-
-  user User @relation("UserRefreshTokens", fields: [userId], references: [id], onDelete: Cascade)
+  sessionId String
+  user      User     @relation("UserRefreshTokens", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Task {
   id           String    @id @default(uuid())
   title        String
-  description  String?
-  completed    Boolean   @default(false)
   userId       String
   parentTaskId String?
-  startDate    DateTime? @default(now())
-  expiresDate  DateTime?
-  lastEdited   DateTime  @default(now()) @updatedAt
+  description  String?
+  completed    Boolean   @default(false)
   folderId     String?
-
-  user       User    @relation("UserTasks", fields: [userId], references: [id], onDelete: Cascade)
-  parentTask Task?   @relation("Subtasks", fields: [parentTaskId], references: [id], onDelete: Cascade)
-  subtasks   Task[]  @relation("Subtasks")
-  folder     Folder? @relation("TaskFolders", fields: [folderId], references: [id], onDelete: SetNull)
+  expiresDate  DateTime?
+  startDate    DateTime? @default(now())
+  lastEdited   DateTime  @default(now()) @updatedAt
+  folder       Folder?   @relation("TaskFolders", fields: [folderId], references: [id])
+  parentTask   Task?     @relation("Subtasks", fields: [parentTaskId], references: [id], onDelete: Cascade)
+  subtasks     Task[]    @relation("Subtasks")
+  user         User      @relation("UserTasks", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Folder {
   id     String @id @default(uuid())
   name   String
   userId String
-
-  user  User   @relation("UserFolders", fields: [userId], references: [id], onDelete: Cascade)
-  tasks Task[] @relation("TaskFolders")
+  user   User   @relation("UserFolders", fields: [userId], references: [id], onDelete: Cascade)
+  tasks  Task[] @relation("TaskFolders")
 }
