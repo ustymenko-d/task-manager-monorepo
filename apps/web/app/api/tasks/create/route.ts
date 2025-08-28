@@ -5,17 +5,13 @@ import { RecaptchaToken } from '@/types/common';
 import { TaskBase } from '@/types/tasks';
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
-  const body = await request.json();
   const socketId = request.headers.get('x-socket-id') || undefined;
+  const body = await request.json();
 
   return handleRequest<TaskBase & RecaptchaToken>(
     '/tasks/create',
     'post',
     body,
-    {
-      headers: {
-        'x-socket-id': socketId,
-      },
-    },
+    { headers: { 'x-socket-id': socketId } },
   );
 };

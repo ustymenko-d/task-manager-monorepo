@@ -5,13 +5,11 @@ import { FolderName } from '@/types/folders';
 import { RecaptchaToken } from '@/types/common';
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
-  const body = await request.json();
   const socketId = request.headers.get('x-socket-id') || undefined;
+  const body = await request.json();
 
   return handleRequest<FolderName & RecaptchaToken>('/folders', 'post', body, {
-    headers: {
-      'x-socket-id': socketId,
-    },
+    headers: { 'x-socket-id': socketId },
   });
 };
 
@@ -21,29 +19,23 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
 };
 
 export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
-  const body = await request.json();
   const socketId = request.headers.get('x-socket-id') || undefined;
+  const body = await request.json();
 
   return handleRequest('/folders', 'patch', body, {
-    headers: {
-      'x-socket-id': socketId,
-    },
+    headers: { 'x-socket-id': socketId },
   });
 };
 
 export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
+  const socketId = request.headers.get('x-socket-id') || undefined;
   const body = await request.json();
   const { id } = body;
-  const socketId = request.headers.get('x-socket-id') || undefined;
 
   return handleRequest(
     '/folders',
     'delete',
     { id },
-    {
-      headers: {
-        'x-socket-id': socketId,
-      },
-    },
+    { headers: { 'x-socket-id': socketId } },
   );
 };

@@ -4,13 +4,11 @@ import { handleRequest } from '@/api/Axios';
 import { Task } from '@repo/shared/types';
 
 export const PUT = async (request: NextRequest): Promise<NextResponse> => {
-  const body = await request.json();
   const socketId = request.headers.get('x-socket-id') || undefined;
+  const body = await request.json();
 
   return handleRequest<Task>('/tasks', 'put', body, {
-    headers: {
-      'x-socket-id': socketId,
-    },
+    headers: { 'x-socket-id': socketId },
   });
 };
 
@@ -21,10 +19,8 @@ export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
 
   if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
 
-  return handleRequest(`/tasks/${id}`, 'patch', undefined, {
-    headers: {
-      'x-socket-id': socketId,
-    },
+  return handleRequest('/tasks', 'patch', undefined, {
+    headers: { 'x-socket-id': socketId },
   });
 };
 
@@ -35,9 +31,7 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
 
   if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
 
-  return handleRequest(`/tasks/${id}`, 'delete', undefined, {
-    headers: {
-      'x-socket-id': socketId,
-    },
+  return handleRequest('/tasks', 'delete', undefined, {
+    headers: { 'x-socket-id': socketId },
   });
 };
