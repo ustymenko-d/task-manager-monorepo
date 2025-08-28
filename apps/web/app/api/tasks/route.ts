@@ -19,7 +19,7 @@ export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
 
   if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
 
-  return handleRequest('/tasks', 'patch', undefined, {
+  return handleRequest('/tasks', 'patch', body, {
     headers: { 'x-socket-id': socketId },
   });
 };
@@ -31,7 +31,7 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
 
   if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
 
-  return handleRequest('/tasks', 'delete', undefined, {
+  return handleRequest('/tasks', 'delete', body, {
     headers: { 'x-socket-id': socketId },
   });
 };
