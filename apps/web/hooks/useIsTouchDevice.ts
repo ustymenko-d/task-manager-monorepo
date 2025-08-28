@@ -3,10 +3,7 @@
 import { useEffect, useState } from 'react';
 
 const useIsTouchDevice = () => {
-  const [isTouchDevice, setIsTouchDevice] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(pointer: coarse)').matches;
-  });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(pointer: coarse)');

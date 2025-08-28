@@ -1,3 +1,5 @@
+'use client';
+
 import isEqual from 'lodash.isequal';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';

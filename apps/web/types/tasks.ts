@@ -8,4 +8,5 @@ export type TaskAction = 'create' | 'edit' | 'changeStatus' | 'delete';
 export type TaskBase = z.infer<typeof TasksValidation.taskBase>;
 export type TaskPayload = z.infer<typeof TasksValidation.task>;
 export type GetTasksRequest = z.infer<typeof TasksValidation.getTasksRequest>;
+
 export type TasksInfiniteData = InfiniteData<GetTasksResponse>;
