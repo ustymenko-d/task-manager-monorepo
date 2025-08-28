@@ -13,3 +13,31 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
     },
   });
 };
+
+export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
+  const socketId = request.headers.get('x-socket-id') || undefined;
+  const body = await request.json();
+  const { id } = body;
+
+  if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+
+  return handleRequest(`/tasks/${id}`, 'patch', undefined, {
+    headers: {
+      'x-socket-id': socketId,
+    },
+  });
+};
+
+export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
+  const socketId = request.headers.get('x-socket-id') || undefined;
+  const body = await request.json();
+  const { id } = body;
+
+  if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+
+  return handleRequest(`/tasks/${id}`, 'delete', undefined, {
+    headers: {
+      'x-socket-id': socketId,
+    },
+  });
+};
