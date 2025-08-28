@@ -5,7 +5,6 @@ import {
   Get,
   Headers,
   Logger,
-  Param,
   Patch,
   Post,
   Query,
@@ -75,39 +74,34 @@ export class FoldersController {
     );
   }
 
-  @Patch(':folderId')
+  @Patch()
   @UseGuards(AuthGuard('jwt'), FolderOwner)
   async rename(
-    @Param() { folderId }: FolderIdDto,
-    @Body() { name }: FolderNameDto,
+    @Body() { id, name }: FolderNameDto & FolderIdDto,
     @Headers('x-socket-id') socketId?: string,
   ): Promise<FolderResponse> {
     return handleRequest(
       async () => ({
         success: true,
         message: 'Folder renamed successfully.',
-        folder: await this.foldersService.renameFolder(
-          folderId,
-          name,
-          socketId,
-        ),
+        folder: await this.foldersService.renameFolder(id, name, socketId),
       }),
       'Eror while renaminging folder.',
       this.logger,
     );
   }
 
-  @Delete(':folderId')
+  @Delete()
   @UseGuards(AuthGuard('jwt'), FolderOwner)
   async delete(
-    @Param() { folderId }: FolderIdDto,
+    @Body() { id }: FolderIdDto,
     @Headers('x-socket-id') socketId?: string,
   ): Promise<FolderResponse> {
     return handleRequest(
       async () => ({
         success: true,
         message: 'Folder deleted successfully.',
-        folder: await this.foldersService.deleteFolder(folderId, socketId),
+        folder: await this.foldersService.deleteFolder(id, socketId),
       }),
       'Eror while deleting folder.',
       this.logger,

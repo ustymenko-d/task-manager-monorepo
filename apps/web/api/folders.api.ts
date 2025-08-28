@@ -1,7 +1,7 @@
 import { RecaptchaToken } from '@/types/common';
 import { ApiAxios, handleApiRequest } from './Axios';
 import { FolderName, GetFoldersRequest } from '@/types/folders';
-import { FolderResponse, GetFoldersResponse } from '@repo/shared/types';
+import { Folder, FolderResponse, GetFoldersResponse } from '@repo/shared/types';
 
 const FOLDERS_API_URL = '/folders';
 
@@ -24,14 +24,14 @@ const FoldersAPI = {
     );
   },
 
-  renameFolder: (id: string, payload: FolderName) =>
+  renameFolder: (payload: Pick<Folder, 'id' | 'name'>) =>
     handleApiRequest<FolderResponse>(() =>
-      ApiAxios.patch(`${FOLDERS_API_URL}/${id}`, payload),
+      ApiAxios.patch(`${FOLDERS_API_URL}`, payload),
     ),
 
-  deleteFolder: (id: string) =>
+  deleteFolder: (payload: Pick<Folder, 'id'>) =>
     handleApiRequest<FolderResponse>(() =>
-      ApiAxios.delete(`${FOLDERS_API_URL}/${id}`),
+      ApiAxios.delete(`${FOLDERS_API_URL}`, { data: payload }),
     ),
 };
 

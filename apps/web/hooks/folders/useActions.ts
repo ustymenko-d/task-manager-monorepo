@@ -26,11 +26,14 @@ const useActions = (action: FoldersAction, folder?: Folder) => {
 
       case 'rename':
         if (!folder) throw new Error('`folder` is required to rename');
-        return FoldersAPI.renameFolder(folder?.id, payload as FolderName);
+        return FoldersAPI.renameFolder({
+          ...(payload as FolderName),
+          id: folder?.id,
+        });
 
       case 'delete':
         if (!folder) throw new Error('`folder` is required to delete');
-        return FoldersAPI.deleteFolder(folder?.id);
+        return FoldersAPI.deleteFolder({ id: folder?.id });
 
       default:
         throw new Error('Unknown action');
