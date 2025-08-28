@@ -4,7 +4,6 @@ import {
   Delete,
   Headers,
   Logger,
-  Param,
   Patch,
   Post,
   Put,
@@ -95,34 +94,34 @@ export class TasksController {
     );
   }
 
-  @Patch(':taskId')
+  @Patch()
   @UseGuards(AuthGuard('jwt'), TaskOwner)
   async toggleStatus(
-    @Param() { taskId }: TaskIdDto,
+    @Body() { id }: TaskIdDto,
     @Headers('x-socket-id') socketId?: string,
   ): Promise<TaskResponse> {
     return handleRequest(
       async () => ({
         success: true,
         message: 'Task status changed successfully.',
-        task: await this.tasksService.toggleStatus(taskId, socketId),
+        task: await this.tasksService.toggleStatus(id, socketId),
       }),
-      `Error while changing task status (ID: ${taskId}).`,
+      `Error while changing task status (ID: ${id}).`,
       this.logger,
     );
   }
 
-  @Delete(':taskId')
+  @Delete()
   @UseGuards(AuthGuard('jwt'), TaskOwner)
   async delete(
-    @Param() { taskId }: TaskIdDto,
+    @Body() { id }: TaskIdDto,
     @Headers('x-socket-id') socketId?: string,
   ): Promise<TaskResponse> {
     return handleRequest(
       async () => ({
         success: true,
         message: 'Task deleted successfully.',
-        task: await this.tasksService.deleteTask(taskId, socketId),
+        task: await this.tasksService.deleteTask(id, socketId),
       }),
       'Error while deleting a task.',
       this.logger,

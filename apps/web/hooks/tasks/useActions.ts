@@ -32,9 +32,9 @@ const useActions = (action: TaskAction, task?: Task) => {
       case 'edit':
         return TasksAPI.editTask(payload as TaskPayload);
       case 'changeStatus':
-        return TasksAPI.toggleStatus(task?.id ?? '');
+        return TasksAPI.toggleStatus({ id: task?.id ?? '' });
       case 'delete':
-        return TasksAPI.deleteTask(task?.id ?? '');
+        return TasksAPI.deleteTask({ id: task?.id ?? '' });
       default:
         throw new Error('Unknown action');
     }
