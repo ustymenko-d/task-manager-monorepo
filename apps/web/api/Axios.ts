@@ -15,7 +15,7 @@ import AuthAPI from './auth.api';
 const baseConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000',
   withCredentials: true,
-  timeout: 60000,
+  timeout: 60000 * 2,
 };
 
 export const Axios: AxiosInstance = axios.create(baseConfig);
