@@ -9,6 +9,9 @@
       "@repo/shared/*": [
         "../../packages/shared/src/*"
       ],
+      "@repo/jest-config": [
+        "../../packages/jest-config/src"
+      ]
     },
     "plugins": [
       {
