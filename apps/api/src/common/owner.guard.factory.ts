@@ -8,7 +8,7 @@ import {
   Type,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { Prisma } from '@prisma/client';
 
 type WhereUniqueInput<T extends keyof PrismaService> = T extends 'folder'

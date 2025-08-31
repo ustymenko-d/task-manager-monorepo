@@ -1,4 +1,5 @@
 import { JwtUser, User } from '@repo/shared/types';
+import { createMockMethods } from 'test/utils/createMockMethods';
 
 export const jwtUserMock: JwtUser = {
   userId: 'user-id',
@@ -17,3 +18,17 @@ export const userMock: User = {
   tokenVersion: 1,
   verificationToken: null,
 };
+
+export const mockAuthService = () =>
+  createMockMethods([
+    'signup',
+    'resendVerificationEmail',
+    'verifyEmail',
+    'login',
+    'getAccountInfo',
+    'logout',
+    'deleteUser',
+    'findUserBy',
+  ] as const);
+
+export type AuthServiceMock = ReturnType<typeof mockAuthService>;

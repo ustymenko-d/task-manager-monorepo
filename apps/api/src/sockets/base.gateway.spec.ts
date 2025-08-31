@@ -72,9 +72,7 @@ describe('BaseGateway', () => {
       const cb = mockServer.engine.on.mock.calls[0][1];
       cb(headers);
 
-      expect(headers['Access-Control-Allow-Origin']).toBe(
-        'https://web.test',
-      );
+      expect(headers['Access-Control-Allow-Origin']).toBe('https://web.test');
       expect(headers['Access-Control-Allow-Credentials']).toBe('true');
     });
   });

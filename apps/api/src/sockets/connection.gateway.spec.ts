@@ -2,7 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ConnectionGateway } from './connection.gateway';
 import { ConfigService } from '@nestjs/config';
 import { Server } from 'socket.io';
-import { createMockConfigService, createMockSocketServer } from 'test/mocks/sockets';
+import {
+  createMockConfigService,
+  createMockSocketServer,
+} from 'test/mocks/sockets';
 
 describe('ConnectionGateway', () => {
   let gateway: ConnectionGateway;

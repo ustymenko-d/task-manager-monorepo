@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import { configServiceMock } from 'test/mocks/common';
 import { mockPrisma } from 'test/mocks/prisma';
-import { Request } from 'express';
+import type { Request } from 'express';
 
 jest.mock('jsonwebtoken', () => ({
   ...jest.requireActual('jsonwebtoken'),
