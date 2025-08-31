@@ -13,6 +13,4 @@ const config = {
   moduleFileExtensions: [...baseConfig.moduleFileExtensions, 'jsx', 'tsx'],
 } as const satisfies Config;
 
-const nextConfig = createJestConfig(config);
-
-export default nextConfig;
+export const nextConfig = createJestConfig(config);

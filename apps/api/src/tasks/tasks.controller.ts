@@ -17,17 +17,13 @@ import { handleRequest } from 'src/common/utils/requestHandler';
 import { TaskOwner } from './tasks.guard';
 import { RecaptchaGuard } from 'src/common/recaptcha.guard';
 import { StripRecaptchaInterceptor } from 'src/common/strip-recaptcha.interceptor';
-import {
-  GetTasksResponse,
-  JwtUser,
-  TaskResponse,
-} from '@repo/shared/types/index';
+import { GetTasksResponse, JwtUser, TaskResponse } from '@repo/shared/types';
 import {
   CreateTaskDto,
   GetTasksRequestDto,
   TaskDto,
   TaskIdDto,
-} from '@repo/api/dto/index';
+} from '@repo/api/dto';
 
 @Controller('tasks')
 export class TasksController {

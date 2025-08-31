@@ -6,11 +6,11 @@ import {
   Res,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { TokensService } from './tokens.service';
 import { CookiesService } from '../cookies/cookies.service';
 import { handleRequest } from 'src/common/utils/requestHandler';
-import { AuthCookies, ResponseStatus } from '@repo/shared/types/index';
+import { AuthCookies, ResponseStatus } from '@repo/shared/types';
 
 @Controller('auth/tokens')
 export class TokensController {

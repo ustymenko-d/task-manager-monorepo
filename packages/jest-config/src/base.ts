@@ -6,4 +6,5 @@ export const config = {
   coverageProvider: 'v8',
   moduleFileExtensions: ['js', 'ts', 'json'],
   testEnvironment: 'jsdom',
+  clearMocks: true,
 } as const satisfies Config;

@@ -11,7 +11,7 @@ import {
   Logger,
   UseInterceptors,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CookiesService } from './cookies/cookies.service';
@@ -23,8 +23,8 @@ import {
   JwtUser,
   ResponseStatus,
   UserInfo,
-} from '@repo/shared/types/index';
-import { CredentialsDto } from '@repo/api/dto/index';
+} from '@repo/shared/types';
+import { CredentialsDto } from '@repo/api/dto';
 
 @Controller('auth')
 export class AuthController {
