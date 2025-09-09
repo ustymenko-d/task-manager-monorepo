@@ -13,12 +13,12 @@ const suggestionConfig: Record<
   AuthForm,
   { text: string; linkText: string; newType: AuthForm }
 > = {
-  signin: signupSuggestion,
+  login: signupSuggestion,
   forgotPassword: signupSuggestion,
   signup: {
     text: 'Already have an account?',
     linkText: 'Sign in',
-    newType: 'signin' as AuthForm,
+    newType: 'login' as AuthForm,
   },
 } as const;
 

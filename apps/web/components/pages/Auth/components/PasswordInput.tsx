@@ -41,7 +41,7 @@ const PasswordInput = ({
         <div className="grid gap-2">
           <div className="flex items-center">
             <FormLabel>Password</FormLabel>
-            {authFormType === 'signin' && (
+            {authFormType === 'login' && (
               <Button
                 type="button"
                 onClick={handleForgotPassword}

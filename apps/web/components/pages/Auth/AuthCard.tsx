@@ -12,7 +12,7 @@ import useAppStore from '@/store/store';
 import AuthForm from './AuthForm';
 
 const cardConfig = {
-  signin: {
+  login: {
     title: 'Welcome back',
     description:
       'Please enter your email and password to sign in to your account.',

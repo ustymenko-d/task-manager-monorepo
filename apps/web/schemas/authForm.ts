@@ -30,7 +30,7 @@ const email = z.object({
   email: emailBase,
 });
 
-const signin = z.object({
+const login = z.object({
   email: emailBase,
   password: passwordBase,
   rememberMe: z.boolean(),
@@ -61,7 +61,7 @@ const resetPassword = z
 const AuthValidation = {
   email,
   password,
-  signin,
+  login,
   signup,
   resetPassword,
 };

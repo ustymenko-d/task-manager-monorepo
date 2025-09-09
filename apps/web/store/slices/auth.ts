@@ -16,7 +16,7 @@ const createAuthSlice = (
   isAuthorized: false,
   setIsAuthorized: (isAuthorized) => set({ isAuthorized }),
 
-  authFormType: 'signin',
+  authFormType: 'login',
   setAuthFormType: (authFormType) => set({ authFormType }),
 });
 

@@ -79,7 +79,7 @@ const AuthForm = () => {
         );
       } else {
         const { email, password, rememberMe } = values as z.infer<
-          typeof formConfig.signin.validationSchema
+          typeof formConfig.login.validationSchema
         >;
         await handleAuth(
           await withRecaptcha<Credentials>({ email, password, rememberMe }),

@@ -31,10 +31,10 @@ export const navItems: NavItem[] = [
 ] as const;
 
 export const formConfig = {
-  signin: {
+  login: {
     fields: ['email', 'password', 'rememberMe'],
     buttonText: 'Sign in',
-    validationSchema: AuthValidation.signin,
+    validationSchema: AuthValidation.login,
     defaultValues: {
       email: '',
       password: '',
