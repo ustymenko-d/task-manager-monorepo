@@ -81,7 +81,19 @@ export class FoldersService {
     return deleted;
   }
 
-  // --- Helper methods ---
+  async validateFolderOwnership(id: string, userId: string) {
+    const folder = await this.prisma.folder.findUnique({
+      where: { id },
+      select: { userId: true },
+    });
+
+    if (!folder) throw new NotFoundException(`Folder (ID: ${id}) not found.`);
+
+    if (folder.userId !== userId)
+      throw new ForbiddenException(
+        `User (ID: ${userId}) doesn't own this folder.`,
+      );
+  }
 
   private async checkFolderCreationLimit(userId: string): Promise<void> {
     const { isVerified } = await this.prisma.user.findUnique({

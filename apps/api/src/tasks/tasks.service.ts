@@ -7,6 +7,8 @@ import {
 import { Prisma } from '@prisma/client';
 import type { TaskDto } from '@repo/api/dto';
 import { GetTasksRequest, GetTasksResponse, Task } from '@repo/shared/types';
+import { AuthService } from 'src/auth/auth.service';
+import { FoldersService } from 'src/folders/folders.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TasksGateway } from 'src/sockets/tasks.gateway';
 
@@ -18,7 +20,9 @@ export class TasksService {
 
   constructor(
     private prisma: PrismaService,
-    private tasksGateway: TasksGateway,
+    private gateway: TasksGateway,
+    private folders: FoldersService,
+    private auth: AuthService,
   ) {}
 
   async createTask(
@@ -39,10 +43,10 @@ export class TasksService {
       await this.validateSubtasksCount(parentTaskId);
     }
 
-    if (folderId) await this.validateFolderOwnership(folderId, userId);
+    if (folderId) await this.folders.validateFolderOwnership(folderId, userId);
 
     const task = await this.prisma.task.create({ data: payload });
-    this.tasksGateway.emitTaskCreated(task, socketId);
+    this.gateway.emitTaskCreated(task, socketId);
     return task;
   }
 
@@ -96,13 +100,13 @@ export class TasksService {
         );
     }
 
-    if (folderId) await this.validateFolderOwnership(folderId, userId);
+    if (folderId) await this.folders.validateFolderOwnership(folderId, userId);
 
     const updated = await this.prisma.task.update({
       where: { id },
       data: { ...payload },
     });
-    this.tasksGateway.emitTaskUpdated(updated, socketId);
+    this.gateway.emitTaskUpdated(updated, socketId);
     return updated;
   }
 
@@ -116,22 +120,20 @@ export class TasksService {
       where: { id },
       data: { completed: !task.completed },
     });
-    this.tasksGateway.emitTaskToggleStatus(updated, socketId);
+    this.gateway.emitTaskToggleStatus(updated, socketId);
     return updated;
   }
 
   async deleteTask(id: string, socketId: string): Promise<Task> {
     const deleted = await this.prisma.task.delete({ where: { id } });
-    this.tasksGateway.emitTaskDeleted(deleted, socketId);
+    this.gateway.emitTaskDeleted(deleted, socketId);
     return deleted;
   }
 
-  // --- Helper methods ---
-
   private async validateTaskCreation(userId: string) {
     if (
-      !(await this.isUserVerified(userId)) &&
-      (await this.getUserTaskCount(userId)) >= this.MAX_UNVERIFIED_TASKS
+      !(await this.auth.isUserVerified(userId)) &&
+      (await this.getUserTasksCount(userId)) >= this.MAX_UNVERIFIED_TASKS
     ) {
       throw new ForbiddenException(
         `Unverified users cannot create more than ${this.MAX_UNVERIFIED_TASKS} tasks.`,
@@ -139,15 +141,7 @@ export class TasksService {
     }
   }
 
-  private async isUserVerified(id: string): Promise<boolean> {
-    const { isVerified } = await this.prisma.user.findUnique({
-      where: { id },
-      select: { isVerified: true },
-    });
-    return isVerified;
-  }
-
-  private async getUserTaskCount(userId: string): Promise<number> {
+  private async getUserTasksCount(userId: string): Promise<number> {
     return await this.prisma.task.count({
       where: { userId },
     });
@@ -260,19 +254,5 @@ export class TasksService {
         },
       },
     );
-  }
-
-  private async validateFolderOwnership(id: string, userId: string) {
-    const folder = await this.prisma.folder.findUnique({
-      where: { id },
-      select: { userId: true },
-    });
-
-    if (!folder) throw new NotFoundException(`Folder (ID: ${id}) not found.`);
-
-    if (folder.userId !== userId)
-      throw new ForbiddenException(
-        `User (ID: ${userId}) doesn't own this folder.`,
-      );
   }
 }

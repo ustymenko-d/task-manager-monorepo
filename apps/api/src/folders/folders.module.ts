@@ -9,5 +9,6 @@ import { JwtStrategy } from 'src/common/jwt.strategy';
   imports: [PrismaModule, SocketsModule],
   controllers: [FoldersController],
   providers: [FoldersService, JwtStrategy],
+  exports: [FoldersService],
 })
 export class FoldersModule {}

@@ -119,7 +119,14 @@ export class AuthService {
     await this.prisma.user.delete({ where: { id } });
   }
 
-  // --- Helper methods ---
+  async isUserVerified(id: string): Promise<boolean> {
+    const { isVerified } = await this.prisma.user.findUnique({
+      where: { id },
+      select: { isVerified: true },
+    });
+
+    return isVerified;
+  }
 
   private async createUser(
     email: string,
