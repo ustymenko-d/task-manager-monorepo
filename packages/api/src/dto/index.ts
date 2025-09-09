@@ -1,6 +1,7 @@
 export * from './common';
 
 // Auth
+export * from './auth/google-auth';
 export * from './auth/credentials-data';
 export * from './auth/email';
 export * from './auth/password';

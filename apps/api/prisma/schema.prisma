@@ -12,7 +12,7 @@ model User {
   id                String         @id @default(uuid())
   username          String
   email             String         @unique
-  password          String
+  password          String?
   tokenVersion      Int            @default(1)
   createdAt         DateTime       @default(now())
   isVerified        Boolean        @default(false)
@@ -20,6 +20,17 @@ model User {
   folders           Folder[]       @relation("UserFolders")
   refreshTokens     RefreshToken[] @relation("UserRefreshTokens")
   tasks             Task[]         @relation("UserTasks")
+  accounts          OAuthAccount[] @relation("UserAccounts")
+}
+
+model OAuthAccount {
+  id         String @id @default(uuid())
+  provider   String
+  providerId String
+  userId     String
+  user       User   @relation("UserAccounts", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerId])
 }
 
 model RefreshToken {

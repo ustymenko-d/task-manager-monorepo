@@ -128,6 +128,28 @@ export class AuthService {
     return isVerified;
   }
 
+  async findUserBy(query: UserByQuery): Promise<User> {
+    const user = await this.prisma.user.findUnique({ where: query });
+    if (!user) throw new NotFoundException('User not found.');
+    return user;
+  }
+
+  async createUserInfo({
+    id,
+    email,
+    username,
+    createdAt,
+    isVerified,
+  }: User): Promise<UserInfo> {
+    return {
+      id,
+      email,
+      username,
+      createdAt,
+      isVerified,
+    };
+  }
+
   private async createUser(
     email: string,
     hashedPassword: string,
@@ -152,27 +174,5 @@ export class AuthService {
       }
       throw new InternalServerErrorException('Failed to create user.');
     }
-  }
-
-  async findUserBy(query: UserByQuery): Promise<User> {
-    const user = await this.prisma.user.findUnique({ where: query });
-    if (!user) throw new NotFoundException('User not found.');
-    return user;
-  }
-
-  private async createUserInfo({
-    id,
-    email,
-    username,
-    createdAt,
-    isVerified,
-  }: User): Promise<UserInfo> {
-    return {
-      id,
-      email,
-      username,
-      createdAt,
-      isVerified,
-    };
   }
 }

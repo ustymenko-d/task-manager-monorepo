@@ -64,9 +64,10 @@ export const formConfig = {
 
 export const TASK_FETCH_LIMIT: number = 25 as const;
 
-export const PUBLIC_PATHS_REQUIRING_TOKENS: Record<string, string> = {
+export const PUBLIC_PATHS_REQUIRING_PARAMS: Record<string, string> = {
   '/auth/reset-password': 'resetToken',
   '/verification': 'verificationToken',
+  '/auth/google': 'code',
 } as const;
 
 export const MOCK_TASK: Task = {
