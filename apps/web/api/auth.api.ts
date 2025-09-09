@@ -1,4 +1,9 @@
-import { AuthResponse, ResponseStatus, UserInfo } from '@repo/shared/types';
+import {
+  AuthResponse,
+  GoogleAuthCode,
+  ResponseStatus,
+  UserInfo,
+} from '@repo/shared/types';
 import { ApiAxios, handleApiRequest } from './Axios';
 import { RecaptchaToken } from '@/types/common';
 import { Credentials, Email, Password } from '@/types/auth';
@@ -6,6 +11,11 @@ import { Credentials, Email, Password } from '@/types/auth';
 const AUTH_API_URL = '/auth';
 
 const AuthAPI = {
+  googleAuth: (payload: GoogleAuthCode) =>
+    handleApiRequest<AuthResponse>(() =>
+      ApiAxios.post(`${AUTH_API_URL}/google/verification`, payload),
+    ),
+
   signup: (payload: Credentials) =>
     handleApiRequest<AuthResponse>(() =>
       ApiAxios.post(`${AUTH_API_URL}/signup`, payload),

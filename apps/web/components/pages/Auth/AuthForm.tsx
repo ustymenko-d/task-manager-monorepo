@@ -8,7 +8,6 @@ import { queryClient } from '@/components/providers/Query.provider';
 import { Form, FormField } from '@/components/ui/form';
 import { useWithRecaptcha } from '@/hooks/useWithRecaptcha';
 import { Credentials, Email } from '@/types/auth';
-import AuthFormSuggestion from './components/AuthFormSuggestion';
 import LoadingButton from '@/components/LoadingButton';
 import { FormValues, useAuthFormType } from '@/hooks/useAuthFormType';
 import useAppStore from '@/store/store';
@@ -79,7 +78,7 @@ const AuthForm = () => {
         );
       } else {
         const { email, password, rememberMe } = values as z.infer<
-          typeof formConfig.signin.validationSchema
+          typeof formConfig.login.validationSchema
         >;
         await handleAuth(
           await withRecaptcha<Credentials>({ email, password, rememberMe }),
@@ -142,7 +141,6 @@ const AuthForm = () => {
         >
           {config.buttonText}
         </LoadingButton>
-        <AuthFormSuggestion />
       </form>
     </Form>
   );

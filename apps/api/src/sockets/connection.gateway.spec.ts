@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConnectionGateway } from './connection.gateway';
 import { ConfigService } from '@nestjs/config';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import {
   createMockConfigService,
   createMockSocketServer,
@@ -33,7 +33,7 @@ describe('ConnectionGateway', () => {
   });
 
   describe('onModuleInit', () => {
-    it('should register initial_headers listener and set CORS headers', () => {
+    it('register initial_headers listener and set CORS headers', () => {
       const mockEngine = { on: jest.fn((event, cb) => cb({})) };
 
       gateway.server = { engine: mockEngine } as unknown as Server;
@@ -48,7 +48,7 @@ describe('ConnectionGateway', () => {
   });
 
   describe('afterInit', () => {
-    it('should log WebSocket server initialized', () => {
+    it('log WebSocket server initialized', () => {
       const logSpy = jest.spyOn(console, 'log').mockImplementation();
       gateway.afterInit();
       expect(logSpy).toHaveBeenCalledWith('WebSocket server initialized.');
@@ -57,22 +57,27 @@ describe('ConnectionGateway', () => {
   });
 
   describe('handleConnection', () => {
-    it('should log client connection', () => {
-      const clientMock = { id: '123' } as any;
-      const logSpy = jest.spyOn(console, 'log').mockImplementation();
-      gateway.handleConnection(clientMock);
-      expect(logSpy).toHaveBeenCalledWith('Client connected: 123');
+    const clientMock = { id: '123' } as unknown as Socket;
+    let logSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      logSpy = jest.spyOn(console, 'log').mockImplementation();
+    });
+
+    afterEach(() => {
       logSpy.mockRestore();
     });
-  });
 
-  describe('handleDisconnect', () => {
-    it('should log client disconnection', () => {
-      const clientMock = { id: '123' } as any;
-      const logSpy = jest.spyOn(console, 'log').mockImplementation();
+    it('log client connection', () => {
+      gateway.handleConnection(clientMock);
+      expect(logSpy).toHaveBeenCalledWith(`Client connected: ${clientMock.id}`);
+    });
+
+    it('log client disconnection', () => {
       gateway.handleDisconnect(clientMock);
-      expect(logSpy).toHaveBeenCalledWith('Client disconnected: 123');
-      logSpy.mockRestore();
+      expect(logSpy).toHaveBeenCalledWith(
+        `Client disconnected: ${clientMock.id}`,
+      );
     });
   });
 });

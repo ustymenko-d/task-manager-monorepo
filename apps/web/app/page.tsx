@@ -16,7 +16,7 @@ const RootPage = () => (
       </p>
 
       <div className="grid grid-cols-2 gap-4 mx-auto w-fit">
-        <AuthLink type="signin" />
+        <AuthLink type="login" />
         <AuthLink type="signup" />
       </div>
     </div>

@@ -7,6 +7,10 @@ import { TasksGateway } from 'src/sockets/tasks.gateway';
 import { mockTask, mockTasksGateway, TasksGatewayMock } from 'test/mocks/tasks';
 import { mockPrisma } from 'test/mocks/prisma';
 import { GetTasksRequest } from '@repo/shared/types';
+import { FoldersService } from 'src/folders/folders.service';
+import { AuthService } from 'src/auth/auth.service';
+import { mockAuthService } from 'test/mocks/auth';
+import { mockFoldersService } from 'test/mocks/folders';
 
 describe('TasksService', () => {
   let service: TasksService;
@@ -23,6 +27,8 @@ describe('TasksService', () => {
         TasksService,
         { provide: PrismaService, useValue: mockPrisma },
         { provide: TasksGateway, useValue: gatewayMock },
+        { provide: FoldersService, useFactory: mockFoldersService },
+        { provide: AuthService, useFactory: mockAuthService },
       ],
     }).compile();
 

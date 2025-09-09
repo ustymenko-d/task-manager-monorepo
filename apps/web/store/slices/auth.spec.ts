@@ -14,8 +14,8 @@ describe('AuthSlice', () => {
     expect(authSlice.isAuthorized).toBe(false);
   });
 
-  it('initializes authFormType as "signin"', () => {
-    expect(authSlice.authFormType).toBe('signin');
+  it('initializes authFormType as "login"', () => {
+    expect(authSlice.authFormType).toBe('login');
   });
 
   describe('setIsAuthorized', () => {
@@ -29,7 +29,7 @@ describe('AuthSlice', () => {
   });
 
   describe('setAuthFormType', () => {
-    const formTypes: AuthForm[] = ['signin', 'signup', 'forgotPassword'];
+    const formTypes: AuthForm[] = ['login', 'signup', 'forgotPassword'];
 
     test.each(formTypes)('sets authFormType to %s', (newType) => {
       authSlice.setAuthFormType(newType);

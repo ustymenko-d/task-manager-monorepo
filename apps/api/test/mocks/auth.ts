@@ -29,6 +29,7 @@ export const mockAuthService = () =>
     'logout',
     'deleteUser',
     'findUserBy',
+    'isUserVerified',
   ] as const);
 
 export type AuthServiceMock = ReturnType<typeof mockAuthService>;

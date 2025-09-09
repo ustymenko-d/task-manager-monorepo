@@ -31,3 +31,5 @@ export type UserByQuery =
   | { id: string; tokenVersion?: number }
   | { email: string }
   | { verificationToken: string };
+
+export type GoogleAuthCode = { code: string };

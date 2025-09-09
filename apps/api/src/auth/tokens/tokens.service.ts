@@ -48,8 +48,6 @@ export class TokensService {
     return { accessToken: newAccessToken, refreshToken: newRefreshToken };
   }
 
-  // --- Helper methods ---
-
   createAccessToken(user: User, sessionId: string): string {
     const { email, id: sub, tokenVersion } = user;
     const payload = {

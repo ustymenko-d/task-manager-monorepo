@@ -15,8 +15,8 @@ export interface FormConfig {
   };
 }
 
-export type AuthForm = 'signin' | 'signup' | 'forgotPassword';
+export type AuthForm = 'login' | 'signup' | 'forgotPassword';
 
 export type Email = z.infer<typeof AuthValidation.email>;
 export type Password = z.infer<typeof AuthValidation.password>;
-export type Credentials = z.infer<typeof AuthValidation.signin>;
+export type Credentials = z.infer<typeof AuthValidation.login>;

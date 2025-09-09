@@ -14,6 +14,7 @@ export const mockFoldersService = () =>
     'getFolders',
     'renameFolder',
     'deleteFolder',
+    'validateFolderOwnership',
   ] as const);
 
 export type FoldersServiceMock = ReturnType<typeof mockFoldersService>;

@@ -78,7 +78,10 @@ export class AuthService {
     if (!verificationToken)
       throw new NotFoundException('Verification token not found.');
 
-    await this.mailService.sendVerificationEmail(email, verificationToken);
+    await this.mailService.sendVerificationEmail(
+      email,
+      verificationToken as string,
+    );
   }
 
   async login(email: string, password: string): Promise<AuthData> {
@@ -116,7 +119,36 @@ export class AuthService {
     await this.prisma.user.delete({ where: { id } });
   }
 
-  // --- Helper methods ---
+  async isUserVerified(id: string): Promise<boolean> {
+    const { isVerified } = await this.prisma.user.findUnique({
+      where: { id },
+      select: { isVerified: true },
+    });
+
+    return isVerified;
+  }
+
+  async findUserBy(query: UserByQuery): Promise<User> {
+    const user = await this.prisma.user.findUnique({ where: query });
+    if (!user) throw new NotFoundException('User not found.');
+    return user;
+  }
+
+  async createUserInfo({
+    id,
+    email,
+    username,
+    createdAt,
+    isVerified,
+  }: User): Promise<UserInfo> {
+    return {
+      id,
+      email,
+      username,
+      createdAt,
+      isVerified,
+    };
+  }
 
   private async createUser(
     email: string,
@@ -142,27 +174,5 @@ export class AuthService {
       }
       throw new InternalServerErrorException('Failed to create user.');
     }
-  }
-
-  async findUserBy(query: UserByQuery): Promise<User> {
-    const user = await this.prisma.user.findUnique({ where: query });
-    if (!user) throw new NotFoundException('User not found.');
-    return user;
-  }
-
-  private async createUserInfo({
-    id,
-    email,
-    username,
-    createdAt,
-    isVerified,
-  }: User): Promise<UserInfo> {
-    return {
-      id,
-      email,
-      username,
-      createdAt,
-      isVerified,
-    };
   }
 }

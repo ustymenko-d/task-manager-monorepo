@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { PUBLIC_PATHS_REQUIRING_TOKENS } from './const';
 import isStartPage from './utils/isStartPage';
 import { getTokens, verifyToken } from './utils/tokens';
+import { PUBLIC_PATHS_REQUIRING_PARAMS } from './const';
 
 export const config = {
   matcher: [
@@ -26,9 +26,9 @@ export const middleware = async (request: NextRequest) => {
 
   const isAuthorized = isAccessValid || (accessToken && refreshToken);
 
-  const tokenParam = PUBLIC_PATHS_REQUIRING_TOKENS[pathname];
-  if (tokenParam) {
-    return searchParams.has(tokenParam)
+  const requiredParams = PUBLIC_PATHS_REQUIRING_PARAMS[pathname];
+  if (requiredParams) {
+    return searchParams.has(requiredParams)
       ? NextResponse.next()
       : redirectTo('/', request);
   }
