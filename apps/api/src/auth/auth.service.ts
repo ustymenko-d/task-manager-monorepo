@@ -78,7 +78,10 @@ export class AuthService {
     if (!verificationToken)
       throw new NotFoundException('Verification token not found.');
 
-    await this.mailService.sendVerificationEmail(email, verificationToken);
+    await this.mailService.sendVerificationEmail(
+      email,
+      verificationToken as string,
+    );
   }
 
   async login(email: string, password: string): Promise<AuthData> {
