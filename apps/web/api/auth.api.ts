@@ -1,6 +1,6 @@
 import {
 	AuthResponse,
-	GoogleAuthCode,
+	GoogleAuthPayload,
 	ResponseStatus,
 	UserInfo,
 } from '@repo/shared/types';
@@ -11,7 +11,7 @@ import { Credentials, Email, Password } from '@/types/auth';
 const AUTH_API_URL = '/auth';
 
 const AuthAPI = {
-	googleAuth: (payload: GoogleAuthCode) =>
+	googleAuth: (payload: GoogleAuthPayload) =>
 		handleApiRequest<AuthResponse>(() =>
 			ApiAxios.post(`${AUTH_API_URL}/google/verification`, payload)
 		),

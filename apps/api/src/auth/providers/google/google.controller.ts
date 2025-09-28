@@ -20,12 +20,19 @@ export class GoogleController {
 		@Body() body: GoogleAuthDto,
 		@Res({ passthrough: true }) res: Response
 	): Promise<AuthResponse> {
+		this.logger.log('Google auth verification called', body);
+
 		return handleRequest(
 			async () => {
 				const { accessToken, refreshToken, userInfo } =
 					await this.googleService.googleAuth(body.code);
 
-				this.cookiesService.setAuthCookies(res, accessToken, refreshToken);
+				this.cookiesService.setAuthCookies(
+					res,
+					accessToken,
+					refreshToken,
+					body.rememberMe
+				);
 
 				return {
 					success: true,

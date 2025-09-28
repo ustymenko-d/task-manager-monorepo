@@ -1,6 +1,7 @@
 'use client';
 
 import AuthAPI from '@/api/auth.api';
+import { useRememberMeStore } from '@/store/rememberMeStore';
 import { ResponseState } from '@/types/common';
 import { Loader2 } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -11,6 +12,10 @@ const GoogleAuthClient = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const code = searchParams.get('code');
+
+	const rememberMe = useRememberMeStore((s) => s.rememberMe);
+	const setRememberMe = useRememberMeStore((s) => s.setRememberMe);
+
 	const [status, setStatus] = useState<ResponseState>('default');
 
 	useEffect(() => {
@@ -20,11 +25,15 @@ const GoogleAuthClient = () => {
 
 				if (!code) throw new Error('No code provided');
 
-				const { success, message } = await AuthAPI.googleAuth({ code });
+				const { success, message } = await AuthAPI.googleAuth({
+					code,
+					rememberMe,
+				});
 
 				if (!success) throw new Error(message ?? 'Authentication failed');
 
 				setStatus('success');
+				setRememberMe(false);
 				toast.success('Authentication successful! Redirecting...');
 				router.replace('/home');
 			} catch {
@@ -34,7 +43,7 @@ const GoogleAuthClient = () => {
 		};
 
 		authenticate();
-	}, [code, router]);
+	}, [code, router, rememberMe, setRememberMe]);
 
 	const renderStatusMessage = () => {
 		switch (status) {

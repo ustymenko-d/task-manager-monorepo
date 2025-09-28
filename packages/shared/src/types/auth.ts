@@ -32,4 +32,4 @@ export type UserByQuery =
 	| { email: string }
 	| { verificationToken: string };
 
-export type GoogleAuthCode = { code: string };
+export type GoogleAuthPayload = { code: string; rememberMe: boolean };
