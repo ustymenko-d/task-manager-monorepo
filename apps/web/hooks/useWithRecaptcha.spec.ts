@@ -7,41 +7,41 @@ import { RecaptchaToken } from '@/types/common';
 jest.mock('react-google-recaptcha-v3');
 
 describe('useWithRecaptcha', () => {
-  const mockExecute = jest.fn();
-  const action = 'action';
+	const mockExecute = jest.fn();
+	const action = 'action';
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
 
-  it('throws if executeRecaptcha is not ready', async () => {
-    (useGoogleReCaptcha as jest.Mock).mockReturnValue({
-      executeRecaptcha: undefined,
-    });
+	it('throws if executeRecaptcha is not ready', async () => {
+		(useGoogleReCaptcha as jest.Mock).mockReturnValue({
+			executeRecaptcha: undefined,
+		});
 
-    const { result } = renderHook(() => useWithRecaptcha(action));
+		const { result } = renderHook(() => useWithRecaptcha(action));
 
-    await expect(result.current.withRecaptcha({ foo: 'bar' })).rejects.toThrow(
-      'reCAPTCHA not ready',
-    );
-  });
+		await expect(result.current.withRecaptcha({ foo: 'bar' })).rejects.toThrow(
+			'reCAPTCHA not ready'
+		);
+	});
 
-  it('calls executeRecaptcha and add token to payload', async () => {
-    const fakeToken = 'token';
+	it('calls executeRecaptcha and add token to payload', async () => {
+		const fakeToken = 'token';
 
-    mockExecute.mockResolvedValueOnce(fakeToken);
-    (useGoogleReCaptcha as jest.Mock).mockReturnValue({
-      executeRecaptcha: mockExecute,
-    });
+		mockExecute.mockResolvedValueOnce(fakeToken);
+		(useGoogleReCaptcha as jest.Mock).mockReturnValue({
+			executeRecaptcha: mockExecute,
+		});
 
-    const { result } = renderHook(() => useWithRecaptcha(action));
-    const inputPayload = { foo: 'bar' };
+		const { result } = renderHook(() => useWithRecaptcha(action));
+		const inputPayload = { foo: 'bar' };
 
-    type Output = typeof inputPayload & RecaptchaToken;
+		type Output = typeof inputPayload & RecaptchaToken;
 
-    const output: Output = await result.current.withRecaptcha(inputPayload);
+		const output: Output = await result.current.withRecaptcha(inputPayload);
 
-    expect(mockExecute).toHaveBeenCalledWith(action);
-    expect(output).toEqual({ foo: 'bar', recaptchaToken: fakeToken });
-  });
+		expect(mockExecute).toHaveBeenCalledWith(action);
+		expect(output).toEqual({ foo: 'bar', recaptchaToken: fakeToken });
+	});
 });

@@ -11,23 +11,23 @@ import ThemeProvider from './Theme.provider';
 import ZustandProvider from './Zustand.provider';
 
 const Tree = buildProvidersTree([
-  [ZustandProvider],
-  [QueryProvider],
-  [SocketProvider],
-  [ReCAPTCHAProvider],
-  [
-    ThemeProvider,
-    {
-      attribute: 'class',
-      defaultTheme: 'system',
-      enableSystem: true,
-      disableTransitionOnChange: true,
-    },
-  ],
+	[ZustandProvider],
+	[QueryProvider],
+	[SocketProvider],
+	[ReCAPTCHAProvider],
+	[
+		ThemeProvider,
+		{
+			attribute: 'class',
+			defaultTheme: 'system',
+			enableSystem: true,
+			disableTransitionOnChange: true,
+		},
+	],
 ]);
 
 const ProvidersTree = ({ children }: { children: ReactNode }) => (
-  <Tree>{children}</Tree>
+	<Tree>{children}</Tree>
 );
 
 export default ProvidersTree;

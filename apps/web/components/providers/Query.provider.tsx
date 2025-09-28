@@ -7,10 +7,10 @@ import { ReactNode } from 'react';
 export const queryClient = new QueryClient();
 
 const QueryProvider = ({ children }: { children: ReactNode }) => (
-  <QueryClientProvider client={queryClient}>
-    {children}
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+	<QueryClientProvider client={queryClient}>
+		{children}
+		<ReactQueryDevtools initialIsOpen={false} />
+	</QueryClientProvider>
 );
 
 export default QueryProvider;

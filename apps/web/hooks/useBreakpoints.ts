@@ -4,66 +4,66 @@ import debounce from 'lodash.debounce';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 interface Options {
-  width?: number[];
-  height?: number[];
+	width?: number[];
+	height?: number[];
 }
 
 const useBreakpoints = ({ width = [], height = [] }: Options) => {
-  const [indices, setIndices] = useState<{
-    widthIndex: number;
-    heightIndex: number;
-  }>({
-    widthIndex: 0,
-    heightIndex: 0,
-  });
+	const [indices, setIndices] = useState<{
+		widthIndex: number;
+		heightIndex: number;
+	}>({
+		widthIndex: 0,
+		heightIndex: 0,
+	});
 
-  const updateIndices = useCallback(() => {
-    const currentWidth = window.innerWidth;
-    const currentHeight = window.innerHeight;
+	const updateIndices = useCallback(() => {
+		const currentWidth = window.innerWidth;
+		const currentHeight = window.innerHeight;
 
-    const newWidthIndex = width.length
-      ? width.findLastIndex((bp: number) => currentWidth >= bp) + 1
-      : 0;
+		const newWidthIndex = width.length
+			? width.findLastIndex((bp: number) => currentWidth >= bp) + 1
+			: 0;
 
-    const newHeightIndex = height.length
-      ? height.findLastIndex((bp: number) => currentHeight >= bp) + 1
-      : 0;
+		const newHeightIndex = height.length
+			? height.findLastIndex((bp: number) => currentHeight >= bp) + 1
+			: 0;
 
-    setIndices((prev) => {
-      if (
-        prev.widthIndex !== newWidthIndex ||
-        prev.heightIndex !== newHeightIndex
-      ) {
-        return {
-          widthIndex: newWidthIndex,
-          heightIndex: newHeightIndex,
-        };
-      }
-      return prev;
-    });
-  }, [width, height]);
+		setIndices((prev) => {
+			if (
+				prev.widthIndex !== newWidthIndex ||
+				prev.heightIndex !== newHeightIndex
+			) {
+				return {
+					widthIndex: newWidthIndex,
+					heightIndex: newHeightIndex,
+				};
+			}
+			return prev;
+		});
+	}, [width, height]);
 
-  const debouncedUpdate = useMemo(
-    () => debounce(updateIndices, 150),
-    [updateIndices],
-  );
+	const debouncedUpdate = useMemo(
+		() => debounce(updateIndices, 150),
+		[updateIndices]
+	);
 
-  useEffect(() => {
-    updateIndices();
+	useEffect(() => {
+		updateIndices();
 
-    const handleResize = () => {
-      debouncedUpdate();
-    };
+		const handleResize = () => {
+			debouncedUpdate();
+		};
 
-    window.addEventListener('resize', handleResize);
+		window.addEventListener('resize', handleResize);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      debouncedUpdate.cancel();
-    };
-  }, [debouncedUpdate, updateIndices]);
+		return () => {
+			window.removeEventListener('resize', handleResize);
+			debouncedUpdate.cancel();
+		};
+	}, [debouncedUpdate, updateIndices]);
 
-  return indices;
+	return indices;
 };
 
 export default useBreakpoints;

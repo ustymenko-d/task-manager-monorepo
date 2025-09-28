@@ -8,21 +8,21 @@ import { TokensController } from './tokens.controller';
 import { TokensService } from './tokens.service';
 
 @Module({
-  imports: [
-    JwtModule.registerAsync({
-      imports: [],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET', 'default_secret'),
-        signOptions: { expiresIn: '1h' },
-      }),
-      inject: [ConfigService],
-    }),
-    PrismaModule,
-    forwardRef(() => AuthModule),
-    CookiesModule,
-  ],
-  controllers: [TokensController],
-  providers: [TokensService],
-  exports: [TokensService],
+	imports: [
+		JwtModule.registerAsync({
+			imports: [],
+			useFactory: async (configService: ConfigService) => ({
+				secret: configService.get<string>('JWT_SECRET', 'default_secret'),
+				signOptions: { expiresIn: '1h' },
+			}),
+			inject: [ConfigService],
+		}),
+		PrismaModule,
+		forwardRef(() => AuthModule),
+		CookiesModule,
+	],
+	controllers: [TokensController],
+	providers: [TokensService],
+	exports: [TokensService],
 })
 export class TokensModule {}

@@ -7,33 +7,33 @@ import HashHandler from 'src/common/utils/HashHandler';
 
 @Injectable()
 export class PasswordService {
-  constructor(
-    @Inject(forwardRef(() => AuthService))
-    private readonly authService: AuthService,
-    private readonly tokenService: TokensService,
-    private readonly mailService: MailService,
-    private readonly prisma: PrismaService,
-  ) {}
+	constructor(
+		@Inject(forwardRef(() => AuthService))
+		private readonly authService: AuthService,
+		private readonly tokenService: TokensService,
+		private readonly mailService: MailService,
+		private readonly prisma: PrismaService
+	) {}
 
-  async sendResetPasswordEmail(email: string) {
-    const user = await this.authService.findUserBy({ email });
-    const resetToken = this.tokenService.createResetPasswordToken(user);
-    await this.mailService.sendResetPasswordEmail(email, resetToken);
-  }
+	async sendResetPasswordEmail(email: string) {
+		const user = await this.authService.findUserBy({ email });
+		const resetToken = this.tokenService.createResetPasswordToken(user);
+		await this.mailService.sendResetPasswordEmail(email, resetToken);
+	}
 
-  async resetPassword(resetToken: string, password: string) {
-    const { userId, tokenVersion } =
-      this.tokenService.verifyResetPasswordToken(resetToken);
-    const hashedPassword = await HashHandler.hashString(password);
+	async resetPassword(resetToken: string, password: string) {
+		const { userId, tokenVersion } =
+			this.tokenService.verifyResetPasswordToken(resetToken);
+		const hashedPassword = await HashHandler.hashString(password);
 
-    await this.prisma.user.update({
-      where: { id: userId, tokenVersion },
-      data: { password: hashedPassword, tokenVersion: { increment: 1 } },
-    });
+		await this.prisma.user.update({
+			where: { id: userId, tokenVersion },
+			data: { password: hashedPassword, tokenVersion: { increment: 1 } },
+		});
 
-    await this.prisma.refreshToken.updateMany({
-      where: { userId, revoked: false },
-      data: { revoked: true },
-    });
-  }
+		await this.prisma.refreshToken.updateMany({
+			where: { userId, revoked: false },
+			data: { revoked: true },
+		});
+	}
 }

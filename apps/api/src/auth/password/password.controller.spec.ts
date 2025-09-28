@@ -7,82 +7,82 @@ import { EmailDto, PasswordDto } from '@repo/api/dto';
 import { ConfigService } from '@nestjs/config';
 
 describe('PasswordController', () => {
-  let controller: PasswordController;
-  let service: PasswordServiceMock;
-  let loggerErrorSpy: jest.SpyInstance;
+	let controller: PasswordController;
+	let service: PasswordServiceMock;
+	let loggerErrorSpy: jest.SpyInstance;
 
-  beforeEach(async () => {
-    jest.clearAllMocks();
+	beforeEach(async () => {
+		jest.clearAllMocks();
 
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [PasswordController],
-      providers: [
-        { provide: PasswordService, useFactory: mockPasswordService },
-        { provide: ConfigService, useValue: configServiceMock },
-      ],
-    }).compile();
+		const module: TestingModule = await Test.createTestingModule({
+			controllers: [PasswordController],
+			providers: [
+				{ provide: PasswordService, useFactory: mockPasswordService },
+				{ provide: ConfigService, useValue: configServiceMock },
+			],
+		}).compile();
 
-    controller = module.get(PasswordController);
-    service = module.get(PasswordService);
-    loggerErrorSpy = mockLoggerError(controller);
-  });
+		controller = module.get(PasswordController);
+		service = module.get(PasswordService);
+		loggerErrorSpy = mockLoggerError(controller);
+	});
 
-  describe('forgotPassword', () => {
-    const dto: EmailDto = { email: 'user@email.com' };
+	describe('forgotPassword', () => {
+		const dto: EmailDto = { email: 'user@email.com' };
 
-    it('should send reset email', async () => {
-      (service.sendResetPasswordEmail as jest.Mock).mockResolvedValue(
-        undefined,
-      );
+		it('should send reset email', async () => {
+			(service.sendResetPasswordEmail as jest.Mock).mockResolvedValue(
+				undefined
+			);
 
-      const result = await controller.forgotPassword(dto);
+			const result = await controller.forgotPassword(dto);
 
-      expect(service.sendResetPasswordEmail).toHaveBeenCalledWith(dto.email);
-      expect(result).toEqual({
-        success: true,
-        message: 'Reset password email sent successfully.',
-      });
-      expect(loggerErrorSpy).not.toHaveBeenCalled();
-    });
+			expect(service.sendResetPasswordEmail).toHaveBeenCalledWith(dto.email);
+			expect(result).toEqual({
+				success: true,
+				message: 'Reset password email sent successfully.',
+			});
+			expect(loggerErrorSpy).not.toHaveBeenCalled();
+		});
 
-    it('should log error and rethrow when service fails', async () => {
-      const err = new Error('SMTP fail');
-      (service.sendResetPasswordEmail as jest.Mock).mockRejectedValue(err);
+		it('should log error and rethrow when service fails', async () => {
+			const err = new Error('SMTP fail');
+			(service.sendResetPasswordEmail as jest.Mock).mockRejectedValue(err);
 
-      await expect(controller.forgotPassword(dto)).rejects.toThrow(err);
-      expect(loggerErrorSpy).toHaveBeenCalledWith(
-        'Error while sending reset password email.',
-        expect.anything(),
-      );
-    });
-  });
+			await expect(controller.forgotPassword(dto)).rejects.toThrow(err);
+			expect(loggerErrorSpy).toHaveBeenCalledWith(
+				'Error while sending reset password email.',
+				expect.anything()
+			);
+		});
+	});
 
-  describe('resetPassword', () => {
-    const dto: PasswordDto = { password: 'newPass123' };
-    const token = 'reset-token';
+	describe('resetPassword', () => {
+		const dto: PasswordDto = { password: 'newPass123' };
+		const token = 'reset-token';
 
-    it('should update password', async () => {
-      (service.resetPassword as jest.Mock).mockResolvedValue(undefined);
+		it('should update password', async () => {
+			(service.resetPassword as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await controller.resetPassword(token, dto);
+			const result = await controller.resetPassword(token, dto);
 
-      expect(service.resetPassword).toHaveBeenCalledWith(token, dto.password);
-      expect(result).toEqual({
-        success: true,
-        message: 'Password updated successfully.',
-      });
-      expect(loggerErrorSpy).not.toHaveBeenCalled();
-    });
+			expect(service.resetPassword).toHaveBeenCalledWith(token, dto.password);
+			expect(result).toEqual({
+				success: true,
+				message: 'Password updated successfully.',
+			});
+			expect(loggerErrorSpy).not.toHaveBeenCalled();
+		});
 
-    it('should log error and rethrow when service fails', async () => {
-      const err = new Error('DB error');
-      (service.resetPassword as jest.Mock).mockRejectedValue(err);
+		it('should log error and rethrow when service fails', async () => {
+			const err = new Error('DB error');
+			(service.resetPassword as jest.Mock).mockRejectedValue(err);
 
-      await expect(controller.resetPassword(token, dto)).rejects.toThrow(err);
-      expect(loggerErrorSpy).toHaveBeenCalledWith(
-        'Reset password error.',
-        expect.anything(),
-      );
-    });
-  });
+			await expect(controller.resetPassword(token, dto)).rejects.toThrow(err);
+			expect(loggerErrorSpy).toHaveBeenCalledWith(
+				'Reset password error.',
+				expect.anything()
+			);
+		});
+	});
 });

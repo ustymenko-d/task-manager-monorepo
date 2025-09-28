@@ -12,62 +12,62 @@ import { FolderName, FoldersAction } from '@/types/folders';
 import { ResponseState } from '@/types/common';
 
 const useActions = (action: FoldersAction, folder?: Folder) => {
-  const queryClient = useQueryClient();
-  const { withRecaptcha } = useWithRecaptcha('folder_action');
+	const queryClient = useQueryClient();
+	const { withRecaptcha } = useWithRecaptcha('folder_action');
 
-  const closeEditor = useAppStore((s) => s.closeFolderEditor);
+	const closeEditor = useAppStore((s) => s.closeFolderEditor);
 
-  const performAction = async (payload?: FolderName | string) => {
-    switch (action) {
-      case 'create':
-        return FoldersAPI.createFolder(
-          await withRecaptcha<FolderName>(payload as FolderName),
-        );
+	const performAction = async (payload?: FolderName | string) => {
+		switch (action) {
+			case 'create':
+				return FoldersAPI.createFolder(
+					await withRecaptcha<FolderName>(payload as FolderName)
+				);
 
-      case 'rename':
-        if (!folder) throw new Error('`folder` is required to rename');
-        return FoldersAPI.renameFolder({
-          ...(payload as FolderName),
-          id: folder?.id,
-        });
+			case 'rename':
+				if (!folder) throw new Error('`folder` is required to rename');
+				return FoldersAPI.renameFolder({
+					...(payload as FolderName),
+					id: folder?.id,
+				});
 
-      case 'delete':
-        if (!folder) throw new Error('`folder` is required to delete');
-        return FoldersAPI.deleteFolder({ id: folder?.id });
+			case 'delete':
+				if (!folder) throw new Error('`folder` is required to delete');
+				return FoldersAPI.deleteFolder({ id: folder?.id });
 
-      default:
-        throw new Error('Unknown action');
-    }
-  };
+			default:
+				throw new Error('Unknown action');
+		}
+	};
 
-  const handleFolderAction = async (
-    setLoadingState: (state: ResponseState) => void,
-    payload?: FolderName,
-  ) => {
-    try {
-      setLoadingState('pending');
+	const handleFolderAction = async (
+		setLoadingState: (state: ResponseState) => void,
+		payload?: FolderName
+	) => {
+		try {
+			setLoadingState('pending');
 
-      const { success, message } = await performAction(payload);
+			const { success, message } = await performAction(payload);
 
-      if (!success) {
-        setLoadingState('error');
-        toast.error(message ?? 'Something went wrong');
-        throw new Error(`[useFoldersActions] ${action} failed`);
-      }
+			if (!success) {
+				setLoadingState('error');
+				toast.error(message ?? 'Something went wrong');
+				throw new Error(`[useFoldersActions] ${action} failed`);
+			}
 
-      setLoadingState('success');
-      toast.success(message || 'Successfuly completed');
+			setLoadingState('success');
+			toast.success(message || 'Successfuly completed');
 
-      queryClient.invalidateQueries({ queryKey: ['folders'] });
+			queryClient.invalidateQueries({ queryKey: ['folders'] });
 
-      if (['create', 'rename'].includes(action)) closeEditor();
-    } catch (error) {
-      console.error(`[useFoldersActions] ${action} folder error:`, error);
-      throw error;
-    }
-  };
+			if (['create', 'rename'].includes(action)) closeEditor();
+		} catch (error) {
+			console.error(`[useFoldersActions] ${action} folder error:`, error);
+			throw error;
+		}
+	};
 
-  return { handleFolderAction };
+	return { handleFolderAction };
 };
 
 export default useActions;

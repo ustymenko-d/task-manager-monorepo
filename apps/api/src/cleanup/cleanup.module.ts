@@ -4,7 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { CleanupService } from './cleanup.service';
 
 @Module({
-  imports: [PrismaModule, ScheduleModule.forRoot()],
-  providers: [CleanupService],
+	imports: [PrismaModule, ScheduleModule.forRoot()],
+	providers: [CleanupService],
 })
 export class CleanupModule {}

@@ -12,28 +12,27 @@ import Reminder from './components/Reminder';
 import ThemeToggle from '../ThemeToggle';
 
 const Header = () => {
-  const pathname = usePathname();
+	const pathname = usePathname();
 
-  return (
-    <header className="sticky top-0 z-10 border-b border-dashed backdrop-blur">
-      <div className="container flex flex-wrap items-center px-2 mx-auto border-dashed lg:px-4 sm:border-x min-h-14 gap-x-2">
-        {pathname.startsWith('/auth') && (
-          <Link
-            className={buttonVariants({
-              variant: 'outline',
-              size: 'icon',
-            })}
-            href="/"
-          >
-            <ChevronLeft />
-          </Link>
-        )}
-        {!isStartPage(pathname) && <MainMenu />}
-        <Reminder />
-        <ThemeToggle />
-      </div>
-    </header>
-  );
+	return (
+		<header className='sticky top-0 z-10 border-b border-dashed backdrop-blur'>
+			<div className='container flex flex-wrap items-center px-2 mx-auto border-dashed lg:px-4 sm:border-x min-h-14 gap-x-2'>
+				{pathname.startsWith('/auth') && (
+					<Link
+						className={buttonVariants({
+							variant: 'outline',
+							size: 'icon',
+						})}
+						href='/'>
+						<ChevronLeft />
+					</Link>
+				)}
+				{!isStartPage(pathname) && <MainMenu />}
+				<Reminder />
+				<ThemeToggle />
+			</div>
+		</header>
+	);
 };
 
 export default Header;

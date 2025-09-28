@@ -14,149 +14,149 @@ import { configServiceMock } from 'test/mocks/common';
 import { ConfigService } from '@nestjs/config';
 
 describe('TasksController', () => {
-  let controller: TasksController;
-  let service: jest.Mocked<TasksService>;
+	let controller: TasksController;
+	let service: jest.Mocked<TasksService>;
 
-  const newTaskDto: CreateTaskDto = { title: 'New Task' };
-  const getRequest: GetTasksRequestDto = { page: 1, limit: 10 };
-  const editedTask = mockTask({ title: 'Edited task' });
-  const task = mockTask();
+	const newTaskDto: CreateTaskDto = { title: 'New Task' };
+	const getRequest: GetTasksRequestDto = { page: 1, limit: 10 };
+	const editedTask = mockTask({ title: 'Edited task' });
+	const task = mockTask();
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [TasksController],
-      providers: [
-        { provide: TasksService, useFactory: mockTasksService },
-        { provide: PrismaService, useValue: mockPrisma },
-        { provide: ConfigService, useValue: configServiceMock },
-      ],
-    }).compile();
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			controllers: [TasksController],
+			providers: [
+				{ provide: TasksService, useFactory: mockTasksService },
+				{ provide: PrismaService, useValue: mockPrisma },
+				{ provide: ConfigService, useValue: configServiceMock },
+			],
+		}).compile();
 
-    controller = module.get(TasksController);
-    service = module.get(TasksService);
-  });
+		controller = module.get(TasksController);
+		service = module.get(TasksService);
+	});
 
-  describe('create()', () => {
-    it('returns created task', async () => {
-      service.createTask.mockResolvedValueOnce(task);
+	describe('create()', () => {
+		it('returns created task', async () => {
+			service.createTask.mockResolvedValueOnce(task);
 
-      const result = await controller.create(
-        { user: jwtUserMock },
-        newTaskDto,
-        socketId,
-      );
+			const result = await controller.create(
+				{ user: jwtUserMock },
+				newTaskDto,
+				socketId
+			);
 
-      expect(service.createTask).toHaveBeenCalledWith(
-        { ...newTaskDto, userId: jwtUserMock.userId },
-        socketId,
-      );
-      expect(result).toEqual(
-        expectSuccess<Task>('Task created successfully.', task, 'task'),
-      );
-    });
+			expect(service.createTask).toHaveBeenCalledWith(
+				{ ...newTaskDto, userId: jwtUserMock.userId },
+				socketId
+			);
+			expect(result).toEqual(
+				expectSuccess<Task>('Task created successfully.', task, 'task')
+			);
+		});
 
-    it('throws when service fails', async () => {
-      service.createTask.mockRejectedValueOnce(new Error('Error'));
-      await expectThrows(() =>
-        controller.create({ user: jwtUserMock }, newTaskDto, socketId),
-      );
-    });
-  });
+		it('throws when service fails', async () => {
+			service.createTask.mockRejectedValueOnce(new Error('Error'));
+			await expectThrows(() =>
+				controller.create({ user: jwtUserMock }, newTaskDto, socketId)
+			);
+		});
+	});
 
-  describe('get()', () => {
-    const response: GetTasksResponse = {
-      tasks: [],
-      page: getRequest.page,
-      limit: getRequest.limit,
-      total: 0,
-      pages: 0,
-    };
+	describe('get()', () => {
+		const response: GetTasksResponse = {
+			tasks: [],
+			page: getRequest.page,
+			limit: getRequest.limit,
+			total: 0,
+			pages: 0,
+		};
 
-    it('returns paginated list', async () => {
-      service.getTasks.mockResolvedValueOnce(response);
+		it('returns paginated list', async () => {
+			service.getTasks.mockResolvedValueOnce(response);
 
-      const result = await controller.get({ user: jwtUserMock }, getRequest);
+			const result = await controller.get({ user: jwtUserMock }, getRequest);
 
-      expect(service.getTasks).toHaveBeenCalledWith({
-        ...getRequest,
-        userId: jwtUserMock.userId,
-      });
-      expect(result).toEqual(response);
-    });
+			expect(service.getTasks).toHaveBeenCalledWith({
+				...getRequest,
+				userId: jwtUserMock.userId,
+			});
+			expect(result).toEqual(response);
+		});
 
-    it('throws when service fails', async () => {
-      service.getTasks.mockRejectedValueOnce(new Error('Error'));
-      await expectThrows(() =>
-        controller.get({ user: jwtUserMock }, getRequest),
-      );
-    });
-  });
+		it('throws when service fails', async () => {
+			service.getTasks.mockRejectedValueOnce(new Error('Error'));
+			await expectThrows(() =>
+				controller.get({ user: jwtUserMock }, getRequest)
+			);
+		});
+	});
 
-  describe('edit()', () => {
-    it('returns updated task', async () => {
-      service.editTask.mockResolvedValueOnce(editedTask);
+	describe('edit()', () => {
+		it('returns updated task', async () => {
+			service.editTask.mockResolvedValueOnce(editedTask);
 
-      const result = await controller.edit(editedTask, socketId);
+			const result = await controller.edit(editedTask, socketId);
 
-      expect(service.editTask).toHaveBeenCalledWith(editedTask, socketId);
-      expect(result).toEqual(
-        expectSuccess<Task>('Task edited successfully.', editedTask, 'task'),
-      );
-    });
+			expect(service.editTask).toHaveBeenCalledWith(editedTask, socketId);
+			expect(result).toEqual(
+				expectSuccess<Task>('Task edited successfully.', editedTask, 'task')
+			);
+		});
 
-    it('throws when service fails', async () => {
-      service.editTask.mockRejectedValueOnce(new Error('Error'));
-      await expectThrows(() => controller.edit(editedTask, socketId));
-    });
-  });
+		it('throws when service fails', async () => {
+			service.editTask.mockRejectedValueOnce(new Error('Error'));
+			await expectThrows(() => controller.edit(editedTask, socketId));
+		});
+	});
 
-  describe('toggleStatus()', () => {
-    const toggledTask = mockTask({ ...task, completed: true });
+	describe('toggleStatus()', () => {
+		const toggledTask = mockTask({ ...task, completed: true });
 
-    it('toggles and returns task', async () => {
-      service.toggleStatus.mockResolvedValueOnce(toggledTask);
+		it('toggles and returns task', async () => {
+			service.toggleStatus.mockResolvedValueOnce(toggledTask);
 
-      const result = await controller.toggleStatus(
-        { id: toggledTask.id },
-        socketId,
-      );
+			const result = await controller.toggleStatus(
+				{ id: toggledTask.id },
+				socketId
+			);
 
-      expect(service.toggleStatus).toHaveBeenCalledWith(
-        toggledTask.id,
-        socketId,
-      );
-      expect(result).toEqual(
-        expectSuccess<Task>(
-          'Task status changed successfully.',
-          toggledTask,
-          'task',
-        ),
-      );
-    });
+			expect(service.toggleStatus).toHaveBeenCalledWith(
+				toggledTask.id,
+				socketId
+			);
+			expect(result).toEqual(
+				expectSuccess<Task>(
+					'Task status changed successfully.',
+					toggledTask,
+					'task'
+				)
+			);
+		});
 
-    it('throws when service fails', async () => {
-      service.toggleStatus.mockRejectedValueOnce(new Error('Error'));
-      await expectThrows(() =>
-        controller.toggleStatus({ id: toggledTask.id }, socketId),
-      );
-    });
-  });
+		it('throws when service fails', async () => {
+			service.toggleStatus.mockRejectedValueOnce(new Error('Error'));
+			await expectThrows(() =>
+				controller.toggleStatus({ id: toggledTask.id }, socketId)
+			);
+		});
+	});
 
-  describe('delete()', () => {
-    it('deletes and returns task', async () => {
-      service.deleteTask.mockResolvedValueOnce(task);
+	describe('delete()', () => {
+		it('deletes and returns task', async () => {
+			service.deleteTask.mockResolvedValueOnce(task);
 
-      const result = await controller.delete({ id: task.id }, socketId);
+			const result = await controller.delete({ id: task.id }, socketId);
 
-      expect(service.deleteTask).toHaveBeenCalledWith(task.id, socketId);
-      expect(result).toEqual(
-        expectSuccess<Task>('Task deleted successfully.', task, 'task'),
-      );
-    });
+			expect(service.deleteTask).toHaveBeenCalledWith(task.id, socketId);
+			expect(result).toEqual(
+				expectSuccess<Task>('Task deleted successfully.', task, 'task')
+			);
+		});
 
-    it('throws when service fails', async () => {
-      service.deleteTask.mockRejectedValueOnce(new Error('Error'));
-      await expectThrows(() => controller.delete({ id: task.id }, socketId));
-    });
-  });
+		it('throws when service fails', async () => {
+			service.deleteTask.mockRejectedValueOnce(new Error('Error'));
+			await expectThrows(() => controller.delete({ id: task.id }, socketId));
+		});
+	});
 });

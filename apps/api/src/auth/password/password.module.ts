@@ -7,9 +7,9 @@ import { PasswordService } from './password.service';
 import { MailService } from '../mail/mail.service';
 
 @Module({
-  imports: [forwardRef(() => AuthModule), TokensModule, PrismaModule],
-  controllers: [PasswordController],
-  providers: [PasswordService, MailService],
-  exports: [PasswordService],
+	imports: [forwardRef(() => AuthModule), TokensModule, PrismaModule],
+	controllers: [PasswordController],
+	providers: [PasswordService, MailService],
+	exports: [PasswordService],
 })
 export class PasswordModule {}

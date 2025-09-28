@@ -16,25 +16,25 @@ type Schema = Config['validationSchema'];
 export type FormValues = z.infer<Schema>;
 
 export function useAuthFormType() {
-  const authFormType = useAppStore((s) => s.authFormType);
-  const [loading, setLoading] = useState<ResponseState>('default');
-  const config = formConfig[authFormType];
+	const authFormType = useAppStore((s) => s.authFormType);
+	const [loading, setLoading] = useState<ResponseState>('default');
+	const config = formConfig[authFormType];
 
-  const authForm: UseFormReturn<FormValues> = useForm<FormValues>({
-    resolver: zodResolver(config.validationSchema),
-    defaultValues: config.defaultValues,
-  });
+	const authForm: UseFormReturn<FormValues> = useForm<FormValues>({
+		resolver: zodResolver(config.validationSchema),
+		defaultValues: config.defaultValues,
+	});
 
-  useEffect(() => {
-    authForm.reset(config.defaultValues as typeof config.defaultValues);
-    setLoading('default');
-  }, [authForm, config]);
+	useEffect(() => {
+		authForm.reset(config.defaultValues as typeof config.defaultValues);
+		setLoading('default');
+	}, [authForm, config]);
 
-  return {
-    authFormType,
-    authForm,
-    config,
-    loading,
-    setLoading,
-  };
+	return {
+		authFormType,
+		authForm,
+		config,
+		loading,
+		setLoading,
+	};
 }

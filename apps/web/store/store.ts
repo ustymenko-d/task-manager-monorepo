@@ -11,24 +11,24 @@ import createTaskSlice, { TaskSlice } from './slices/task';
 interface AppStore extends TaskSlice, AuthSlice, FoldersSlice, TableSlice {}
 
 export const useAppStore = create<AppStore>()(
-  devtools(
-    persist(
-      (set) => ({
-        ...createAuthSlice(set),
-        ...createTaskSlice(set),
-        ...createFoldersSlice(set),
-        ...createTableSlice(set),
-      }),
-      {
-        name: 'app-store',
-        storage: createJSONStorage(getStorage),
-        partialize: (state) => ({
-          isAuthorized: state.isAuthorized,
-          visibleColumns: state.visibleColumns,
-        }),
-      },
-    ),
-  ),
+	devtools(
+		persist(
+			(set) => ({
+				...createAuthSlice(set),
+				...createTaskSlice(set),
+				...createFoldersSlice(set),
+				...createTableSlice(set),
+			}),
+			{
+				name: 'app-store',
+				storage: createJSONStorage(getStorage),
+				partialize: (state) => ({
+					isAuthorized: state.isAuthorized,
+					visibleColumns: state.visibleColumns,
+				}),
+			}
+		)
+	)
 );
 
 export default useAppStore;

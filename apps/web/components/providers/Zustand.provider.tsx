@@ -5,9 +5,9 @@ import { ReactNode } from 'react';
 import { useCrossTabAuthSync } from '@/hooks/useCrossTabZustandSync';
 
 const ZustandProvider = ({ children }: { children: ReactNode }) => {
-  useCrossTabAuthSync();
+	useCrossTabAuthSync();
 
-  return children;
+	return children;
 };
 
 export default ZustandProvider;

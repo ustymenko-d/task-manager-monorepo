@@ -8,33 +8,33 @@ import type { Response } from 'express';
 
 @Controller('auth/google')
 export class GoogleController {
-  private readonly logger = new Logger(GoogleController.name);
+	private readonly logger = new Logger(GoogleController.name);
 
-  constructor(
-    private readonly googleService: GoogleService,
-    private readonly cookiesService: CookiesService,
-  ) {}
+	constructor(
+		private readonly googleService: GoogleService,
+		private readonly cookiesService: CookiesService
+	) {}
 
-  @Post('verification')
-  async googleAuth(
-    @Body() body: GoogleAuthDto,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthResponse> {
-    return handleRequest(
-      async () => {
-        const { accessToken, refreshToken, userInfo } =
-          await this.googleService.googleAuth(body.code);
+	@Post('verification')
+	async googleAuth(
+		@Body() body: GoogleAuthDto,
+		@Res({ passthrough: true }) res: Response
+	): Promise<AuthResponse> {
+		return handleRequest(
+			async () => {
+				const { accessToken, refreshToken, userInfo } =
+					await this.googleService.googleAuth(body.code);
 
-        this.cookiesService.setAuthCookies(res, accessToken, refreshToken);
+				this.cookiesService.setAuthCookies(res, accessToken, refreshToken);
 
-        return {
-          success: true,
-          message: 'Google authorization successful.',
-          userInfo,
-        };
-      },
-      'Google Auth error.',
-      this.logger,
-    );
-  }
+				return {
+					success: true,
+					message: 'Google authorization successful.',
+					userInfo,
+				};
+			},
+			'Google Auth error.',
+			this.logger
+		);
+	}
 }

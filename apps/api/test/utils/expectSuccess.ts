@@ -1,9 +1,9 @@
 export const expectSuccess = <T>(
-  message: string,
-  subject: T,
-  key: 'task' | 'folder',
+	message: string,
+	subject: T,
+	key: 'task' | 'folder'
 ) => ({
-  success: true,
-  message,
-  [key]: subject,
+	success: true,
+	message,
+	[key]: subject,
 });

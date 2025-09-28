@@ -7,8 +7,8 @@ import { CookiesModule } from 'src/auth/cookies/cookies.module';
 import { TokensModule } from 'src/auth/tokens/tokens.module';
 
 @Module({
-  imports: [AuthModule, TokensModule, PrismaModule, CookiesModule],
-  controllers: [GoogleController],
-  providers: [GoogleService],
+	imports: [AuthModule, TokensModule, PrismaModule, CookiesModule],
+	controllers: [GoogleController],
+	providers: [GoogleService],
 })
 export class GoogleModule {}

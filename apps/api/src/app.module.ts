@@ -9,17 +9,17 @@ import { FoldersModule } from './folders/folders.module';
 import { CleanupModule } from './cleanup/cleanup.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env', '.env.local'],
-    }),
-    PrismaModule,
-    AuthModule,
-    GoogleModule,
-    TasksModule,
-    FoldersModule,
-    CleanupModule,
-  ],
+	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: ['.env', '.env.local'],
+		}),
+		PrismaModule,
+		AuthModule,
+		GoogleModule,
+		TasksModule,
+		FoldersModule,
+		CleanupModule,
+	],
 })
 export class AppModule {}

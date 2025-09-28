@@ -6,13 +6,13 @@ import DetailsDialog from '@/components/Tasks/DetailsDialog/DetailsDialog';
 import TaskEditor from '@/components/Tasks/Editor/Editor';
 
 const FoldersPage = () => (
-  <PageSection>
-    <Head />
-    <Body />
-    <Editor />
-    <TaskEditor />
-    <DetailsDialog />
-  </PageSection>
+	<PageSection>
+		<Head />
+		<Body />
+		<Editor />
+		<TaskEditor />
+		<DetailsDialog />
+	</PageSection>
 );
 
 export default FoldersPage;

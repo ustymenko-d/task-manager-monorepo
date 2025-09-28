@@ -1,14 +1,14 @@
 import { createMockMethods } from 'test/utils/createMockMethods';
 
 export const mockTokensService = () =>
-  createMockMethods([
-    'createAccessToken',
-    'decodeAccessToken',
-    'createRefreshToken',
-    'createResetPasswordToken',
-    'verifyResetPasswordToken',
-    'revokePreviousTokens',
-    'refreshTokens',
-  ] as const);
+	createMockMethods([
+		'createAccessToken',
+		'decodeAccessToken',
+		'createRefreshToken',
+		'createResetPasswordToken',
+		'verifyResetPasswordToken',
+		'revokePreviousTokens',
+		'refreshTokens',
+	] as const);
 
 export type TokensServiceMock = ReturnType<typeof mockTokensService>;

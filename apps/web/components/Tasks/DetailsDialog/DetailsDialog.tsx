@@ -8,20 +8,20 @@ import TasksAPI from '@/api/tasks.api';
 import DeleteDialog from '@/components/DeleteDialog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
 } from '@/components/ui/tooltip';
 import fetchFolders from '@/hooks/folders/useFetch';
 import useActions from '@/hooks/tasks/useActions';
@@ -34,176 +34,172 @@ import { ResponseState } from '@/types/common';
 import { GetTasksResponse, Task } from '@repo/shared/types';
 
 const DetailsDialog = () => {
-  const queryClient = useQueryClient();
-  const { data } = fetchFolders({ page: 1, limit: 25 });
-  const { folders } = data ?? {};
+	const queryClient = useQueryClient();
+	const { data } = fetchFolders({ page: 1, limit: 25 });
+	const { folders } = data ?? {};
 
-  const open = useAppStore((s) => s.taskDialogSettings.open);
-  const task = useAppStore((s) => s.taskDialogSettings.task);
-  const updateDialogTask = useAppStore((s) => s.updateDialogTask);
-  const openTaskEditor = useAppStore((s) => s.openTaskEditor);
-  const closeTaskDialog = useAppStore((s) => s.closeTaskDialog);
+	const open = useAppStore((s) => s.taskDialogSettings.open);
+	const task = useAppStore((s) => s.taskDialogSettings.task);
+	const updateDialogTask = useAppStore((s) => s.updateDialogTask);
+	const openTaskEditor = useAppStore((s) => s.openTaskEditor);
+	const closeTaskDialog = useAppStore((s) => s.closeTaskDialog);
 
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<ResponseState>('default');
+	const [loading, setLoading] = useState(false);
+	const [status, setStatus] = useState<ResponseState>('default');
 
-  const { handleTaskAction: changeStatus } = useActions(
-    'changeStatus',
-    task as Task,
-  );
+	const { handleTaskAction: changeStatus } = useActions(
+		'changeStatus',
+		task as Task
+	);
 
-  const { handleTaskAction: deleteTask } = useActions('delete', task as Task);
+	const { handleTaskAction: deleteTask } = useActions('delete', task as Task);
 
-  if (!task) return null;
+	if (!task) return null;
 
-  const {
-    title,
-    description,
-    completed,
-    startDate,
-    folderId,
-    expiresDate,
-    subtasks,
-    parentTaskId,
-  } = task;
+	const {
+		title,
+		description,
+		completed,
+		startDate,
+		folderId,
+		expiresDate,
+		subtasks,
+		parentTaskId,
+	} = task;
 
-  const openPrevTask = async () => {
-    if (!parentTaskId) return;
+	const openPrevTask = async () => {
+		if (!parentTaskId) return;
 
-    setLoading(true);
+		setLoading(true);
 
-    const queryKey = [
-      'tasks',
-      JSON.stringify({ limit: 1, page: 1, taskId: parentTaskId }),
-    ];
+		const queryKey = [
+			'tasks',
+			JSON.stringify({ limit: 1, page: 1, taskId: parentTaskId }),
+		];
 
-    let parentTaskData = queryClient.getQueryData<GetTasksResponse>(queryKey);
+		let parentTaskData = queryClient.getQueryData<GetTasksResponse>(queryKey);
 
-    if (!parentTaskData) {
-      try {
-        parentTaskData = await queryClient.fetchQuery<GetTasksResponse>({
-          queryKey,
-          queryFn: () =>
-            TasksAPI.getTasks({ limit: 1, page: 1, taskId: parentTaskId }),
-        });
-      } catch (error) {
-        console.error('Error fetching parent task:', error);
-        return;
-      }
-    }
+		if (!parentTaskData) {
+			try {
+				parentTaskData = await queryClient.fetchQuery<GetTasksResponse>({
+					queryKey,
+					queryFn: () =>
+						TasksAPI.getTasks({ limit: 1, page: 1, taskId: parentTaskId }),
+				});
+			} catch (error) {
+				console.error('Error fetching parent task:', error);
+				return;
+			}
+		}
 
-    const parentTask = parentTaskData?.tasks?.[0];
+		const parentTask = parentTaskData?.tasks?.[0];
 
-    if (parentTask) {
-      updateDialogTask(parentTask);
-    }
+		if (parentTask) {
+			updateDialogTask(parentTask);
+		}
 
-    setLoading(false);
-  };
+		setLoading(false);
+	};
 
-  const taskFolder = folders?.find((folder) => folder.id === folderId);
+	const taskFolder = folders?.find((folder) => folder.id === folderId);
 
-  return (
-    <Dialog open={open} onOpenChange={closeTaskDialog}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{title || 'Task title'}</DialogTitle>
-        </DialogHeader>
+	return (
+		<Dialog open={open} onOpenChange={closeTaskDialog}>
+			<DialogContent>
+				<DialogHeader>
+					<DialogTitle>{title || 'Task title'}</DialogTitle>
+				</DialogHeader>
 
-        <div className="flex flex-col gap-3 pt-4">
-          <InfoBlock label="Description:">
-            <DialogDescription className="text-current">
-              {description || 'No description provided.'}
-            </DialogDescription>
-          </InfoBlock>
+				<div className='flex flex-col gap-3 pt-4'>
+					<InfoBlock label='Description:'>
+						<DialogDescription className='text-current'>
+							{description || 'No description provided.'}
+						</DialogDescription>
+					</InfoBlock>
 
-          <div
-            role="group"
-            aria-labelledby="status-label"
-            className="flex flex-col gap-2"
-          >
-            <h4 className="text-muted-foreground">Status:</h4>
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="task-status"
-                checked={completed}
-                disabled={status === 'pending'}
-                onCheckedChange={() => changeStatus(setStatus)}
-              />
-              <Label htmlFor="task-status" className="text-base cursor-pointer">
-                {completed ? 'Completed' : 'In Progress'}
-              </Label>
-            </div>
-          </div>
+					<div
+						role='group'
+						aria-labelledby='status-label'
+						className='flex flex-col gap-2'>
+						<h4 className='text-muted-foreground'>Status:</h4>
+						<div className='flex items-center space-x-2'>
+							<Switch
+								id='task-status'
+								checked={completed}
+								disabled={status === 'pending'}
+								onCheckedChange={() => changeStatus(setStatus)}
+							/>
+							<Label htmlFor='task-status' className='text-base cursor-pointer'>
+								{completed ? 'Completed' : 'In Progress'}
+							</Label>
+						</div>
+					</div>
 
-          {startDate && (
-            <InfoBlock label="Start date:">
-              <span>{formatDate(startDate)}</span>
-            </InfoBlock>
-          )}
+					{startDate && (
+						<InfoBlock label='Start date:'>
+							<span>{formatDate(startDate)}</span>
+						</InfoBlock>
+					)}
 
-          {expiresDate && (
-            <InfoBlock label="Expires date:">
-              <span>{formatDate(expiresDate)}</span>
-            </InfoBlock>
-          )}
+					{expiresDate && (
+						<InfoBlock label='Expires date:'>
+							<span>{formatDate(expiresDate)}</span>
+						</InfoBlock>
+					)}
 
-          {folderId && (
-            <InfoBlock label="Folder:">
-              <span>{formatValue(taskFolder?.name)}</span>
-            </InfoBlock>
-          )}
+					{folderId && (
+						<InfoBlock label='Folder:'>
+							<span>{formatValue(taskFolder?.name)}</span>
+						</InfoBlock>
+					)}
 
-          {subtasks && subtasks.length > 0 && (
-            <InfoBlock label="Subtasks:">
-              <Subtasks subtasks={subtasks} />
-            </InfoBlock>
-          )}
-        </div>
+					{subtasks && subtasks.length > 0 && (
+						<InfoBlock label='Subtasks:'>
+							<Subtasks subtasks={subtasks} />
+						</InfoBlock>
+					)}
+				</div>
 
-        <DialogFooter className="gap-2 sm:space-x-0">
-          {parentTaskId && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    disabled={loading}
-                    onClick={openPrevTask}
-                    className={buttonVariants({
-                      variant: 'outline',
-                      size: 'icon',
-                      className: 'text-primary',
-                    })}
-                  >
-                    <ChevronLeft />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Go to parent task</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-          <Button
-            variant="outline"
-            onClick={() => openTaskEditor('create', task)}
-          >
-            Add subtask
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => openTaskEditor('edit', task)}
-          >
-            Edit
-          </Button>
-          <DeleteDialog
-            handleDelete={() => deleteTask(setStatus)}
-            loading={status === 'pending'}
-            needTrigger
-            deleteTarget="task"
-          />
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
+				<DialogFooter className='gap-2 sm:space-x-0'>
+					{parentTaskId && (
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										disabled={loading}
+										onClick={openPrevTask}
+										className={buttonVariants({
+											variant: 'outline',
+											size: 'icon',
+											className: 'text-primary',
+										})}>
+										<ChevronLeft />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent>Go to parent task</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					)}
+					<Button
+						variant='outline'
+						onClick={() => openTaskEditor('create', task)}>
+						Add subtask
+					</Button>
+					<Button
+						variant='outline'
+						onClick={() => openTaskEditor('edit', task)}>
+						Edit
+					</Button>
+					<DeleteDialog
+						handleDelete={() => deleteTask(setStatus)}
+						loading={status === 'pending'}
+						needTrigger
+						deleteTarget='task'
+					/>
+				</DialogFooter>
+			</DialogContent>
+		</Dialog>
+	);
 };
 
 export default DetailsDialog;

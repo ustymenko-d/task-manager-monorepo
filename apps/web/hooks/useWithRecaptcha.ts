@@ -5,13 +5,13 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { RecaptchaToken } from '@/types/common';
 
 export const useWithRecaptcha = (action: string) => {
-  const { executeRecaptcha } = useGoogleReCaptcha();
+	const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const withRecaptcha = async <T>(payload: T): Promise<T & RecaptchaToken> => {
-    if (!executeRecaptcha) throw new Error('reCAPTCHA not ready');
-    const recaptchaToken = await executeRecaptcha(action);
-    return { ...payload, recaptchaToken };
-  };
+	const withRecaptcha = async <T>(payload: T): Promise<T & RecaptchaToken> => {
+		if (!executeRecaptcha) throw new Error('reCAPTCHA not ready');
+		const recaptchaToken = await executeRecaptcha(action);
+		return { ...payload, recaptchaToken };
+	};
 
-  return { withRecaptcha };
+	return { withRecaptcha };
 };

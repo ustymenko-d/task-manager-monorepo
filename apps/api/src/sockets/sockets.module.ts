@@ -4,7 +4,7 @@ import { FoldersGateway } from './folders.gateway';
 import { ConnectionGateway } from './connection.gateway';
 
 @Module({
-  providers: [TasksGateway, FoldersGateway, ConnectionGateway],
-  exports: [TasksGateway, FoldersGateway],
+	providers: [TasksGateway, FoldersGateway, ConnectionGateway],
+	exports: [TasksGateway, FoldersGateway],
 })
 export class SocketsModule {}

@@ -6,17 +6,17 @@ import TaskCard from '../../TaskCard/TaskCard';
 import { Task } from '@repo/shared/types';
 
 const Subtasks = ({ subtasks }: { subtasks: Task[] }) => {
-  const openTaskDialog = useAppStore((s) => s.openTaskDialog);
+	const openTaskDialog = useAppStore((s) => s.openTaskDialog);
 
-  return subtasks.map((task) => {
-    const handleOpenDetails = () => openTaskDialog(task);
+	return subtasks.map((task) => {
+		const handleOpenDetails = () => openTaskDialog(task);
 
-    return (
-      <div key={task.id} onClick={handleOpenDetails} className="cursor-pointer">
-        <TaskCard task={task} withCheckbox />
-      </div>
-    );
-  });
+		return (
+			<div key={task.id} onClick={handleOpenDetails} className='cursor-pointer'>
+				<TaskCard task={task} withCheckbox />
+			</div>
+		);
+	});
 };
 
 export default Subtasks;

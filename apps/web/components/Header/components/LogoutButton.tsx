@@ -13,50 +13,49 @@ import useAppStore from '@/store/store';
 import { ResponseState } from '@/types/common';
 
 const LogoutButton = () => {
-  const router = useRouter();
+	const router = useRouter();
 
-  const setIsAuthorized = useAppStore((s) => s.setIsAuthorized);
+	const setIsAuthorized = useAppStore((s) => s.setIsAuthorized);
 
-  const [status, setStatus] = useState<ResponseState>('default');
+	const [status, setStatus] = useState<ResponseState>('default');
 
-  const handleLogout = async () => {
-    setStatus('pending');
+	const handleLogout = async () => {
+		setStatus('pending');
 
-    try {
-      const { success, message } = await AuthAPI.logout();
+		try {
+			const { success, message } = await AuthAPI.logout();
 
-      if (!success) throw new Error(message ?? 'Error during logout');
+			if (!success) throw new Error(message ?? 'Error during logout');
 
-      setStatus('success');
-      setIsAuthorized(false);
-      queryClient.clear();
+			setStatus('success');
+			setIsAuthorized(false);
+			queryClient.clear();
 
-      toast.success(message);
+			toast.success(message);
 
-      router.push('/');
-    } catch (error) {
-      setStatus('error');
-      console.error('Logout failed:', error);
-    }
-  };
+			router.push('/');
+		} catch (error) {
+			setStatus('error');
+			console.error('Logout failed:', error);
+		}
+	};
 
-  return (
-    <DropdownMenuItem
-      disabled={status === 'pending' || status === 'success'}
-      onClick={handleLogout}
-      className="flex items-center gap-2"
-    >
-      {status === 'pending' ? (
-        <Loader2
-          strokeWidth={1.5}
-          className={cn('!w-5 !h-5 opacity-60', 'animate-spin')}
-        />
-      ) : (
-        <LogOut strokeWidth={1.5} className={cn('!w-5 !h-5 opacity-60')} />
-      )}
-      Log out
-    </DropdownMenuItem>
-  );
+	return (
+		<DropdownMenuItem
+			disabled={status === 'pending' || status === 'success'}
+			onClick={handleLogout}
+			className='flex items-center gap-2'>
+			{status === 'pending' ? (
+				<Loader2
+					strokeWidth={1.5}
+					className={cn('!w-5 !h-5 opacity-60', 'animate-spin')}
+				/>
+			) : (
+				<LogOut strokeWidth={1.5} className={cn('!w-5 !h-5 opacity-60')} />
+			)}
+			Log out
+		</DropdownMenuItem>
+	);
 };
 
 export default LogoutButton;

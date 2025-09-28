@@ -11,39 +11,39 @@ import Loader from '@/components/Loader';
 import VerificationBadge from '@/components/VerificationBadge';
 
 const Body = () => {
-  const { data, isLoading, isError, refetch } = useAccountInfo();
+	const { data, isLoading, isError, refetch } = useAccountInfo();
 
-  const handleRefetch = () => {
-    if (isError) refetch();
-  };
+	const handleRefetch = () => {
+		if (isError) refetch();
+	};
 
-  const renderInfoRow = (label: string, children: ReactNode) => (
-    <div className="flex flex-col">
-      <span className="text-muted-foreground">{label}</span>
-      {children}
-    </div>
-  );
+	const renderInfoRow = (label: string, children: ReactNode) => (
+		<div className='flex flex-col'>
+			<span className='text-muted-foreground'>{label}</span>
+			{children}
+		</div>
+	);
 
-  if (isLoading) return <Loader className="pt-4 text-lg" />;
+	if (isLoading) return <Loader className='pt-4 text-lg' />;
 
-  if (isError) return <ErrorPlaceholder handleRefresh={handleRefetch} />;
+	if (isError) return <ErrorPlaceholder handleRefresh={handleRefetch} />;
 
-  return (
-    <div className="flex flex-col gap-2 pt-4">
-      {renderInfoRow('Username:', <span>{data?.username}</span>)}
-      {renderInfoRow(
-        'Email:',
-        <div className="flex items-center gap-2">
-          <span id="email">{data?.email}</span>
-          <VerificationBadge />
-        </div>,
-      )}
+	return (
+		<div className='flex flex-col gap-2 pt-4'>
+			{renderInfoRow('Username:', <span>{data?.username}</span>)}
+			{renderInfoRow(
+				'Email:',
+				<div className='flex items-center gap-2'>
+					<span id='email'>{data?.email}</span>
+					<VerificationBadge />
+				</div>
+			)}
 
-      {!data?.isVerified && <Verification />}
+			{!data?.isVerified && <Verification />}
 
-      <DeleteSection />
-    </div>
-  );
+			<DeleteSection />
+		</div>
+	);
 };
 
 export default Body;

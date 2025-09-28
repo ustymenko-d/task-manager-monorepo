@@ -7,23 +7,23 @@ import { Task } from '@repo/shared/types';
 @Injectable()
 @WebSocketGateway()
 export class TasksGateway extends BaseGateway {
-  constructor(configService: ConfigService) {
-    super(configService);
-  }
+	constructor(configService: ConfigService) {
+		super(configService);
+	}
 
-  emitTaskCreated(task: Task, initiatorSocketId?: string) {
-    this.emitEntityEvent<Task>('task', 'created', task, initiatorSocketId);
-  }
+	emitTaskCreated(task: Task, initiatorSocketId?: string) {
+		this.emitEntityEvent<Task>('task', 'created', task, initiatorSocketId);
+	}
 
-  emitTaskUpdated(task: Task, initiatorSocketId?: string) {
-    this.emitEntityEvent<Task>('task', 'updated', task, initiatorSocketId);
-  }
+	emitTaskUpdated(task: Task, initiatorSocketId?: string) {
+		this.emitEntityEvent<Task>('task', 'updated', task, initiatorSocketId);
+	}
 
-  emitTaskToggleStatus(task: Task, initiatorSocketId?: string) {
-    this.emitEntityEvent<Task>('task', 'toggleStatus', task, initiatorSocketId);
-  }
+	emitTaskToggleStatus(task: Task, initiatorSocketId?: string) {
+		this.emitEntityEvent<Task>('task', 'toggleStatus', task, initiatorSocketId);
+	}
 
-  emitTaskDeleted(task: Task, initiatorSocketId?: string) {
-    this.emitEntityEvent<Task>('task', 'deleted', task, initiatorSocketId);
-  }
+	emitTaskDeleted(task: Task, initiatorSocketId?: string) {
+		this.emitEntityEvent<Task>('task', 'deleted', task, initiatorSocketId);
+	}
 }

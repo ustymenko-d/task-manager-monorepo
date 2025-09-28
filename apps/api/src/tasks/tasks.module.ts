@@ -8,8 +8,8 @@ import { JwtStrategy } from 'src/common/jwt.strategy';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [PrismaModule, SocketsModule, FoldersModule, AuthModule],
-  controllers: [TasksController],
-  providers: [TasksService, JwtStrategy],
+	imports: [PrismaModule, SocketsModule, FoldersModule, AuthModule],
+	controllers: [TasksController],
+	providers: [TasksService, JwtStrategy],
 })
 export class TasksModule {}

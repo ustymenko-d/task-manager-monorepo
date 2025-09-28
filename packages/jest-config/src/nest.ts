@@ -2,12 +2,12 @@ import type { Config } from 'jest';
 import { config as baseConfig } from './base';
 
 export const nestConfig = {
-  ...baseConfig,
-  testRegex: '.*\\.spec\\.ts$',
-  transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
-  },
-  collectCoverageFrom: ['**/*.(t|j)s'],
-  coverageDirectory: '../coverage',
-  testEnvironment: 'node',
+	...baseConfig,
+	testRegex: '.*\\.spec\\.ts$',
+	transform: {
+		'^.+\\.(t|j)s$': 'ts-jest',
+	},
+	collectCoverageFrom: ['**/*.(t|j)s'],
+	coverageDirectory: '../coverage',
+	testEnvironment: 'node',
 } as const satisfies Config;

@@ -1,10 +1,10 @@
 import {
-  Controller,
-  Get,
-  Logger,
-  Req,
-  Res,
-  UnauthorizedException,
+	Controller,
+	Get,
+	Logger,
+	Req,
+	Res,
+	UnauthorizedException,
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { TokensService } from './tokens.service';
@@ -14,45 +14,45 @@ import { AuthCookies, ResponseStatus } from '@repo/shared/types';
 
 @Controller('auth/tokens')
 export class TokensController {
-  private readonly logger = new Logger(TokensController.name);
+	private readonly logger = new Logger(TokensController.name);
 
-  constructor(
-    private readonly tokenService: TokensService,
-    private readonly cookiesService: CookiesService,
-  ) {}
+	constructor(
+		private readonly tokenService: TokensService,
+		private readonly cookiesService: CookiesService
+	) {}
 
-  @Get('refresh-tokens')
-  async refreshTokens(
-    @Req() req: Request & { cookies: AuthCookies },
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<ResponseStatus> {
-    return handleRequest(
-      async () => {
-        const { accessToken, refreshToken, rememberMe } = req.cookies;
+	@Get('refresh-tokens')
+	async refreshTokens(
+		@Req() req: Request & { cookies: AuthCookies },
+		@Res({ passthrough: true }) res: Response
+	): Promise<ResponseStatus> {
+		return handleRequest(
+			async () => {
+				const { accessToken, refreshToken, rememberMe } = req.cookies;
 
-        if (!accessToken || !refreshToken)
-          throw new UnauthorizedException('Missing access or refresh token.');
+				if (!accessToken || !refreshToken)
+					throw new UnauthorizedException('Missing access or refresh token.');
 
-        const { userId, sessionId } =
-          this.tokenService.decodeAccessToken(accessToken);
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-          await this.tokenService.refreshTokens(
-            userId,
-            refreshToken,
-            sessionId,
-          );
+				const { userId, sessionId } =
+					this.tokenService.decodeAccessToken(accessToken);
+				const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+					await this.tokenService.refreshTokens(
+						userId,
+						refreshToken,
+						sessionId
+					);
 
-        this.cookiesService.setAuthCookies(
-          res,
-          newAccessToken,
-          newRefreshToken,
-          rememberMe === 'true',
-        );
+				this.cookiesService.setAuthCookies(
+					res,
+					newAccessToken,
+					newRefreshToken,
+					rememberMe === 'true'
+				);
 
-        return { success: true, message: 'Tokens updated successfully.' };
-      },
-      'Refresh tokens error.',
-      this.logger,
-    );
-  }
+				return { success: true, message: 'Tokens updated successfully.' };
+			},
+			'Refresh tokens error.',
+			this.logger
+		);
+	}
 }

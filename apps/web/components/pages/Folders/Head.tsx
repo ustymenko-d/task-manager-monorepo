@@ -9,35 +9,34 @@ import useAppStore from '@/store/store';
 import Loader from '@/components/Loader';
 
 const Head = () => {
-  const { data } = useFetch({ page: 1, limit: 25 });
+	const { data } = useFetch({ page: 1, limit: 25 });
 
-  const openEditor = useAppStore((s) => s.openFolderEditor);
-  const isFetching = useAppStore((s) => s.isFetching);
+	const openEditor = useAppStore((s) => s.openFolderEditor);
+	const isFetching = useAppStore((s) => s.isFetching);
 
-  const handleOpenEditor = () => openEditor('create', null);
+	const handleOpenEditor = () => openEditor('create', null);
 
-  return (
-    <div className="flex flex-wrap items-end justify-between mb-4 gap-x-4 gap-y-2">
-      <PageHead
-        title="Manage and organize your folders"
-        description="You can view the list of tasks contained in folders, edit them, and drag them between folders"
-        className="basis-full xl:basis-auto"
-      />
+	return (
+		<div className='flex flex-wrap items-end justify-between mb-4 gap-x-4 gap-y-2'>
+			<PageHead
+				title='Manage and organize your folders'
+				description='You can view the list of tasks contained in folders, edit them, and drag them between folders'
+				className='basis-full xl:basis-auto'
+			/>
 
-      {!!data?.total && (
-        <Button
-          variant="outline"
-          onClick={handleOpenEditor}
-          className="xl:order-1"
-        >
-          <Plus className="opacity-60" />
-          Create folder
-        </Button>
-      )}
+			{!!data?.total && (
+				<Button
+					variant='outline'
+					onClick={handleOpenEditor}
+					className='xl:order-1'>
+					<Plus className='opacity-60' />
+					Create folder
+				</Button>
+			)}
 
-      {isFetching && <Loader className="justify-end mr-2 xl:h-9 xl:ml-auto" />}
-    </div>
-  );
+			{isFetching && <Loader className='justify-end mr-2 xl:h-9 xl:ml-auto' />}
+		</div>
+	);
 };
 
 export default Head;
