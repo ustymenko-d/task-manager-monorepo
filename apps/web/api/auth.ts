@@ -26,8 +26,8 @@ const authAPI = {
 			() =>
 				apiRoutesInstance.get(
 					`${AUTH_API_URL}/email-verification?verificationToken=${verificationToken}`
-				),
-			false
+				)
+			// false
 		),
 
 	resendVerificationEmail: () =>
@@ -52,8 +52,8 @@ const authAPI = {
 
 	refreshToken: () =>
 		handleApiRouteRequest<ResponseStatus>(
-			() => apiRoutesInstance.get(`${AUTH_API_URL}/tokens/refresh-tokens`),
-			false
+			() => apiRoutesInstance.get(`${AUTH_API_URL}/tokens/refresh-tokens`)
+			// false
 		),
 
 	deleteAccount: (payload: RecaptchaToken) =>
@@ -80,8 +80,8 @@ const authAPI = {
 				apiRoutesInstance.patch(
 					`${AUTH_API_URL}/password/reset-password?resetToken=${resetToken}`,
 					payload
-				),
-			false
+				)
+			// false
 		),
 
 	clearAuthCookies: () =>

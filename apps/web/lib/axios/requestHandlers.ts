@@ -9,23 +9,13 @@ import { toast } from 'sonner';
 import { clearAuthCookies } from '@/utils/cookies';
 import { NextResponse } from 'next/server';
 import { baseInstance } from './instances';
-import createSingletonPromise from '@/utils/createSingletonPromise';
-import authAPI from '@/api/auth';
+import { attachServerCookiesInterceptor } from './interceptors/serverCookies';
 
 export const handleApiRouteRequest = async <T>(
-	apiRequest: () => Promise<AxiosResponse<T>>,
-	allowRetry = true
+	apiRequest: () => Promise<AxiosResponse<T>>
 ): Promise<T> => {
 	try {
-		const res = await apiRequest();
-		const { data } = res;
-
-		if (isNeedTokensRefreshData(data)) {
-			if (!allowRetry) throw new Error('Tokens need to be refresh');
-
-			await handleTokenRefresh();
-			return handleApiRouteRequest(apiRequest, false);
-		}
+		const { data } = await apiRequest();
 
 		return data;
 	} catch (error) {
@@ -67,14 +57,12 @@ export const handleRequest = async <T = undefined>(
 	try {
 		const axiosInstance = await getAxiosInstance();
 
-		const res = await axiosInstance.request({
+		const { data, status, headers } = await axiosInstance.request({
 			url,
 			method,
 			...(payload && { data: payload }),
 			...extraConfig,
 		});
-
-		const { data, status, headers } = res;
 
 		return withSetCookie(
 			NextResponse.json(data, { status }),
@@ -83,10 +71,6 @@ export const handleRequest = async <T = undefined>(
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response) {
 			const { status, data, headers } = error.response;
-
-			if (status === 401 && data?.message === 'Token expired') {
-				return NextResponse.json({ needRefresh: true });
-			}
 
 			return withSetCookie(
 				NextResponse.json(data || { message: 'Unexpected error' }, { status }),
@@ -105,16 +89,7 @@ const getServerAxios = async () => {
 	const { cookies } = await import('next/headers');
 	const serverAxios = axios.create(baseConfig);
 
-	serverAxios.interceptors.request.use(async (config) => {
-		const cookieStore = await cookies();
-		const cookieHeader = cookieStore.toString();
-
-		if (cookieHeader) {
-			config.headers.set('Cookie', cookieHeader);
-		}
-
-		return config;
-	});
+	attachServerCookiesInterceptor(serverAxios, cookies);
 
 	return serverAxios;
 };
@@ -134,22 +109,3 @@ const withSetCookie = (
 
 	return res;
 };
-
-const isNeedTokensRefreshData = (
-	data: unknown
-): data is { needRefresh: true } =>
-	typeof data === 'object' &&
-	data !== null &&
-	'needRefresh' in data &&
-	data.needRefresh === true;
-
-const handleTokenRefresh = async () => {
-	try {
-		await refreshToken();
-	} catch {
-		await clearAuthCookies(true);
-		throw new Error('Tokens refresh failed');
-	}
-};
-
-const refreshToken = createSingletonPromise(() => authAPI.refreshToken());
