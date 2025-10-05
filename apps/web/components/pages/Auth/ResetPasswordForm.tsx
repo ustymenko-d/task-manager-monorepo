@@ -7,7 +7,7 @@ import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 import PasswordInput from '@/components/pages/Auth/components/PasswordInput';
 import { Form, FormField } from '@/components/ui/form';
 import { useWithRecaptcha } from '@/hooks/useWithRecaptcha';
@@ -50,7 +50,7 @@ const ResetPasswordForm = () => {
 			const payload: Password = { password: values.password };
 			const resetToken = searchParams.get('resetToken');
 
-			const { success, message } = await AuthAPI.resetPassword(
+			const { success, message } = await authApi.resetPassword(
 				await withRecaptcha<Password>(payload),
 				resetToken
 			);

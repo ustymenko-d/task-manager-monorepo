@@ -1,6 +1,5 @@
+import { handleRequest } from '@/lib/axios';
 import { NextRequest, NextResponse } from 'next/server';
-
-import { handleRequest } from '@/api/Axios';
 
 export const GET = async (request: NextRequest): Promise<NextResponse> => {
 	const searchParams = request.nextUrl.searchParams.toString();

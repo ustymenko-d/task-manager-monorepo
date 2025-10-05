@@ -3,7 +3,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-import FoldersAPI from '@/api/folders.api';
+import folderApi from '@/api/folder';
 import useAppStore from '@/store/store';
 
 import { useWithRecaptcha } from '../useWithRecaptcha';
@@ -20,20 +20,20 @@ const useActions = (action: FoldersAction, folder?: Folder) => {
 	const performAction = async (payload?: FolderName | string) => {
 		switch (action) {
 			case 'create':
-				return FoldersAPI.createFolder(
+				return folderApi.createFolder(
 					await withRecaptcha<FolderName>(payload as FolderName)
 				);
 
 			case 'rename':
 				if (!folder) throw new Error('`folder` is required to rename');
-				return FoldersAPI.renameFolder({
+				return folderApi.renameFolder({
 					...(payload as FolderName),
 					id: folder?.id,
 				});
 
 			case 'delete':
 				if (!folder) throw new Error('`folder` is required to delete');
-				return FoldersAPI.deleteFolder({ id: folder?.id });
+				return folderApi.deleteFolder({ id: folder?.id });
 
 			default:
 				throw new Error('Unknown action');

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { handleRequest } from '@/api/Axios';
 import { Email } from '@/types/auth';
 import { RecaptchaToken } from '@/types/common';
+import { handleRequest } from '@/lib/axios';
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	const body = await request.json();

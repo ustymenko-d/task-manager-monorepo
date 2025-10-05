@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 import { Separator } from '@/components/ui/separator';
 import UnverifiedInfo from '@/components/UnverifiedInfo';
 import { ResponseState } from '@/types/common';
@@ -15,7 +15,7 @@ const Verification = () => {
 	const handleResendVerification = async () => {
 		try {
 			setStatus('pending');
-			const { success, message } = await AuthAPI.resendVerificationEmail();
+			const { success, message } = await authApi.resendVerificationEmail();
 
 			if (!success) throw new Error(message ?? 'Error during logout');
 

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 import { queryClient } from '@/components/providers/Query.provider';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
@@ -23,7 +23,7 @@ const LogoutButton = () => {
 		setStatus('pending');
 
 		try {
-			const { success, message } = await AuthAPI.logout();
+			const { success, message } = await authApi.logout();
 
 			if (!success) throw new Error(message ?? 'Error during logout');
 

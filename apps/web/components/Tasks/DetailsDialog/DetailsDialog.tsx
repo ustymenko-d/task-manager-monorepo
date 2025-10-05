@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { ChevronLeft } from 'lucide-react';
 import { useState } from 'react';
 
-import TasksAPI from '@/api/tasks.api';
+import taskAPI from '@/api/task';
 import DeleteDialog from '@/components/DeleteDialog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -84,7 +84,7 @@ const DetailsDialog = () => {
 				parentTaskData = await queryClient.fetchQuery<GetTasksResponse>({
 					queryKey,
 					queryFn: () =>
-						TasksAPI.getTasks({ limit: 1, page: 1, taskId: parentTaskId }),
+						taskAPI.getTasks({ limit: 1, page: 1, taskId: parentTaskId }),
 				});
 			} catch (error) {
 				console.error('Error fetching parent task:', error);

@@ -1,6 +1,6 @@
 'use client';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 import { useRememberMeStore } from '@/store/rememberMeStore';
 import { ResponseState } from '@/types/common';
 import { Loader2 } from 'lucide-react';
@@ -25,7 +25,7 @@ const GoogleAuthClient = () => {
 
 				if (!code) throw new Error('No code provided');
 
-				const { success, message } = await AuthAPI.googleAuth({
+				const { success, message } = await authApi.googleAuth({
 					code,
 					rememberMe,
 				});

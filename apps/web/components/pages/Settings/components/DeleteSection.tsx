@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { toast } from 'sonner';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 import DeleteDialog from '@/components/DeleteDialog';
 import { queryClient } from '@/components/providers/Query.provider';
 import { Button } from '@/components/ui/button';
@@ -34,7 +34,7 @@ const DeleteSection = () => {
 			if (!executeRecaptcha) throw new Error('reCAPTCHA not ready');
 			const recaptchaToken = await executeRecaptcha('delete_account');
 
-			const { success, message } = await AuthAPI.deleteAccount({
+			const { success, message } = await authApi.deleteAccount({
 				recaptchaToken,
 			});
 

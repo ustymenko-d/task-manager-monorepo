@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-import TasksAPI from '@/api/tasks.api';
+import taskApi from '@/api/task';
 import useAppStore from '@/store/store';
 
 import { useWithRecaptcha } from '../useWithRecaptcha';
@@ -26,15 +26,15 @@ const useActions = (action: TaskAction, task?: Task) => {
 	const performAction = async (payload?: TaskBase | Task) => {
 		switch (action) {
 			case 'create':
-				return TasksAPI.createTask(
+				return taskApi.createTask(
 					await withRecaptcha<TaskBase>(payload as TaskBase)
 				);
 			case 'edit':
-				return TasksAPI.editTask(payload as TaskPayload);
+				return taskApi.editTask(payload as TaskPayload);
 			case 'changeStatus':
-				return TasksAPI.toggleStatus({ id: task?.id ?? '' });
+				return taskApi.toggleStatus({ id: task?.id ?? '' });
 			case 'delete':
-				return TasksAPI.deleteTask({ id: task?.id ?? '' });
+				return taskApi.deleteTask({ id: task?.id ?? '' });
 			default:
 				throw new Error('Unknown action');
 		}

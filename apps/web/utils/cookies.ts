@@ -1,9 +1,9 @@
 import { toast } from 'sonner';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 
 export const clearAuthCookies = async (autoReload: boolean = false) => {
-	await AuthAPI.clearAuthCookies();
+	await authApi.clearAuthCookies();
 
 	const reloadPage = () => window.location.reload();
 	const message = 'Authentication cookies have been cleared';

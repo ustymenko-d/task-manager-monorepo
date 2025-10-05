@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 import { CardDescription } from '@/components/ui/card';
 import { ResponseState } from '@/types/common';
 
@@ -32,7 +32,7 @@ const VerificationStatus = () => {
 			try {
 				setStatus('pending');
 				const { success, message } =
-					await AuthAPI.verifyEmail(verificationToken);
+					await authApi.verifyEmail(verificationToken);
 
 				if (!success) throw new Error(message ?? 'Error during verification');
 

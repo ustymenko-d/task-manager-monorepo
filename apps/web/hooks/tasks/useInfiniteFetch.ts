@@ -2,7 +2,7 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import TasksAPI from '@/api/tasks.api';
+import taskApi from '@/api/task';
 import { GetTasksResponse } from '@repo/shared/types';
 import { GetTasksRequest } from '@/types/tasks';
 
@@ -10,7 +10,7 @@ const useInfiniteFetch = (params: Omit<GetTasksRequest, 'page'>) =>
 	useInfiniteQuery<GetTasksResponse, Error>({
 		queryKey: ['tasks', params],
 		queryFn: (context) =>
-			TasksAPI.getTasks({
+			taskApi.getTasks({
 				...params,
 				page: (context.pageParam as number) ?? 1,
 			}),

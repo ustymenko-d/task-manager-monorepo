@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-import AuthAPI from '@/api/auth.api';
+import authApi from '@/api/auth';
 import { queryClient } from '@/components/providers/Query.provider';
 import { Form, FormField } from '@/components/ui/form';
 import { useWithRecaptcha } from '@/hooks/useWithRecaptcha';
@@ -30,7 +30,7 @@ const AuthForm = () => {
 		useAuthFormType();
 
 	const handleForgotPassword = async (payload: Email) => {
-		const { success, message } = await AuthAPI.forgotPassword(
+		const { success, message } = await authApi.forgotPassword(
 			await withRecaptcha<Email>(payload)
 		);
 
@@ -46,8 +46,8 @@ const AuthForm = () => {
 	const handleAuth = async (payload: Credentials) => {
 		const { success, message, userInfo } =
 			authFormType === 'signup'
-				? await AuthAPI.signup(payload)
-				: await AuthAPI.login(payload);
+				? await authApi.signup(payload)
+				: await authApi.login(payload);
 
 		if (!success) throw new Error(message || 'Auth error');
 

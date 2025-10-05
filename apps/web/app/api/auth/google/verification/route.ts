@@ -1,4 +1,4 @@
-import { handleRequest } from '@/api/Axios';
+import { handleRequest } from '@/lib/axios';
 import { GoogleAuthPayload } from '@repo/shared/types';
 import { NextRequest, NextResponse } from 'next/server';
 

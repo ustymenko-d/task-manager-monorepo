@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { handleRequest } from '@/api/Axios';
 import { Task } from '@repo/shared/types';
+import { handleRequest } from '@/lib/axios';
 
 export const PUT = async (request: NextRequest): Promise<NextResponse> => {
 	const socketId = request.headers.get('x-socket-id') || undefined;
