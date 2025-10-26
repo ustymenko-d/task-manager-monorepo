@@ -37,7 +37,7 @@ const TimeSelector = ({
 
 	return (
 		<div>
-			<label className='block mb-1 text-sm text-muted-foreground'>
+			<label className='mb-1 block text-sm text-muted-foreground'>
 				{label}
 			</label>
 			<Input

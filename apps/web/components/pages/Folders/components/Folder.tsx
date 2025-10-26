@@ -24,7 +24,7 @@ const Folder = ({ folder }: { folder: TFolder }) => {
 		<Card
 			ref={setNodeRef}
 			className={cn(
-				'h-fit transition-colors duration-200',
+				'h-fit shadow-sm transition-colors duration-200',
 				isOver ? 'bg-accent/80' : 'bg-background'
 			)}>
 			<CardHeader className='flex-row flex-wrap items-center justify-between gap-x-2 gap-y-1'>
@@ -32,6 +32,7 @@ const Folder = ({ folder }: { folder: TFolder }) => {
 					<p className='font-medium text-muted-foreground'>Folder name:</p>
 					<p>{name}</p>
 				</CardTitle>
+
 				<FolderActions folder={folder} handleShowTasks={handleShowTasks} />
 			</CardHeader>
 
@@ -40,7 +41,7 @@ const Folder = ({ folder }: { folder: TFolder }) => {
 					type='folder'
 					fetchParams={{ folderId: id, limit: TASK_FETCH_LIMIT }}
 					id={`scrollable-folder-${id}`}
-					className='px-6 py-4 overflow-auto border-t max-h-60'
+					className='max-h-60 overflow-auto border-t px-6 py-4'
 				/>
 			)}
 		</Card>

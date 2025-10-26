@@ -37,7 +37,7 @@ const AuthFormSuggestion = () => {
 	};
 
 	return (
-		<div className='flex flex-wrap gap-2 mt-4 text-base text-center'>
+		<div className='mt-4 flex flex-wrap gap-2 text-center text-base'>
 			<span className='text-muted-foreground'>{suggestionText}</span>
 			<Link
 				href='/auth'

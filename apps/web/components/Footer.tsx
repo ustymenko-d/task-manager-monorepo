@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 const Footer = () => (
 	<footer className='border-t border-dashed'>
-		<div className='container flex flex-wrap justify-between px-2 py-4 mx-auto text-center border-dashed sm:border-x lg:px-4 text-balance gap-x-1'>
+		<div className='container mx-auto flex flex-wrap justify-between gap-x-1 text-balance border-dashed px-4 py-4 text-center sm:border-x'>
 			<p className='text-base'>
 				Built&nbsp;by{' '}
 				<Link
@@ -15,13 +15,13 @@ const Footer = () => (
 							variant: 'link',
 							size: 'none',
 						}),
-						'rounded-none text-base hover:no-underline animated-underline'
+						'animated-underline rounded-none text-base hover:no-underline'
 					)}
 					target='_blank'>
 					Denys Ustymenko
 				</Link>
 			</p>
-			<span className='text-muted-foreground'>v1.0.0</span>
+			<span className='text-muted-foreground'>v1.0.1</span>
 		</div>
 	</footer>
 );

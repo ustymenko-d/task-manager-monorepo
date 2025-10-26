@@ -16,7 +16,7 @@ const Body = (searchparams: GetTasksRequest) => {
 
 	if (isLoading) {
 		return (
-			<div className='flex flex-col items-center justify-center w-full gap-3 mt-4 border rounded-md min-h-40'>
+			<div className='mt-4 flex min-h-40 w-full flex-col items-center justify-center gap-3 rounded-md border'>
 				<Loader className='pt-4 text-lg' />
 			</div>
 		);

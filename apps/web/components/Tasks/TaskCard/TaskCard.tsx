@@ -37,7 +37,7 @@ const TaskCard = ({
 
 	const statusIcon = completed ? (
 		<CircleCheck
-			className='text-green-500 shrink-0 dark:text-green-400'
+			className='shrink-0 text-green-500 dark:text-green-400'
 			size={16}
 			strokeWidth={1}
 		/>
@@ -54,7 +54,7 @@ const TaskCard = ({
 			ref={dragProps?.setNodeRef}
 			{...(dragProps?.attributes || {})}
 			className={cn(
-				'flex items-stretch border rounded-md transition-opacity bg-white dark:bg-black hover:bg-accent break-words',
+				'flex items-stretch break-words rounded-md border bg-white shadow-sm transition-opacity hover:bg-accent dark:bg-black',
 				dragProps?.isDragging && 'opacity-50'
 			)}>
 			{(dragProps || taskInMotion) && (
@@ -64,7 +64,7 @@ const TaskCard = ({
 			{withCheckbox && <CardCheckbox task={task} />}
 
 			<div
-				className='p-2 break-words border-r grow'
+				className='grow break-words border-r p-2'
 				style={{ wordBreak: 'break-word' }}>
 				{formatValue(title)}
 			</div>

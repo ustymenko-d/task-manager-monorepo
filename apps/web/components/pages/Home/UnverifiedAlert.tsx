@@ -10,7 +10,7 @@ const UnverifiedAlert = () => {
 	if (!data || data?.isVerified) return null;
 
 	return (
-		<div className='pt-4'>
+		<div>
 			<h2 className='text-xl font-semibold'>Unverified Alert</h2>
 			<Separator className='my-2' />
 			<UnverifiedInfo />

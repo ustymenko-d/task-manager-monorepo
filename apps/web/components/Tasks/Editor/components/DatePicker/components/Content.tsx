@@ -93,7 +93,7 @@ const Content = ({ field }: DatePickerProps) => {
 				</Select>
 			)}
 
-			<div className='border rounded-md'>
+			<div className='rounded-md border'>
 				<Calendar
 					mode='single'
 					selected={internalDate ?? undefined}
@@ -122,7 +122,7 @@ const Content = ({ field }: DatePickerProps) => {
 			</div>
 
 			{showTimeWarning && (
-				<p className='mt-1 sm:pl-2 text-xs text-destructive'>
+				<p className='mt-1 text-xs text-destructive sm:pl-2'>
 					Date and time must be in the future
 				</p>
 			)}

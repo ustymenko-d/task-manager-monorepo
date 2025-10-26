@@ -12,25 +12,28 @@ import { navItems } from '@/const';
 import { NavItem } from '@/types/common';
 
 const HomePage = () => (
-	<PageSection>
-		<Head />
-		<div className='grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 xl:grid-cols-4'>
-			<Card className='flex flex-col items-center h-full gap-2 p-4 font-medium text-center cursor-default bg-muted text-primary'>
-				<LayoutGrid size={40} strokeWidth={1} className='opacity-50' />
-				<CardTitle>Home</CardTitle>
-				<CardDescription className='hidden text-sm sm:inline-block'>
-					Access the main navigation and overview of the application
-				</CardDescription>
-			</Card>
+	<PageSection className='flex flex-col gap-6'>
+		<div className='flex flex-col gap-4'>
+			<Head />
+			<div className='grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4'>
+				<Card className='flex h-full cursor-default flex-col items-center gap-2 bg-muted p-4 text-center font-medium text-primary shadow-sm'>
+					<LayoutGrid size={40} strokeWidth={1} className='opacity-50' />
+					<CardTitle>Home</CardTitle>
+					<CardDescription className='hidden text-sm sm:inline-block'>
+						Access the main navigation and overview of the application
+					</CardDescription>
+				</Card>
 
-			{navItems.slice(1).map((item: NavItem) => (
-				<NavigationItem key={item.href} {...item} />
-			))}
+				{navItems.slice(1).map((item: NavItem) => (
+					<NavigationItem key={item.href} {...item} />
+				))}
+			</div>
 		</div>
 
 		<UnverifiedAlert />
 
 		<QuickList />
+
 		<TaskEditor />
 		<DetailsDialog />
 	</PageSection>

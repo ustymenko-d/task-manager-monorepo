@@ -48,10 +48,10 @@ const LogoutButton = () => {
 			{status === 'pending' ? (
 				<Loader2
 					strokeWidth={1.5}
-					className={cn('!w-5 !h-5 opacity-60', 'animate-spin')}
+					className={cn('!h-5 !w-5 opacity-60', 'animate-spin')}
 				/>
 			) : (
-				<LogOut strokeWidth={1.5} className={cn('!w-5 !h-5 opacity-60')} />
+				<LogOut strokeWidth={1.5} className={cn('!h-5 !w-5 opacity-60')} />
 			)}
 			Log out
 		</DropdownMenuItem>

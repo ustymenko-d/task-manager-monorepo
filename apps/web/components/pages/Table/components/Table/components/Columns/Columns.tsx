@@ -26,13 +26,13 @@ const columns: ColumnDef<Task>[] = [
 						<Button
 							size='icon'
 							variant='outline'
-							className='w-6 h-6 ml-auto'
+							className='ml-auto h-6 w-6'
 							onClick={(e) => {
 								e.stopPropagation();
 								row.getToggleExpandedHandler()?.();
 							}}>
 							<ChevronRight
-								className={`duration-200 text-muted-foreground ${isExpanded ? 'rotate-90' : ''}`}
+								className={`text-muted-foreground duration-200 ${isExpanded ? 'rotate-90' : ''}`}
 							/>
 							<span className='sr-only'>
 								{isExpanded ? 'Collapse' : 'Expand'}

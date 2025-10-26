@@ -29,15 +29,17 @@ const Body = () => {
 	if (isError) return <ErrorPlaceholder handleRefresh={handleRefetch} />;
 
 	return (
-		<div className='flex flex-col gap-2 pt-4'>
-			{renderInfoRow('Username:', <span>{data?.username}</span>)}
-			{renderInfoRow(
-				'Email:',
-				<div className='flex items-center gap-2'>
-					<span id='email'>{data?.email}</span>
-					<VerificationBadge />
-				</div>
-			)}
+		<div className='flex flex-col gap-6'>
+			<div className='flex flex-col gap-2'>
+				{renderInfoRow('Username:', <span>{data?.username}</span>)}
+				{renderInfoRow(
+					'Email:',
+					<div className='flex items-center gap-2'>
+						<span id='email'>{data?.email}</span>
+						<VerificationBadge />
+					</div>
+				)}
+			</div>
 
 			{!data?.isVerified && <Verification />}
 

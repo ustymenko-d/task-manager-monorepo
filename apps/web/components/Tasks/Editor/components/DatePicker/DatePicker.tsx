@@ -38,10 +38,10 @@ const DatePicker = ({ field }: DatePickerProps) => {
 		<Button
 			variant='outline'
 			className={cn(
-				'justify-start text-left font-normal w-full text-sm',
+				'w-full justify-start text-left text-sm font-normal',
 				!field.value && 'text-muted-foreground'
 			)}>
-			<CalendarIcon className='w-4 h-4 mr-2' />
+			<CalendarIcon className='mr-2 h-4 w-4' />
 			{formattedValue}
 		</Button>
 	);
@@ -52,7 +52,7 @@ const DatePicker = ({ field }: DatePickerProps) => {
 				<PopoverTrigger asChild>{Trigger}</PopoverTrigger>
 				<PopoverContent
 					align='start'
-					className='flex flex-col w-auto gap-2 px-2 py-3'>
+					className='flex w-auto flex-col gap-2 px-2 py-3'>
 					<Content field={field} />
 				</PopoverContent>
 			</Popover>

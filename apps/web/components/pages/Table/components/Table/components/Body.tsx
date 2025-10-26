@@ -22,7 +22,7 @@ const Body = ({ table }: ITableComponentProps) => {
 				{headerGroup.headers.map((header) => (
 					<TableHead
 						key={header.id}
-						className='text-center border-r lg:text-base last:border-none'>
+						className='border-r text-center last:border-none lg:text-base'>
 						{!header.isPlaceholder &&
 							flexRender(header.column.columnDef.header, header.getContext())}
 					</TableHead>
@@ -34,7 +34,7 @@ const Body = ({ table }: ITableComponentProps) => {
 
 	if (rows.length === 0) {
 		return (
-			<div className='border rounded-md'>
+			<div className='rounded-md border shadow-sm'>
 				<Table>
 					<TableHeader>{renderHeaders()}</TableHeader>
 					<TableBody>
@@ -50,7 +50,7 @@ const Body = ({ table }: ITableComponentProps) => {
 	}
 
 	return (
-		<div className='border rounded-md'>
+		<div className='overflow-hidden rounded-md border shadow-sm'>
 			<Table>
 				<TableHeader>{renderHeaders()}</TableHeader>
 				<TableBody>{renderRows()}</TableBody>

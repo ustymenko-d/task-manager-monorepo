@@ -57,7 +57,7 @@ const DatePresetSelector = ({ onSelect }: Props) => {
 					'flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring'
 				)}>
 				<span className='truncate'>{selectedItem?.label || 'Select'}</span>
-				<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50' />
+				<ChevronsUpDown className='ml-2 h-4 w-4 opacity-50' />
 			</button>
 
 			<ul
@@ -67,10 +67,10 @@ const DatePresetSelector = ({ onSelect }: Props) => {
 					'aria-labelledby': 'date-select-trigger',
 				})}
 				className={cn(
-					'absolute z-50 max-h-60 w-full my-1 px-1 overflow-hidden rounded-md bg-popover text-sm  duration-300',
+					'absolute z-50 my-1 max-h-60 w-full overflow-hidden rounded-md bg-popover px-1 text-sm duration-300',
 					isOpen
-						? 'max-h-60 py-1 border shadow-md'
-						: 'max-h-0 pointer-events-none'
+						? 'max-h-60 border py-1 shadow-md'
+						: 'pointer-events-none max-h-0'
 				)}>
 				{options.map((item, index) => (
 					<li
@@ -88,7 +88,7 @@ const DatePresetSelector = ({ onSelect }: Props) => {
 							{item.label}
 						</span>
 						{downshiftSelected?.value === item.value && (
-							<Check className='w-4 h-4 ml-auto opacity-100' />
+							<Check className='ml-auto h-4 w-4 opacity-100' />
 						)}
 					</li>
 				))}

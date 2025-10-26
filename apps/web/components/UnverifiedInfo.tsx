@@ -13,7 +13,7 @@ const UnverifiedInfo = () => {
 				days after registration.
 			</p>
 			<ul
-				className='list-disc list-with-title text-muted-foreground'
+				className='list-with-title list-disc text-muted-foreground'
 				aria-label='Restrictions for unverified users:'>
 				<li className='ml-5'>cannot create more than ten tasks</li>
 				<li className='ml-5'>cannot create more than three folders</li>

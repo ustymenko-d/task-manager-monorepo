@@ -27,14 +27,15 @@ const Verification = () => {
 			console.error('Failed to resend verification email:', error);
 		}
 	};
+
 	return (
-		<>
+		<div className='flex flex-col gap-2'>
 			<h2 className='text-xl font-semibold'>Email verification</h2>
 			<Separator />
 
 			<UnverifiedInfo />
 
-			<div className='flex flex-col items-start gap-1'>
+			<div className='flex flex-col items-start gap-2'>
 				<p className='text-base'>Can&apos;t find the verification email?</p>
 
 				<LoadingButton
@@ -45,7 +46,7 @@ const Verification = () => {
 					Resend verification email
 				</LoadingButton>
 			</div>
-		</>
+		</div>
 	);
 };
 

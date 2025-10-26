@@ -47,7 +47,7 @@ const ConfirmPasswordInput = ({
 									<button
 										type='button'
 										onClick={toggleShowPassword}
-										className='absolute right-0 flex items-center justify-center h-full text-gray-500 -translate-y-1/2 top-1/2 aspect-square hover:text-gray-700'>
+										className='absolute right-0 top-1/2 flex aspect-square h-full -translate-y-1/2 items-center justify-center text-gray-500 hover:text-gray-700'>
 										{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
 									</button>
 								</TooltipTrigger>

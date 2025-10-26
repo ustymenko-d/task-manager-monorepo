@@ -44,7 +44,7 @@ const Header = <TData, TValue>({
 				<Button
 					variant='ghost'
 					size='sm'
-					className='w-full lg:text-base data-[state=open]:bg-accent'>
+					className='w-full data-[state=open]:bg-accent lg:text-base'>
 					<span>{title}</span>
 					{getSortingIcon(column.getIsSorted())}
 				</Button>

@@ -15,8 +15,8 @@ const Reminder = () => {
 					<Info />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent align='end' className='max-w-80 w-fit sm:max-w-sm'>
-				<div className='flex flex-col gap-1 text-sm w-fit text-balance sm:text-base'>
+			<PopoverContent align='end' className='w-fit max-w-80 sm:max-w-sm'>
+				<div className='flex w-fit flex-col gap-1 text-balance text-sm sm:text-base'>
 					<b>Please note:</b>
 					<p>
 						Since this is a demo app hosted on a free server, it may take a few

@@ -22,7 +22,7 @@ const DragHandle = ({ id, dragProps, taskInMotion }: Props) => (
 		{...dragProps?.listeners}
 		onClick={(e) => e.stopPropagation()}
 		className={cn(
-			'flex items-center justify-center px-2 text-muted-foreground border-r',
+			'flex items-center justify-center border-r px-2 text-muted-foreground',
 			taskInMotion === id ? 'cursor-grabbing' : 'cursor-grab'
 		)}>
 		<GripVertical size={18} />

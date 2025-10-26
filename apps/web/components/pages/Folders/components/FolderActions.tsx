@@ -52,7 +52,7 @@ const FolderActions = ({ folder, handleShowTasks }: Props) => {
 	);
 
 	return (
-		<div className='flex items-center gap-1'>
+		<div className='flex items-center gap-1' style={{ marginTop: 0 }}>
 			{actionBtns.map(({ icon, label, onClick }) => (
 				<TooltipButton
 					key={'FolderActions_' + label}

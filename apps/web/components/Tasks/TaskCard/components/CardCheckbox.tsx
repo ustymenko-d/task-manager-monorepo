@@ -25,13 +25,13 @@ const CardCheckbox = ({ task }: { task: Task }) => {
 		<div
 			onClick={toggleStatus}
 			className={cn(
-				'flex items-center justify-center px-2 border-r text-muted-foreground',
+				'flex items-center justify-center border-r px-2 text-muted-foreground',
 				isPending ? 'cursor-not-allowed' : 'cursor-pointer'
 			)}>
 			<Checkbox
 				checked={task?.completed}
 				disabled={isPending}
-				className='w-[18px] h-[18px] rounded-full'
+				className='h-[18px] w-[18px] rounded-full'
 			/>
 		</div>
 	);

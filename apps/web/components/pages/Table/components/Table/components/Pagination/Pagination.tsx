@@ -23,7 +23,7 @@ const Pagination = ({ table }: ITableComponentProps) => {
 	) => (
 		<Button
 			variant='outline'
-			className='w-8 h-8 p-0'
+			className='h-8 w-8 p-0'
 			onClick={onClick}
 			disabled={disabled}>
 			<span className='sr-only'>{label}</span>
@@ -32,7 +32,7 @@ const Pagination = ({ table }: ITableComponentProps) => {
 	);
 
 	return (
-		<div className='flex flex-wrap-reverse items-center justify-end gap-2 py-4 space-x-6 lg:space-x-8'>
+		<div className='flex flex-wrap-reverse items-center justify-end gap-2 space-x-6 py-4 lg:space-x-8'>
 			<PaginationSelect table={table} />
 
 			<div className='flex items-center gap-2'>
@@ -49,7 +49,7 @@ const Pagination = ({ table }: ITableComponentProps) => {
 					<ChevronLeft />
 				)}
 
-				<div className='flex w-[100px] items-center justify-center text-sm sm:text-base font-medium'>
+				<div className='flex w-[100px] items-center justify-center text-sm font-medium sm:text-base'>
 					Page {pageIndex + 1} of {totalPages}
 				</div>
 

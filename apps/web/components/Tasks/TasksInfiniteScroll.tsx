@@ -4,7 +4,6 @@ import { HTMLAttributes, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import TaskContextMenu from '@/components/Tasks/TaskContextMenu';
-import { Separator } from '@/components/ui/separator';
 import useInfiniteFetch from '@/hooks/tasks/useInfiniteFetch';
 import useAppStore from '@/store/store';
 
@@ -47,15 +46,15 @@ const TasksInfiniteScroll = ({ id, className, fetchParams, type }: Props) => {
 		</TaskContextMenu>
 	);
 
-	const renderHeader = () => (
-		<>
-			<div className='flex items-center mb-2 pl-11 text-muted-foreground'>
-				<span className='grow'>Title</span>
-				<span className='min-w-[112px]'>Status</span>
-			</div>
-			<Separator className='mb-2' />
-		</>
-	);
+	// const renderHeader = () => (
+	// 	<>
+	// 		<div className='flex items-center mb-2 pl-11 text-muted-foreground'>
+	// 			<span className='grow'>Title</span>
+	// 			<span className='min-w-[112px]'>Status</span>
+	// 		</div>
+	// 		<Separator className='mb-2' />
+	// 	</>
+	// );
 
 	const renderEmptyMessage = () => (
 		<p className='px-6 py-4 text-center text-muted-foreground'>
@@ -85,7 +84,7 @@ const TasksInfiniteScroll = ({ id, className, fetchParams, type }: Props) => {
 							No more tasks
 						</p>
 					}>
-					{renderHeader()}
+					{/* {renderHeader()} */}
 					<ul className='space-y-2'>{tasks.map(renderTaskItem)}</ul>
 					{isFetchingNextPage && <Loader className='justify-center py-2' />}
 				</InfiniteScroll>

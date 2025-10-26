@@ -44,11 +44,11 @@ const MobileFolderSelect = ({ field }: IFolderSelectProps) => {
 					'aria-expanded': isOpen,
 					id: 'folder-select-trigger',
 				})}
-				className='flex items-center justify-between w-full px-3 py-2 text-sm bg-transparent border rounded-md shadow-sm h-9 border-input ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
+				className='flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
 				<span className='truncate'>
 					{selectedItem?.name || 'Select folder...'}
 				</span>
-				<ChevronsUpDown className='w-4 h-4 ml-2 opacity-50' />
+				<ChevronsUpDown className='ml-2 h-4 w-4 opacity-50' />
 			</button>
 
 			<ul
@@ -58,10 +58,10 @@ const MobileFolderSelect = ({ field }: IFolderSelectProps) => {
 					'aria-labelledby': 'folder-select-trigger',
 				})}
 				className={cn(
-					'absolute z-50 max-h-60 w-full my-1 px-1 overflow-hidden rounded-md bg-popover text-sm  duration-300',
+					'absolute z-50 my-1 max-h-60 w-full overflow-hidden rounded-md bg-popover px-1 text-sm duration-300',
 					isOpen
-						? 'max-h-60 py-1 border shadow-md'
-						: 'max-h-0 pointer-events-none'
+						? 'max-h-60 border py-1 shadow-md'
+						: 'pointer-events-none max-h-0'
 				)}>
 				{items.map((item, index) => {
 					const isSelected = downshiftSelected?.id === item.id;
@@ -78,7 +78,7 @@ const MobileFolderSelect = ({ field }: IFolderSelectProps) => {
 							<span className={cn('truncate', isSelected && 'font-medium')}>
 								{item.name}
 							</span>
-							{isSelected && <Check className='w-4 h-4 ml-auto opacity-100' />}
+							{isSelected && <Check className='ml-auto h-4 w-4 opacity-100' />}
 						</li>
 					);
 				})}

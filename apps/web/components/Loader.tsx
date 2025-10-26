@@ -13,7 +13,7 @@ const Loader = ({ text = 'Loading', className, ...props }: Props) => (
 		{...props}>
 		<Loader2
 			strokeWidth={1.25}
-			className='w-5 h-5 text-gray-500 animate-spin'
+			className='h-5 w-5 animate-spin text-gray-500'
 		/>
 		<span>{text + '\u2026'}</span>
 	</div>

@@ -1,24 +1,18 @@
 import AuthLink from '@/components/AuthLink';
 
 const RootPage = () => (
-	<div className='flex flex-col gap-12 mb-6'>
-		<h1 className='font-extrabold text-center leading-none text-[max(48px,min(5vw,76px))]'>
-			Welcome to Task Manager
+	<div className='flex flex-col gap-4'>
+		<h1 className='mx-auto w-11/12 text-center text-2xl font-bold lg:w-full lg:text-3xl'>
+			Manage and organize your{'\u00A0'}tasks
 		</h1>
 
-		<div className='flex flex-col gap-1'>
-			<p className='w-11/12 mx-auto mb-4 text-xl font-bold text-center lg:w-full sm:text-2xl lg:text-3xl'>
-				Manage and organize your{'\u00A0'}tasks
-			</p>
+		<p className='mx-auto max-w-md text-balance text-center text-base text-muted-foreground max-sm:px-4 xl:text-lg'>
+			Log in to your account or create a new one to{'\u00A0'}continue.
+		</p>
 
-			<p className='max-w-md mx-auto mb-4 text-base text-center max-sm:px-4 xl:text-lg text-muted-foreground text-balance'>
-				Log in to your account or create a new one to{'\u00A0'}continue.
-			</p>
-
-			<div className='grid grid-cols-2 gap-4 mx-auto w-fit'>
-				<AuthLink type='login' />
-				<AuthLink type='signup' />
-			</div>
+		<div className='mx-auto grid w-fit grid-cols-2 gap-4'>
+			<AuthLink type='login' />
+			<AuthLink type='signup' />
 		</div>
 	</div>
 );

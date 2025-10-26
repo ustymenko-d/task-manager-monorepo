@@ -22,7 +22,7 @@ const NavigationGroup = () => {
 
 				const content = (
 					<>
-						<Icon strokeWidth={1.5} className='!w-5 !h-5 opacity-60' />
+						<Icon strokeWidth={1.5} className='!h-5 !w-5 opacity-60' />
 						{label}
 					</>
 				);
@@ -36,7 +36,7 @@ const NavigationGroup = () => {
 							<div
 								className={cn(
 									commonClasses,
-									'bg-muted text-primary font-medium'
+									'bg-muted font-medium text-primary'
 								)}>
 								{content}
 							</div>

@@ -30,10 +30,10 @@ const RootLayout = ({
 }>) => (
 	<html lang='en'>
 		<body
-			className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh flex flex-col`}>
+			className={`${geistSans.variable} ${geistMono.variable} flex min-h-dvh flex-col antialiased`}>
 			<ProvidersTree>
 				<Header />
-				<main className='container flex flex-col items-center justify-center p-2 mx-auto border-dashed grow sm:border-x lg:p-4'>
+				<main className='container mx-auto flex grow flex-col items-center justify-center border-dashed p-2 sm:border-x lg:p-4'>
 					{children}
 				</main>
 				<Footer />

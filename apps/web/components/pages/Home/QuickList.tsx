@@ -16,7 +16,7 @@ const QuickList = () => {
 	const openTaskEditor = useAppStore((s) => s.openTaskEditor);
 
 	return (
-		<div className='pt-4'>
+		<div>
 			<div className='flex flex-wrap items-center justify-between gap-4'>
 				<h2 className='text-xl font-semibold'>Quick list</h2>
 
@@ -34,7 +34,7 @@ const QuickList = () => {
 				type='quickList'
 				fetchParams={{ limit: TASK_FETCH_LIMIT }}
 				id='quick-list'
-				className='p-4 overflow-auto duration-300 border sm:p-6 max-h-96 rounded-xl'
+				className='max-h-96 overflow-auto rounded-xl border p-4 shadow-sm duration-300 sm:p-6'
 			/>
 		</div>
 	);

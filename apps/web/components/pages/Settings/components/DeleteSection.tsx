@@ -54,16 +54,16 @@ const DeleteSection = () => {
 	};
 
 	return (
-		<>
+		<div className='flex flex-col gap-2'>
 			<h2 className='text-xl font-semibold text-red-600'>Delete account</h2>
 			<Separator />
-			<p className='mb-2'>
+			<p>
 				Once you delete your account, there is no going back. Please be certain.
 			</p>
 			<Button
 				variant='destructive'
 				disabled={isProcessing || isDone}
-				className='flex items-center gap-1 w-fit'
+				className='flex w-fit items-center gap-1'
 				onClick={() => setOpenAlert(true)}>
 				{isProcessing && <Loader2 strokeWidth={1.5} className='animate-spin' />}
 				Delete your account
@@ -77,7 +77,7 @@ const DeleteSection = () => {
 				open={openAlert}
 				onOpenChange={setOpenAlert}
 			/>
-		</>
+		</div>
 	);
 };
 

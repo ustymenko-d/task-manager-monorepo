@@ -129,7 +129,7 @@ const DetailsDialog = () => {
 								disabled={status === 'pending'}
 								onCheckedChange={() => changeStatus(setStatus)}
 							/>
-							<Label htmlFor='task-status' className='text-base cursor-pointer'>
+							<Label htmlFor='task-status' className='cursor-pointer text-base'>
 								{completed ? 'Completed' : 'In Progress'}
 							</Label>
 						</div>

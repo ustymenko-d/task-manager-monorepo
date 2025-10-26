@@ -52,7 +52,7 @@ const SearchInput = () => {
 	);
 
 	return (
-		<div className='flex items-center gap-2 relative'>
+		<div className='relative flex items-center gap-2'>
 			<Input
 				className='max-w-sm pe-8'
 				value={searchTerm}
@@ -62,7 +62,7 @@ const SearchInput = () => {
 			{isPending && (
 				<Loader2
 					strokeWidth={1.25}
-					className='absolute right-2 w-5 h-5 text-gray-500 animate-spin'
+					className='absolute right-2 h-5 w-5 animate-spin text-gray-500'
 				/>
 			)}
 		</div>

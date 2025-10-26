@@ -17,7 +17,7 @@ const Head = () => {
 	const handleOpenEditor = () => openEditor('create', null);
 
 	return (
-		<div className='flex flex-wrap items-end justify-between mb-4 gap-x-4 gap-y-2'>
+		<div className='mb-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-2'>
 			<PageHead
 				title='Manage and organize your folders'
 				description='You can view the list of tasks contained in folders, edit them, and drag them between folders'
@@ -34,7 +34,7 @@ const Head = () => {
 				</Button>
 			)}
 
-			{isFetching && <Loader className='justify-end mr-2 xl:h-9 xl:ml-auto' />}
+			{isFetching && <Loader className='mr-2 justify-end xl:ml-auto xl:h-9' />}
 		</div>
 	);
 };
