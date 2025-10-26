@@ -6,7 +6,7 @@ export const clearAuthCookies = async (autoReload: boolean = false) => {
 	await authApi.clearAuthCookies();
 
 	const reloadPage = () => window.location.reload();
-	const message = 'Authentication cookies have been cleared';
+	const message = 'Authentication cookies cleared successfully';
 
 	if (autoReload) {
 		toast.warning(`${message}. Reloading...`);

@@ -51,7 +51,7 @@ export class TokensController {
 
 				return { success: true, message: 'Tokens updated successfully.' };
 			},
-			'Refresh tokens error.',
+			'Failed to refresh tokens.',
 			this.logger
 		);
 	}

@@ -61,7 +61,7 @@ export class AuthController {
 					userInfo,
 				};
 			},
-			'Registration error.',
+			'Failed to register user.',
 			this.logger
 		);
 	}
@@ -79,7 +79,7 @@ export class AuthController {
 					message: 'Verification email sent successfully.',
 				};
 			},
-			'Error during resend verification email.',
+			'Failed to resend verification email.',
 			this.logger
 		);
 	}
@@ -93,7 +93,7 @@ export class AuthController {
 				await this.authService.verifyEmail(verificationToken);
 				return { success: true, message: 'Email verified successfully.' };
 			},
-			'Error during email verification.',
+			'Failed to verify email.',
 			this.logger
 		);
 	}
@@ -120,7 +120,7 @@ export class AuthController {
 
 				return { success: true, message: 'Login successful.', userInfo };
 			},
-			'Login error.',
+			'Failed to login user.',
 			this.logger
 		);
 	}
@@ -130,7 +130,7 @@ export class AuthController {
 	async getAccountInfo(@Req() req: { user: JwtUser }): Promise<UserInfo> {
 		return handleRequest(
 			async () => await this.authService.getAccountInfo(req.user.userId),
-			'Get account info error.',
+			'Failed to get account info.',
 			this.logger
 		);
 	}
@@ -148,7 +148,7 @@ export class AuthController {
 				this.cookiesService.clearAuthCookies(res);
 				return { success: true, message: 'Logout successful.' };
 			},
-			'Logout error.',
+			'Failed to logout user.',
 			this.logger
 		);
 	}
@@ -169,7 +169,7 @@ export class AuthController {
 					message: `User deleted successfully.`,
 				};
 			},
-			'Delete account error.',
+			'Failed to delete account.',
 			this.logger
 		);
 	}

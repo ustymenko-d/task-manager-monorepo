@@ -51,7 +51,7 @@ describe('PasswordController', () => {
 
 			await expect(controller.forgotPassword(dto)).rejects.toThrow(err);
 			expect(loggerErrorSpy).toHaveBeenCalledWith(
-				'Error while sending reset password email.',
+				'Failed to send reset password email.',
 				expect.anything()
 			);
 		});
@@ -80,7 +80,7 @@ describe('PasswordController', () => {
 
 			await expect(controller.resetPassword(token, dto)).rejects.toThrow(err);
 			expect(loggerErrorSpy).toHaveBeenCalledWith(
-				'Reset password error.',
+				'Failed to reset password.',
 				expect.anything()
 			);
 		});

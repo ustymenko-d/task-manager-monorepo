@@ -33,7 +33,7 @@ export class PasswordController {
 					message: 'Reset password email sent successfully.',
 				};
 			},
-			'Error while sending reset password email.',
+			'Failed to send reset password email.',
 			this.logger
 		);
 	}
@@ -50,7 +50,7 @@ export class PasswordController {
 				await this.passwordService.resetPassword(resetToken, password);
 				return { success: true, message: 'Password updated successfully.' };
 			},
-			'Reset password error.',
+			'Failed to reset password.',
 			this.logger
 		);
 	}

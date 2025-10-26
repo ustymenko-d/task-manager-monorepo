@@ -1,11 +1,10 @@
 'use client';
 
-import { HTMLAttributes, useEffect } from 'react';
+import { HTMLAttributes } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import TaskContextMenu from '@/components/Tasks/TaskContextMenu';
 import useInfiniteFetch from '@/hooks/tasks/useInfiniteFetch';
-import useAppStore from '@/store/store';
 
 import DraggableItem from '../pages/Folders/components/DraggableItem';
 import TaskCard from './TaskCard/TaskCard';
@@ -19,20 +18,8 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const TasksInfiniteScroll = ({ id, className, fetchParams, type }: Props) => {
-	const {
-		data,
-		isLoading,
-		isFetching,
-		isFetchingNextPage,
-		hasNextPage,
-		fetchNextPage,
-	} = useInfiniteFetch(fetchParams);
-
-	const setIsFetching = useAppStore((s) => s.setIsFetching);
-
-	useEffect(() => {
-		setIsFetching(isFetching);
-	}, [isFetching, setIsFetching]);
+	const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
+		useInfiniteFetch(fetchParams);
 
 	const tasks = data?.pages.flatMap((page) => page.tasks) ?? [];
 
@@ -46,31 +33,17 @@ const TasksInfiniteScroll = ({ id, className, fetchParams, type }: Props) => {
 		</TaskContextMenu>
 	);
 
-	// const renderHeader = () => (
-	// 	<>
-	// 		<div className='flex items-center mb-2 pl-11 text-muted-foreground'>
-	// 			<span className='grow'>Title</span>
-	// 			<span className='min-w-[112px]'>Status</span>
-	// 		</div>
-	// 		<Separator className='mb-2' />
-	// 	</>
-	// );
-
-	const renderEmptyMessage = () => (
-		<p className='px-6 py-4 text-center text-muted-foreground'>
-			Does not have any tasks yet
-		</p>
-	);
-
-	const renderLoader = () => (
-		<Loader className='flex items-center justify-center px-6 py-4' />
-	);
-
 	return (
 		<div id={id} className={className}>
-			{isLoading && renderLoader()}
+			{isLoading && (
+				<Loader className='flex items-center justify-center px-6 py-4' />
+			)}
 
-			{!isLoading && tasks.length === 0 && renderEmptyMessage()}
+			{!isLoading && tasks.length === 0 && (
+				<p className='px-6 py-4 text-center text-muted-foreground'>
+					Does not have any tasks yet
+				</p>
+			)}
 
 			{tasks.length > 0 && (
 				<InfiniteScroll
@@ -84,7 +57,6 @@ const TasksInfiniteScroll = ({ id, className, fetchParams, type }: Props) => {
 							No more tasks
 						</p>
 					}>
-					{/* {renderHeader()} */}
 					<ul className='space-y-2'>{tasks.map(renderTaskItem)}</ul>
 					{isFetchingNextPage && <Loader className='justify-center py-2' />}
 				</InfiniteScroll>

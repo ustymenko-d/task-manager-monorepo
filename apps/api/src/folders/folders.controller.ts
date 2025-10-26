@@ -48,7 +48,7 @@ export class FoldersController {
 					socketId
 				),
 			}),
-			'Eror while creating folder.',
+			'Failed to create folder.',
 			this.logger
 		);
 	}
@@ -69,7 +69,7 @@ export class FoldersController {
 					userId: req.user.userId,
 				});
 			},
-			'Eror while fetching folders',
+			'Failed to get folders.',
 			this.logger
 		);
 	}
@@ -86,7 +86,7 @@ export class FoldersController {
 				message: 'Folder renamed successfully.',
 				folder: await this.foldersService.renameFolder(id, name, socketId),
 			}),
-			'Eror while renaminging folder.',
+			'Failed to rename folder.',
 			this.logger
 		);
 	}
@@ -103,7 +103,7 @@ export class FoldersController {
 				message: 'Folder deleted successfully.',
 				folder: await this.foldersService.deleteFolder(id, socketId),
 			}),
-			'Eror while deleting folder.',
+			'Failed to delete folder.',
 			this.logger
 		);
 	}

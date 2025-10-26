@@ -3,11 +3,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-// import {
-//   IGetTasksResponse,
-//   TasksInfiniteData,
-//   TTaskPayload,
-// } from '@/types/tasks';
 import getTasksKey from '@/utils/getTasksKey';
 
 import useActions from './useActions';
@@ -72,7 +67,7 @@ const useMove = (setLoading: (loading: ResponseState) => void) => {
 			await handleTaskAction(setLoading, createPayload(task, newFolderId));
 		} catch (error) {
 			toast.error('Failed to move the task. Data will be reloaded.');
-			console.error('Task move failed:', error);
+			console.error('Error moving task:', error);
 
 			queryClient.invalidateQueries({
 				queryKey: getTasksKey(oldFolderId),

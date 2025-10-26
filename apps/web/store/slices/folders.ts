@@ -11,9 +11,6 @@ export interface FoldersSlice {
 	) => void;
 
 	closeFolderEditor: () => void;
-
-	isFetching: boolean;
-	setIsFetching: (newValue: boolean) => void;
 }
 
 const folderEditorSettings = getDefaultEditorSettings<Folder>();
@@ -38,9 +35,6 @@ const createFoldersSlice = (
 				target: null,
 			},
 		})),
-
-	isFetching: false,
-	setIsFetching: (isFetching) => set({ isFetching }),
 });
 
 export default createFoldersSlice;

@@ -53,7 +53,7 @@ describe('MailService', () => {
 			expect(sendMailMock).toHaveBeenCalledWith({
 				from: configServiceMock.get!('EMAIL_USER'),
 				to: email,
-				subject: 'Verify your email on uTodo',
+				subject: 'Verify your email',
 				html: expect.stringContaining(expectedUrl),
 			});
 		});
@@ -99,7 +99,7 @@ describe('MailService', () => {
 			expect(sendMailMock).toHaveBeenCalledWith({
 				from: configServiceMock.get!('EMAIL_USER'),
 				to: email,
-				subject: 'Reset Your uTodo password',
+				subject: 'Reset Your password',
 				html: expect.stringContaining(expectedUrl),
 			});
 		});

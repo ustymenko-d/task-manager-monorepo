@@ -51,7 +51,7 @@ export class TasksController {
 					socketId
 				),
 			}),
-			'Error while creating a task.',
+			'Failed to create task.',
 			this.logger
 		);
 	}
@@ -68,7 +68,7 @@ export class TasksController {
 					...body,
 					userId: req.user.userId,
 				}),
-			'Error while fetching tasks.',
+			'Failed to get tasks.',
 			this.logger
 		);
 	}
@@ -85,7 +85,7 @@ export class TasksController {
 				message: 'Task edited successfully.',
 				task: await this.tasksService.editTask(body, socketId),
 			}),
-			'Error while editing a task.',
+			'Failed to edit task.',
 			this.logger
 		);
 	}
@@ -102,7 +102,7 @@ export class TasksController {
 				message: 'Task status changed successfully.',
 				task: await this.tasksService.toggleStatus(id, socketId),
 			}),
-			`Error while changing task status (ID: ${id}).`,
+			`Failed to change task status (ID: ${id}).`,
 			this.logger
 		);
 	}
@@ -119,7 +119,7 @@ export class TasksController {
 				message: 'Task deleted successfully.',
 				task: await this.tasksService.deleteTask(id, socketId),
 			}),
-			'Error while deleting a task.',
+			'Failed to delete task.',
 			this.logger
 		);
 	}
