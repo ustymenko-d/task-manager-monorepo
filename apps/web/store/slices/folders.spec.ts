@@ -21,10 +21,6 @@ describe('FoldersSlice', () => {
 		expect(slice.folderEditorSettings).toEqual(defaultEditorSettings);
 	});
 
-	it('initializes isFetching as false', () => {
-		expect(slice.isFetching).toBe(false);
-	});
-
 	describe('openFolderEditor', () => {
 		it('calls set with open=true, mode and target', () => {
 			const folder = getMockFolder();
@@ -67,13 +63,6 @@ describe('FoldersSlice', () => {
 				mode: 'edit',
 				target: null,
 			},
-		});
-	});
-
-	describe('setIsFetching', () => {
-		it.each([true, false])('sets isFetching to %s', (value) => {
-			slice.setIsFetching(value);
-			expect(mockSet).toHaveBeenCalledWith({ isFetching: value });
 		});
 	});
 });

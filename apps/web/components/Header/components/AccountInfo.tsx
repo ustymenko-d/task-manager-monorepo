@@ -8,10 +8,6 @@ import useAccountInfo from '@/hooks/useAccountInfo';
 const AccountInfo = () => {
 	const { data, isLoading, isError, refetch } = useAccountInfo();
 
-	const handleRefetch = () => {
-		if (isError) refetch();
-	};
-
 	if (isLoading) {
 		return (
 			<div className='flex flex-col items-start gap-1'>
@@ -24,7 +20,7 @@ const AccountInfo = () => {
 		);
 	}
 
-	if (isError) return <RefreshButton handleRefresh={handleRefetch} />;
+	if (isError) return <RefreshButton handleRefresh={refetch} />;
 
 	return (
 		<>

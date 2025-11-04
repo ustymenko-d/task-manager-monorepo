@@ -9,10 +9,9 @@ import useAppStore from '@/store/store';
 import Loader from '@/components/Loader';
 
 const Head = () => {
-	const { data } = useFetch({ page: 1, limit: 25 });
+	const { data, isLoading } = useFetch({ page: 1, limit: 25 });
 
 	const openEditor = useAppStore((s) => s.openFolderEditor);
-	const isFetching = useAppStore((s) => s.isFetching);
 
 	const handleOpenEditor = () => openEditor('create', null);
 
@@ -34,7 +33,7 @@ const Head = () => {
 				</Button>
 			)}
 
-			{isFetching && <Loader className='mr-2 justify-end xl:ml-auto xl:h-9' />}
+			{isLoading && <Loader className='mr-2 justify-end xl:ml-auto xl:h-9' />}
 		</div>
 	);
 };

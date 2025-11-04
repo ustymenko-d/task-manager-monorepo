@@ -11,7 +11,7 @@ import {
 	useSensor,
 	useSensors,
 } from '@dnd-kit/core';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import TaskCard from '@/components/Tasks/TaskCard/TaskCard';
 import useFetch from '@/hooks/folders/useFetch';
@@ -24,7 +24,7 @@ import Folder from './components/Folder';
 import { ResponseState } from '@/types/common';
 
 const Body = () => {
-	const { data, isFetching, isSuccess, isError, refetch } = useFetch({
+	const { data, isSuccess, isError, refetch } = useFetch({
 		page: 1,
 		limit: 25,
 	});
@@ -33,13 +33,8 @@ const Body = () => {
 		if (isError) refetch();
 	};
 
-	const setIsFetching = useAppStore((s) => s.setIsFetching);
 	const taskInMotion = useAppStore((s) => s.taskInMotion);
 	const setTaskInMotion = useAppStore((s) => s.setTaskInMotion);
-
-	useEffect(() => {
-		setIsFetching(isFetching);
-	}, [isFetching, setIsFetching]);
 
 	const [status, setStatus] = useState<ResponseState>('default');
 

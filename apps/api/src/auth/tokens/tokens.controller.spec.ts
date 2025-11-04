@@ -109,7 +109,7 @@ describe('TokensController', () => {
 			await expectThrows(() => controller.refreshTokens(request, response));
 
 			expect(loggerErrorSpy).toHaveBeenCalledWith(
-				'Refresh tokens error.',
+				'Failed to refresh tokens.',
 				expect.anything()
 			);
 		});

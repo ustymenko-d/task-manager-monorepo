@@ -96,7 +96,7 @@ describe('AuthController', () => {
 		it('logs and rethrows on error', async () => {
 			authService.signup.mockRejectedValue(new Error('Error'));
 			await expectThrows(() => controller.signup(dto, makeRes()));
-			expectErrorLogged('Registration error.');
+			expectErrorLogged('Failed to register user.');
 		});
 	});
 
@@ -115,7 +115,7 @@ describe('AuthController', () => {
 		it('logs and rethrows on error', async () => {
 			authService.resendVerificationEmail.mockRejectedValue(new Error('Error'));
 			await expectThrows(() => controller.resendVerificationEmail(req));
-			expectErrorLogged('Error during resend verification email.');
+			expectErrorLogged('Failed to resend verification email.');
 		});
 	});
 
@@ -132,7 +132,7 @@ describe('AuthController', () => {
 		it('logs and rethrows on error', async () => {
 			authService.verifyEmail.mockRejectedValue(new Error('Error'));
 			await expectThrows(() => controller.emailVerification(token));
-			expectErrorLogged('Error during email verification.');
+			expectErrorLogged('Failed to verify email.');
 		});
 	});
 
@@ -174,7 +174,7 @@ describe('AuthController', () => {
 		it('logs and rethrows on error', async () => {
 			authService.login.mockRejectedValue(new Error('Error'));
 			await expectThrows(() => controller.login(dto, makeRes()));
-			expectErrorLogged('Login error.');
+			expectErrorLogged('Failed to login user.');
 		});
 	});
 
@@ -200,7 +200,7 @@ describe('AuthController', () => {
 		it('logs and rethrows on error', async () => {
 			authService.getAccountInfo.mockRejectedValue(new Error('Error'));
 			await expectThrows(() => controller.getAccountInfo(req));
-			expectErrorLogged('Get account info error.');
+			expectErrorLogged('Failed to get account info.');
 		});
 	});
 
@@ -224,7 +224,7 @@ describe('AuthController', () => {
 		it('logs and rethrows on error', async () => {
 			authService.logout.mockRejectedValue(new Error('Error'));
 			await expectThrows(() => controller.logout(req, makeRes()));
-			expectErrorLogged('Logout error.');
+			expectErrorLogged('Failed to logout user.');
 		});
 	});
 
@@ -245,7 +245,7 @@ describe('AuthController', () => {
 		it('logs and rethrows on error', async () => {
 			authService.deleteUser.mockRejectedValue(new Error('Error'));
 			await expectThrows(() => controller.deleteAccount(req, makeRes()));
-			expectErrorLogged('Delete account error.');
+			expectErrorLogged('Failed to delete account.');
 		});
 	});
 });

@@ -19,7 +19,7 @@ export class CookiesController {
 				this.cookiesService.clearAuthCookies(res);
 				return { success: true, message: 'Cookies cleared successfully.' };
 			},
-			'Cookie clear error.',
+			'Failed to clear cookies.',
 			this.logger
 		);
 	}

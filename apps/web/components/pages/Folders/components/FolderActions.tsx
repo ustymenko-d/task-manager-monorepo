@@ -11,6 +11,7 @@ import useAppStore from '@/store/store';
 import TooltipButton from './TooltipButton';
 import { Folder } from '@repo/shared/types';
 import { ResponseState } from '@/types/common';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 type Props = {
 	folder: Folder;
@@ -53,29 +54,31 @@ const FolderActions = ({ folder, handleShowTasks }: Props) => {
 
 	return (
 		<div className='flex items-center gap-1' style={{ marginTop: 0 }}>
-			{actionBtns.map(({ icon, label, onClick }) => (
-				<TooltipButton
-					key={'FolderActions_' + label}
-					size='icon'
-					variant='outline'
-					label={label}
-					onClick={onClick}>
-					{icon}
-				</TooltipButton>
-			))}
+			<ButtonGroup>
+				{actionBtns.map(({ icon, label, onClick }) => (
+					<TooltipButton
+						key={'FolderActions_' + label}
+						size='icon'
+						variant='outline'
+						label={label}
+						onClick={onClick}>
+						{icon}
+					</TooltipButton>
+				))}
 
-			<TooltipButton
-				size='icon'
-				variant='destructive'
-				label='Delete folder'
-				disabled={isDeleting || deleted}
-				onClick={() => setOpenDeleteDialog(true)}>
-				{isDeleting ? (
-					<Loader2 strokeWidth={1.5} className='animate-spin' />
-				) : (
-					<Trash2 />
-				)}
-			</TooltipButton>
+				<TooltipButton
+					size='icon'
+					variant='destructive'
+					label='Delete folder'
+					disabled={isDeleting || deleted}
+					onClick={() => setOpenDeleteDialog(true)}>
+					{isDeleting ? (
+						<Loader2 strokeWidth={1.5} className='animate-spin' />
+					) : (
+						<Trash2 />
+					)}
+				</TooltipButton>
+			</ButtonGroup>
 
 			<DeleteDialog
 				handleDelete={() => deleteFolder(setStatus)}

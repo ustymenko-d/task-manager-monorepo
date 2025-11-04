@@ -40,7 +40,7 @@ export class GoogleController {
 					userInfo,
 				};
 			},
-			'Google Auth error.',
+			'Failed to verify Google Auth.',
 			this.logger
 		);
 	}
