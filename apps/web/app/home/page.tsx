@@ -16,7 +16,7 @@ const HomePage = () => (
 		<div className='flex flex-col gap-4'>
 			<Head />
 			<div className='grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4'>
-				<Card className='flex h-full cursor-default flex-col items-center gap-2 bg-muted p-4 text-center font-medium text-primary shadow-sm'>
+				<Card className='flex cursor-default flex-col items-center gap-2 bg-muted p-4 text-center font-medium text-primary shadow-sm'>
 					<LayoutGrid size={40} strokeWidth={1} className='opacity-50' />
 					<CardTitle>Home</CardTitle>
 					<CardDescription className='hidden text-sm sm:inline-block'>
