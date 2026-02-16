@@ -1,6 +1,6 @@
 # Task Manager Turborepo
 
-A monorepo-based Task Manager application built with Turborepo. It includes a NestJS API with Prisma, Next.js client and shared packages for seamless integration across backend and frontend.
+Task Manager application built with Turborepo. It includes a NestJS API with Prisma, Next.js client and shared packages for seamless integration across backend and frontend.
 
 ---
 
@@ -95,7 +95,6 @@ Built using:
   <img src="https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=react&logoColor=white" />
   <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
   <img src="https://img.shields.io/badge/Shadcn/UI-000000?style=for-the-badge&logo=vercel&logoColor=white" />
-  <img src="https://img.shields.io/badge/Radix-fff?style=for-the-badge&logo=radixui&logoColor=black" />
   <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
 </p>
 
